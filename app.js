@@ -747,9 +747,9 @@
       calculations.plannedCost === 0
         ? 100
         : Math.min(
-            100,
-            (calculations.budgetTokens / calculations.plannedCost) * 100,
-          );
+          100,
+          (calculations.budgetTokens / calculations.plannedCost) * 100,
+        );
     elements.budgetProgress.style.width = `${progress}%`;
     elements.budgetProgress.parentElement.setAttribute(
       "aria-valuenow",
@@ -764,8 +764,17 @@
 
     elements.cappedLeftovers.replaceChildren();
     const cappedResources = calculations.resourceBreakdowns.filter(
-      (item) => item.resource.cap != null,
+      (item) =>
+        item.resource.cap != null &&
+        item.resource.showCappedLeftover !== false,
     );
+    if (cappedResources.length === 0) {
+      const message = document.createElement("p");
+      message.className = "empty-summary";
+      message.textContent = "No resource types qualify for leftovers";
+      elements.cappedLeftovers.append(message);
+      return;
+    }
 
     for (const item of cappedResources) {
       const line = document.createElement("div");

@@ -21,6 +21,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
    * targetTokens: Tokens received for one exchange.
    * cap: Maximum total amount of this resource that may be counted.
    *      Use null when there is no cap.
+   * showCappedLeftover: Set to false when exceeding the cap does not
+ *      represent a meaningful leftover resource.
    */
   resources: [
     {
@@ -38,6 +40,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       sourceRate: 1,
       targetTokens: 1200,
       cap: 173,
+      showCappedLeftover: false,
       color: "#416614",
       accent: "#d5e4d5",
     },
