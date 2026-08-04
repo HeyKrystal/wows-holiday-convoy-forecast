@@ -1,0 +1,6 @@
+Totals doesnt float alongside to the right as you scroll. I would prefer this.
+Add the ability to save multiple plans, along with the ability to Name them.
+Add the ability to share a plan with a url (Maybe it counts as an import when clicked.)
+Add the ability to rearrange rows in the sources table.
+Add a filter to the Capped Resources Leftovers section that ignores missions.
+Add a feature that shows the ship and stats when hovering over. Example on all WoWs sites.

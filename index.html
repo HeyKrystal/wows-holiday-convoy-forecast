@@ -7,7 +7,7 @@
       name="description"
       content="Plan resource exchanges and reward purchases for the World of Warships Holiday Convoy event."
     />
-    <title>Holiday Convoy Budget Planner</title>
+    <title>Holiday Convoy Forecast</title>
     <link rel="stylesheet" href="styles.css" />
     <script src="event-config.js" defer></script>
     <script src="app.js" defer></script>
@@ -17,7 +17,7 @@
       <header class="hero">
         <div class="hero-copy">
           <p class="eyebrow" id="eventEyebrow">Holiday Convoy</p>
-          <h1 id="appTitle">Holiday Convoy Budget Planner</h1>
+          <h1 id="appTitle">Holiday Convoy Forecast</h1>
           <p class="hero-subtitle" id="appSubtitle"></p>
         </div>
         <div class="hero-actions" aria-label="Planner data actions">
@@ -43,15 +43,15 @@
       </header>
 
       <div class="privacy-note" role="note">
-        <strong>Your planner stays on this device.</strong>
-        Changes are saved in your browser using local storage. Export a backup
-        before clearing browser data or moving to another device.
+        <strong>Your plan is saved on this device.</strong>
+        Data is saved in your browser using local storage. You should export or share
+        your plan before clearing browser data or moving to another device.
       </div>
 
       <details class="rules-panel">
         <summary>
-          <span>Event conversion rules</span>
-          <small>Rates and caps loaded from the yearly configuration</small>
+          <span>Token Exchange Rates</span>
+          <small>Rates and caps for this years event</small>
         </summary>
         <div class="table-scroll">
           <table class="data-table compact-table">
@@ -76,9 +76,9 @@
                 <p class="section-kicker">Build your budget</p>
                 <h2 id="sourcesHeading">Token Sources</h2>
                 <p>
-                  Add resources you have now or expect to earn. Each row shows
-                  tokens from complete exchanges; unused amounts are pooled by
-                  resource below.
+                  Add resources you have now or expect to earn during the event. Each row 
+                  calculates the tokens they equate to; remainder amounts are pooled and 
+                  converted in the summary below.
                 </p>
               </div>
               <button class="primary-button" id="addSourceButton" type="button">
@@ -93,7 +93,7 @@
                     <th scope="col">Source</th>
                     <th scope="col">Resource Type</th>
                     <th scope="col">Amount</th>
-                    <th scope="col" class="centered-heading">Include</th>
+                    <th scope="col" class="centered-heading">Include?</th>
                     <th scope="col">Row Tokens</th>
                     <th scope="col">
                       <span class="visually-hidden">Actions</span>
@@ -108,8 +108,7 @@
               <div>
                 <h3>Resource Exchange Summary</h3>
                 <p>
-                  Row remainders are combined here, which may create additional
-                  exchanges and tokens.
+                  Pooled remainder resources are combined here, which may result in additional tokens.
                 </p>
               </div>
             </div>
@@ -170,7 +169,7 @@
             </div>
 
             <div class="summary-card cost-card">
-              <span>Planned Cost</span>
+              <span>Expected Cost</span>
               <strong id="costValue">0</strong>
             </div>
 
@@ -205,8 +204,7 @@
 
       <footer>
         <p>
-          Unofficial fan-made planning tool. Event values are editable in
-          <code>event-config.js</code>.
+          Made by HeyKrystal • Open Source on GitHub
         </p>
         <p>
           <span id="footerYear"></span> · Good luck, we're all counting on you.

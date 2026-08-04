@@ -10,9 +10,9 @@ window.HOLIDAY_CONVOY_CONFIG = {
   eventId: "holiday-convoy-2026",
   eventName: "Holiday Convoy",
   eventYear: 2026,
-  appTitle: "Holiday Convoy Budget Planner",
+  appTitle: "Holiday Convoy Forecast",
   appSubtitle:
-    "Estimate your Convoy Token budget, combine resource remainders, and plan rewards before committing resources.",
+    "Forecast your Holiday Convoy token budget, account for multiple outcomes, and plan your rewards before committing resources.",
 
   /**
    * Resource conversion rules
@@ -38,8 +38,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
       sourceRate: 1,
       targetTokens: 1200,
       cap: 173,
-      color: "#7c3f00",
-      accent: "#ffe8cc",
+      color: "#416614",
+      accent: "#d5e4d5",
     },
     {
       id: "research-points",
@@ -47,8 +47,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
       sourceRate: 1000,
       targetTokens: 1500,
       cap: null,
-      color: "#54278f",
-      accent: "#e9d8fd",
+      color: "#7c3f00",
+      accent: "#ffe8cc",
     },
     {
       id: "steel",
@@ -70,12 +70,19 @@ window.HOLIDAY_CONVOY_CONFIG = {
       id: "default-current-coal",
       name: "Current Coal",
       resourceId: "coal",
-      value: 120000,
+      value: 123456,
+      included: true,
+    },
+    {
+      id: "default-projected-coal-1",
+      name: "Coal Goal for 15.7 - 15.10",
+      resourceId: "coal",
+      value: 234000,
       included: true,
     },
     {
       id: "default-daily-missions",
-      name: "Daily Combat Missions",
+      name: "Mission Completion Goal",
       resourceId: "daily-missions",
       value: 100,
       included: true,
