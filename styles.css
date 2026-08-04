@@ -578,15 +578,15 @@ h3 {
   transition: transform 130ms ease;
 }
 
-.toggle input:checked + .toggle-visual {
+.toggle input:checked+.toggle-visual {
   background: var(--teal);
 }
 
-.toggle input:checked + .toggle-visual::after {
+.toggle input:checked+.toggle-visual::after {
   transform: translateX(16px);
 }
 
-.toggle input:focus-visible + .toggle-visual {
+.toggle input:focus-visible+.toggle-visual {
   outline: 3px solid rgba(39, 107, 140, 0.26);
   outline-offset: 2px;
 }
@@ -614,12 +614,13 @@ h3 {
 }
 
 .summary-panel {
+  position: sticky;
+  top: 18px;
+  align-self: start;
   min-width: 0;
 }
 
 .summary-sticky {
-  position: sticky;
-  top: 18px;
   padding: 24px;
 }
 
@@ -831,22 +832,22 @@ footer p {
   }
 
   .summary-panel {
+    position: static;
     order: -1;
     width: 100%;
   }
 
   .summary-sticky {
-    position: static;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
   }
 
-  .summary-sticky > .section-kicker,
-  .summary-sticky > h2,
+  .summary-sticky>.section-kicker,
+  .summary-sticky>h2,
   .progress-section,
   .summary-divider,
-  .summary-sticky > h3,
+  .summary-sticky>h3,
   .summary-help,
   #cappedLeftovers {
     grid-column: 1 / -1;
@@ -929,7 +930,7 @@ footer p {
     grid-template-columns: 1fr;
   }
 
-  .summary-sticky > * {
+  .summary-sticky>* {
     grid-column: 1 !important;
   }
 
@@ -960,12 +961,13 @@ footer p {
     padding-inline: 2px;
   }
 
-  footer p + p {
+  footer p+p {
     margin-top: 8px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
