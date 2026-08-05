@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Holiday Convoy Forecast</title>
+  <desc id="desc">Three ships sailing together beneath a curved golden route line.</desc>
+  <defs>
+    <linearGradient id="ocean" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#173744"/>
+      <stop offset="0.58" stop-color="#1f5b63"/>
+      <stop offset="1" stop-color="#2f8882"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2d489"/>
+      <stop offset="1" stop-color="#bd8b36"/>
+    </linearGradient>
+    <linearGradient id="ship" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7fbfc"/>
+      <stop offset="1" stop-color="#c6dbe0"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="13" flood-color="#071217" flood-opacity="0.38"/>
+    </filter>
+  </defs>
+
+  <circle cx="256" cy="256" r="242" fill="url(#ocean)"/>
+  <circle cx="256" cy="256" r="224" fill="none" stroke="url(#ring)" stroke-width="8" opacity="0.95"/>
+  <circle cx="256" cy="256" r="207" fill="none" stroke="#bce1df" stroke-width="2" opacity="0.34"/>
+
+  <path d="M116 200 C170 112 330 96 402 177" fill="none" stroke="#e6bd61" stroke-width="9" stroke-linecap="round" opacity="0.95"/>
+  <circle cx="116" cy="200" r="11" fill="#f5d98e" stroke="#173744" stroke-width="5"/>
+  <circle cx="402" cy="177" r="14" fill="#f5d98e" stroke="#173744" stroke-width="6"/>
+  <path d="M387 159 l30 9 -23 21 z" fill="#f5d98e"/>
+
+  <g opacity="0.72" fill="url(#ship)" filter="url(#shadow)">
+    <g transform="translate(117 183) scale(.58)">
+      <path d="M21 103 H169 L149 137 H48 Z"/>
+      <rect x="72" y="67" width="61" height="34" rx="5"/>
+      <rect x="91" y="46" width="26" height="22" rx="4"/>
+      <rect x="102" y="16" width="5" height="31" rx="2"/>
+      <path d="M106 19 l26 14 h-26 z"/>
+    </g>
+    <g transform="translate(296 164) scale(.63)">
+      <path d="M21 103 H169 L149 137 H48 Z"/>
+      <rect x="72" y="67" width="61" height="34" rx="5"/>
+      <rect x="91" y="46" width="26" height="22" rx="4"/>
+      <rect x="102" y="16" width="5" height="31" rx="2"/>
+      <path d="M106 19 l26 14 h-26 z"/>
+    </g>
+  </g>
+
+  <g transform="translate(151 231) scale(1.12)" fill="url(#ship)" filter="url(#shadow)">
+    <path d="M16 111 H178 L155 154 H49 Z"/>
+    <path d="M38 111 H161 L153 125 H47 Z" fill="#9ebfc5"/>
+    <rect x="67" y="68" width="70" height="42" rx="7"/>
+    <rect x="89" y="43" width="32" height="26" rx="5"/>
+    <rect x="102" y="8" width="6" height="36" rx="3"/>
+    <path d="M108 11 l33 17 h-33 z"/>
+    <rect x="46" y="91" width="24" height="9" rx="4"/>
+    <rect x="136" y="91" width="25" height="9" rx="4"/>
+  </g>
+
+  <g fill="none" stroke="#d9f2f0" stroke-width="8" stroke-linecap="round" opacity="0.88">
+    <path d="M88 400 C141 376 177 426 228 400 C276 376 313 425 364 400 C388 388 408 390 426 399"/>
+    <path d="M113 429 C154 412 191 445 232 428 C277 410 319 447 365 428" opacity="0.65"/>
+  </g>
+</svg>

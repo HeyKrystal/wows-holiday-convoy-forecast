@@ -1,0 +1,11 @@
+{
+  "name": "wows-holiday-convoy-planner",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate-social-preview": "node scripts/generate-social-preview.js"
+  },
+  "devDependencies": {
+    "playwright": "1.58.0"
+  }
+}

@@ -7,6 +7,37 @@
   <meta name="description"
     content="Plan resource exchanges and reward purchases for the World of Warships Holiday Convoy event." />
   <title>Holiday Convoy Forecast</title>
+  <link rel="canonical" href="https://heykrystal.github.io/wows-holiday-convoy-planner/" />
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="images/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="images/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#e9f1f3" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d171f" />
+
+  <meta property="og:title" content="Holiday Convoy Forecast" />
+  <meta property="og:description"
+    content="Forecast your Holiday Convoy token budget, compare rewards, and plan resources before committing them in game." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://heykrystal.github.io/wows-holiday-convoy-planner/" />
+  <meta property="og:image"
+    content="https://heykrystal.github.io/wows-holiday-convoy-planner/images/social-preview.png" />
+  <meta property="og:image:secure_url"
+    content="https://heykrystal.github.io/wows-holiday-convoy-planner/images/social-preview.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"
+    content="Holiday Convoy Forecast logo beside a description of the token budgeting and reward planning app." />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Holiday Convoy Forecast" />
+  <meta name="twitter:description"
+    content="Forecast your Holiday Convoy token budget, compare rewards, and plan resources before committing them in game." />
+  <meta name="twitter:image"
+    content="https://heykrystal.github.io/wows-holiday-convoy-planner/images/social-preview.png" />
   <script>
     (() => {
       const storageKey = "holiday-convoy-theme";
@@ -31,6 +62,7 @@
       document.documentElement.dataset.themePreference = preference;
     })();
   </script>
+  <link rel="stylesheet" href="styles/branding.css" />
   <link rel="stylesheet" href="styles/app.css" />
   <link rel="stylesheet" href="styles/reward-availability.css" />
   <link rel="stylesheet" href="styles/scenario-manager.css" />
@@ -54,10 +86,13 @@
 <body>
   <div class="page-shell">
     <header class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow" id="eventEyebrow">Holiday Convoy</p>
-        <h1 id="appTitle">Holiday Convoy Forecast</h1>
-        <p class="hero-subtitle" id="appSubtitle"></p>
+      <div class="hero-brand">
+        <img class="hero-logo" src="images/app-icon.svg" alt="" width="88" height="88" />
+        <div class="hero-copy">
+          <p class="eyebrow" id="eventEyebrow">Holiday Convoy</p>
+          <h1 id="appTitle">Holiday Convoy Forecast</h1>
+          <p class="hero-subtitle" id="appSubtitle"></p>
+        </div>
       </div>
       <div class="hero-actions" aria-label="Forecast data actions">
         <span class="saved-status" id="savedStatus" aria-live="polite">
@@ -72,7 +107,7 @@
 
     <details class="rules-panel about-panel">
       <summary>
-        <span>About & Quick Start</span>
+        <span>About &amp; Quick Start</span>
         <small id="eventStatusText">Loading event schedule...</small>
       </summary>
 
@@ -81,8 +116,6 @@
           <p class="section-kicker">Holiday Convoy Forecast</p>
           <h2>Plan before you spend</h2>
           <p>
-            This tool helps you estimate Convoy Tokens, compare reward costs, 
-            and save different what-if Scenarios before committing valuable 
             resources in game.
           </p>
         </div>
@@ -162,8 +195,8 @@
 
       <div class="resource-rule-note" role="note">
         <strong>About Daily Mission Sets:</strong>
-        One "Daily Mission Set" assumes completion of all three daily missions: 1 
-        battle for 300 tokens, 3 battles for another 400, and 5 battles for another 
+        One "Daily Mission Set" assumes completion of all three daily missions: 1
+        battle for 300 tokens, 3 battles for another 400, and 5 battles for another
         500, for a total of 1,200 tokens per day.
       </div>
     </details>

@@ -1,0 +1,58 @@
+# Workflow for generating the image used by social link previews.
+name: Generate social preview
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - social-preview.html
+      - images/app-icon.png
+      - images/app-icon.svg
+      - scripts/generate-social-preview.js
+      - package.json
+      - package-lock.json
+      - .github/workflows/generate-social-preview.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    name: Generate social preview card
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install chromium --with-deps
+
+      - name: Generate image
+        run: npm run generate-social-preview
+
+      - name: Commit generated preview
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain -- images/social-preview.png)" ]; then
+            echo "Social preview did not change."
+            exit 0
+          fi
+
+          git config user.name "WoWS Preview Bot"
+          git config user.email             "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/social-preview.png
+          git commit -m "Update social preview"
+          git push

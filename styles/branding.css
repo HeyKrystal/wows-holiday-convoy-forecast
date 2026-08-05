@@ -1,0 +1,38 @@
+/* Holiday Convoy branding additions. */
+.hero-brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 18px;
+}
+
+.hero-logo {
+  width: 88px;
+  height: 88px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 14px rgba(17, 48, 59, 0.16));
+}
+
+html[data-theme="dark"] .hero-logo {
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.34));
+}
+
+@media (max-width: 720px) {
+  .hero-brand {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .hero-logo {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 440px) {
+  .hero-logo {
+    width: 54px;
+    height: 54px;
+  }
+}

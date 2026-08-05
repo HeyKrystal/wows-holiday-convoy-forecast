@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Holiday Convoy Forecast Social Preview</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 1200px;
+      height: 630px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5fbfc;
+      background:
+        radial-gradient(circle at 82% 18%, rgba(94, 198, 187, 0.22), transparent 34%),
+        radial-gradient(circle at 12% 86%, rgba(220, 177, 83, 0.15), transparent 30%),
+        linear-gradient(135deg, #09161d 0%, #12313d 52%, #174d55 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: absolute;
+      left: -60px;
+      width: 1320px;
+      height: 120px;
+      border: 4px solid rgba(184, 225, 222, 0.12);
+      border-color: rgba(184, 225, 222, 0.12) transparent transparent transparent;
+      border-radius: 50%;
+      transform: rotate(-3deg);
+    }
+
+    body::before { bottom: 84px; }
+    body::after { bottom: 36px; opacity: 0.58; }
+
+    .preview {
+      position: relative;
+      z-index: 1;
+      width: 1060px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      align-items: center;
+      gap: 74px;
+    }
+
+    .logo-wrap {
+      position: relative;
+      width: 340px;
+      height: 340px;
+    }
+
+    .logo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border-radius: 50%;
+      background: rgba(84, 177, 170, 0.13);
+      filter: blur(22px);
+    }
+
+    .logo {
+      position: relative;
+      width: 340px;
+      height: 340px;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.42));
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #8fd7d0;
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 690px;
+      margin: 0;
+      font-size: 67px;
+      line-height: 1.01;
+      letter-spacing: -0.04em;
+    }
+
+    .description {
+      max-width: 690px;
+      margin: 25px 0 0;
+      color: #cbdde1;
+      font-size: 28px;
+      line-height: 1.36;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .feature {
+      padding: 10px 16px;
+      color: #d8f2ef;
+      font-size: 18px;
+      font-weight: 650;
+      background: rgba(69, 163, 155, 0.15);
+      border: 1px solid rgba(143, 215, 208, 0.3);
+      border-radius: 999px;
+    }
+
+    .feature.gold {
+      color: #f6e2ae;
+      background: rgba(204, 157, 59, 0.13);
+      border-color: rgba(232, 196, 112, 0.3);
+    }
+
+    .url {
+      position: absolute;
+      right: 48px;
+      bottom: 32px;
+      z-index: 2;
+      color: #9db2b8;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <main class="preview">
+    <div class="logo-wrap">
+      <img class="logo" src="images/app-icon.png" alt="">
+    </div>
+
+    <div>
+      <p class="eyebrow">World of Warships</p>
+      <h1>Holiday Convoy Forecast</h1>
+      <p class="description">
+        Forecast your token budget, compare rewards, and plan resources before committing them in game.
+      </p>
+      <div class="features">
+        <span class="feature">Token budgeting</span>
+        <span class="feature">Reward planning</span>
+        <span class="feature gold">Saved scenarios</span>
+      </div>
+    </div>
+  </main>
+
+  <div class="url">heykrystal.github.io/wows-holiday-convoy-planner</div>
+</body>
+</html>
