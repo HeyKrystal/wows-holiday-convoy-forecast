@@ -354,10 +354,17 @@ h3 {
 
 .data-table th,
 .data-table td {
-  padding: 9px 10px;
   border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   vertical-align: middle;
+}
+
+.data-table th {
+  padding: 7px 8px;
+}
+
+.data-table td {
+  padding: 4px 6px;
 }
 
 .data-table th:first-child,
@@ -429,7 +436,7 @@ h3 {
 }
 
 .calculated-cell {
-  min-width: 115px;
+  min-width: 100px;
   font-variant-numeric: tabular-nums;
 }
 
@@ -465,8 +472,8 @@ h3 {
 .table-input {
   width: 100%;
   min-width: 0;
-  height: 34px;
-  padding: 6px 8px;
+  height: 38px;
+  padding: 4px 6px;
   border: 1px solid transparent;
   border-radius: 6px;
   color: var(--ink);
@@ -491,7 +498,7 @@ h3 {
 
 .source-name-cell {
   width: 39%;
-  min-width: 230px;
+  min-width: 185px;
 }
 
 .source-name-input {
@@ -502,11 +509,11 @@ h3 {
 }
 
 .resource-select {
-  min-width: 150px;
+  min-width: 125px;
 }
 
 .numeric-input {
-  width: 112px;
+  width: 96px;
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
@@ -524,8 +531,11 @@ h3 {
   white-space: nowrap;
 }
 
-.row-action-cell {
-  width: 42px;
+.data-table .row-action-cell {
+  width: 36px;
+  min-width: 36px;
+  padding-left: 2px;
+  padding-right: 2px;
   text-align: center;
   white-space: nowrap;
 }
@@ -551,8 +561,8 @@ h3 {
 }
 
 .drag-handle {
-  width: 20px;
-  min-width: 20px;
+  width: 22px;
+  min-width: 22px;
   height: 28px;
   padding: 0;
   cursor: grab;
@@ -857,7 +867,7 @@ footer p {
   }
 
   .source-name-cell {
-    min-width: 205px;
+    min-width: 170px;
   }
 }
 
@@ -1025,9 +1035,12 @@ footer p {
     font-size: 0.82rem;
   }
 
-  .data-table th,
+  .data-table th {
+    padding: 6px 7px;
+  }
+
   .data-table td {
-    padding: 8px;
+    padding: 4px 5px;
   }
 
   .max-quantity-cell {

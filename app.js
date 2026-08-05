@@ -994,7 +994,7 @@
       if (!result.included) {
         tokenNote.textContent = "Not included";
       } else if (result.excludedByCap > 0) {
-        tokenNote.textContent = `${formatNumber(result.excludedByCap)} excluded by cap`;
+        tokenNote.textContent = `${formatNumber(result.excludedByCap)} over cap`;
       } else if (result.remainder > 0) {
         tokenNote.textContent = `${formatNumber(result.remainder)} pooled`;
       } else {
