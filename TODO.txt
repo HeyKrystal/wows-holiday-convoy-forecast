@@ -7,5 +7,5 @@
 I'd love to have something like this that shows the stats, rarity, name, ship image, etc. Similar to how my WoWs Collection Calculator works,
 we could pull from the Wargaming API to get all that info nightly, then just reference it on this app.
 
-7. 
+7. Trim a little bit off the column width. Adding the grabber cells made the rows really wide. We can tighten these up.
 8. What is this Toast thing?

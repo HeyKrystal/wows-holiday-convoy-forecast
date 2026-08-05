@@ -17,6 +17,10 @@
   let state = loadState();
   let saveStatusTimer = null;
 
+  let draggedSourceId = null;
+  let dropTargetSourceId = null;
+  let dropPosition = null;
+
   document.addEventListener("DOMContentLoaded", initialize);
 
   function initialize() {
@@ -102,6 +106,23 @@
     elements.sourcesBody.addEventListener("input", handleSourceInput);
     elements.sourcesBody.addEventListener("change", handleSourceChange);
     elements.sourcesBody.addEventListener("click", handleSourceClick);
+
+    elements.sourcesBody.addEventListener(
+      "dragstart",
+      handleSourceDragStart,
+    );
+    elements.sourcesBody.addEventListener(
+      "dragover",
+      handleSourceDragOver,
+    );
+    elements.sourcesBody.addEventListener(
+      "drop",
+      handleSourceDrop,
+    );
+    elements.sourcesBody.addEventListener(
+      "dragend",
+      handleSourceDragEnd,
+    );
 
     elements.rewardsBody.addEventListener("input", handleRewardInput);
     elements.rewardsBody.addEventListener("change", handleRewardChange);
@@ -229,13 +250,72 @@
 
     for (const source of state.sources) {
       const resource = getResource(source.resourceId);
+
       const row = document.createElement("tr");
       row.dataset.sourceId = source.id;
       row.style.setProperty("--resource-color", resource.color);
       row.style.setProperty("--resource-accent", resource.accent);
 
+      const sourceIndex = state.sources.findIndex(
+        (item) => item.id === source.id,
+      );
+
+      // Rearrangement controls
+      const reorderCell = document.createElement("td");
+      reorderCell.className = "reorder-cell";
+
+      const reorderButtons = document.createElement("div");
+      reorderButtons.className = "source-reorder-actions";
+
+      const dragHandle = document.createElement("button");
+      dragHandle.type = "button";
+      dragHandle.className = "icon-button drag-handle";
+      dragHandle.draggable = true;
+      dragHandle.dataset.dragHandle = "true";
+      dragHandle.title = "Drag to rearrange";
+      dragHandle.setAttribute(
+        "aria-label",
+        `Drag ${source.name || "source"} to rearrange`,
+      );
+      dragHandle.textContent = "⠿";
+
+      const moveUpButton = document.createElement("button");
+      moveUpButton.type = "button";
+      moveUpButton.className = "icon-button move-source-button";
+      moveUpButton.dataset.action = "move-source-up";
+      moveUpButton.title = "Move source up";
+      moveUpButton.setAttribute(
+        "aria-label",
+        `Move ${source.name || "source"} up`,
+      );
+      moveUpButton.textContent = "↑";
+      moveUpButton.disabled = sourceIndex === 0;
+
+      const moveDownButton = document.createElement("button");
+      moveDownButton.type = "button";
+      moveDownButton.className = "icon-button move-source-button";
+      moveDownButton.dataset.action = "move-source-down";
+      moveDownButton.title = "Move source down";
+      moveDownButton.setAttribute(
+        "aria-label",
+        `Move ${source.name || "source"} down`,
+      );
+      moveDownButton.textContent = "↓";
+      moveDownButton.disabled =
+        sourceIndex === state.sources.length - 1;
+
+      reorderButtons.append(
+        dragHandle,
+        moveUpButton,
+        moveDownButton,
+      );
+
+      reorderCell.append(reorderButtons);
+
+      // Source description
       const sourceCell = document.createElement("td");
       sourceCell.className = "source-name-cell";
+
       const sourceInput = document.createElement("input");
       sourceInput.type = "text";
       sourceInput.className = "table-input source-name-input";
@@ -244,13 +324,17 @@
       sourceInput.title = source.name;
       sourceInput.placeholder = "Describe this source";
       sourceInput.setAttribute("aria-label", "Source description");
+
       sourceCell.append(sourceInput);
 
+      // Resource type
       const resourceCell = document.createElement("td");
+
       const resourceSelect = document.createElement("select");
       resourceSelect.className = "table-input resource-select";
       resourceSelect.dataset.field = "resourceId";
       resourceSelect.setAttribute("aria-label", "Resource type");
+
       for (const optionResource of config.resources) {
         const option = document.createElement("option");
         option.value = optionResource.id;
@@ -258,9 +342,12 @@
         option.selected = optionResource.id === source.resourceId;
         resourceSelect.append(option);
       }
+
       resourceCell.append(resourceSelect);
 
+      // Resource value
       const valueCell = document.createElement("td");
+
       const valueInput = document.createElement("input");
       valueInput.type = "number";
       valueInput.className = "table-input numeric-input";
@@ -270,34 +357,52 @@
       valueInput.step = "1";
       valueInput.inputMode = "numeric";
       valueInput.setAttribute("aria-label", "Resource amount");
+
       valueCell.append(valueInput);
 
+      // Include toggle
       const includeCell = document.createElement("td");
       includeCell.className = "checkbox-cell";
       includeCell.append(
-        createToggle(source.included, "included", "Include this source"),
+        createToggle(
+          source.included,
+          "included",
+          "Include this source",
+        ),
       );
 
+      // Calculated tokens
       const tokenCell = document.createElement("td");
       tokenCell.className = "calculated-cell";
+
       const tokenValue = document.createElement("strong");
       tokenValue.className = "row-token-value";
+
       const tokenNote = document.createElement("small");
       tokenNote.className = "row-token-note";
+
       tokenCell.append(tokenValue, tokenNote);
 
+      // Remove control
       const actionCell = document.createElement("td");
       actionCell.className = "row-action-cell";
+
       const removeButton = document.createElement("button");
       removeButton.type = "button";
-      removeButton.className = "icon-button remove-source-button";
+      removeButton.className =
+        "icon-button remove-source-button";
       removeButton.dataset.action = "remove-source";
       removeButton.title = "Remove source";
-      removeButton.setAttribute("aria-label", `Remove ${source.name || "source"}`);
+      removeButton.setAttribute(
+        "aria-label",
+        `Remove ${source.name || "source"}`,
+      );
       removeButton.textContent = "×";
+
       actionCell.append(removeButton);
 
       row.append(
+        reorderCell,
         sourceCell,
         resourceCell,
         valueCell,
@@ -305,6 +410,7 @@
         tokenCell,
         actionCell,
       );
+
       elements.sourcesBody.append(row);
     }
   }
@@ -451,18 +557,241 @@
   }
 
   function handleSourceClick(event) {
-    const button = event.target.closest("button[data-action='remove-source']");
+    const button = event.target.closest(
+      "button[data-action]",
+    );
+
     if (!button) {
       return;
     }
 
-    const rowElement = button.closest("tr[data-source-id]");
-    state.sources = state.sources.filter(
-      (source) => source.id !== rowElement.dataset.sourceId,
+    const rowElement = button.closest(
+      "tr[data-source-id]",
     );
+
+    if (!rowElement) {
+      return;
+    }
+
+    const sourceId = rowElement.dataset.sourceId;
+
+    switch (button.dataset.action) {
+      case "move-source-up":
+        moveSource(sourceId, -1);
+        break;
+
+      case "move-source-down":
+        moveSource(sourceId, 1);
+        break;
+
+      case "remove-source":
+        removeSource(sourceId);
+        break;
+    }
+  }
+
+  function moveSource(sourceId, direction) {
+    const currentIndex = state.sources.findIndex(
+      (source) => source.id === sourceId,
+    );
+
+    if (currentIndex === -1) {
+      return;
+    }
+
+    const targetIndex = currentIndex + direction;
+
+    if (
+      targetIndex < 0 ||
+      targetIndex >= state.sources.length
+    ) {
+      return;
+    }
+
+    const [source] = state.sources.splice(
+      currentIndex,
+      1,
+    );
+
+    state.sources.splice(targetIndex, 0, source);
+
     saveState();
     renderSources();
     updateDerivedViews();
+  }
+
+  function removeSource(sourceId) {
+    state.sources = state.sources.filter(
+      (source) => source.id !== sourceId,
+    );
+
+    saveState();
+    renderSources();
+    updateDerivedViews();
+  }
+
+  function handleSourceDragStart(event) {
+    const dragHandle = event.target.closest(
+      "[data-drag-handle]",
+    );
+
+    const rowElement = dragHandle?.closest(
+      "tr[data-source-id]",
+    );
+
+    const isMobile = window.matchMedia(
+      "(max-width: 900px)",
+    ).matches;
+
+    if (!dragHandle || !rowElement || isMobile) {
+      event.preventDefault();
+      return;
+    }
+
+    draggedSourceId = rowElement.dataset.sourceId;
+    dropTargetSourceId = null;
+    dropPosition = null;
+
+    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData(
+      "text/plain",
+      draggedSourceId,
+    );
+
+    event.dataTransfer.setDragImage(
+      rowElement,
+      24,
+      rowElement.offsetHeight / 2,
+    );
+
+    requestAnimationFrame(() => {
+      rowElement.classList.add("is-dragging");
+    });
+  }
+
+  function handleSourceDragOver(event) {
+    if (!draggedSourceId) {
+      return;
+    }
+
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "move";
+
+    clearSourceDropIndicators();
+
+    const targetRow = event.target.closest(
+      "tr[data-source-id]",
+    );
+
+    if (
+      !targetRow ||
+      targetRow.dataset.sourceId === draggedSourceId
+    ) {
+      dropTargetSourceId = null;
+      dropPosition = null;
+      return;
+    }
+
+    const targetBounds =
+      targetRow.getBoundingClientRect();
+
+    const targetMiddle =
+      targetBounds.top + targetBounds.height / 2;
+
+    dropTargetSourceId =
+      targetRow.dataset.sourceId;
+
+    dropPosition =
+      event.clientY < targetMiddle
+        ? "before"
+        : "after";
+
+    targetRow.classList.add(
+      dropPosition === "before"
+        ? "drop-before"
+        : "drop-after",
+    );
+  }
+
+  function handleSourceDrop(event) {
+    if (!draggedSourceId) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const sourceId = draggedSourceId;
+    const targetId = dropTargetSourceId;
+    const position = dropPosition;
+
+    resetSourceDragState();
+
+    if (!targetId || !position) {
+      return;
+    }
+
+    const sourceIndex = state.sources.findIndex(
+      (source) => source.id === sourceId,
+    );
+
+    if (sourceIndex === -1) {
+      return;
+    }
+
+    const [source] = state.sources.splice(
+      sourceIndex,
+      1,
+    );
+
+    const targetIndex = state.sources.findIndex(
+      (item) => item.id === targetId,
+    );
+
+    if (targetIndex === -1) {
+      state.sources.push(source);
+    } else {
+      const insertionIndex =
+        position === "before"
+          ? targetIndex
+          : targetIndex + 1;
+
+      state.sources.splice(
+        insertionIndex,
+        0,
+        source,
+      );
+    }
+
+    saveState();
+    renderSources();
+    updateDerivedViews();
+  }
+
+  function handleSourceDragEnd() {
+    resetSourceDragState();
+  }
+
+  function clearSourceDropIndicators() {
+    for (const row of elements.sourcesBody.querySelectorAll(
+      ".drop-before, .drop-after",
+    )) {
+      row.classList.remove(
+        "drop-before",
+        "drop-after",
+      );
+    }
+  }
+
+  function resetSourceDragState() {
+    clearSourceDropIndicators();
+
+    elements.sourcesBody
+      .querySelector(".is-dragging")
+      ?.classList.remove("is-dragging");
+
+    draggedSourceId = null;
+    dropTargetSourceId = null;
+    dropPosition = null;
   }
 
   function handleRewardInput(event) {

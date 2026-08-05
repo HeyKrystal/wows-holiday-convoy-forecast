@@ -1,217 +1,208 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Plan resource exchanges and reward purchases for the World of Warships Holiday Convoy event."
-    />
-    <title>Holiday Convoy Forecast</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="event-config.js" defer></script>
-    <script src="app.js" defer></script>
-  </head>
-  <body>
-    <div class="page-shell">
-      <header class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow" id="eventEyebrow">Holiday Convoy</p>
-          <h1 id="appTitle">Holiday Convoy Forecast</h1>
-          <p class="hero-subtitle" id="appSubtitle"></p>
-        </div>
-        <div class="hero-actions" aria-label="Planner data actions">
-          <span class="saved-status" id="savedStatus" aria-live="polite">
-            Saved locally
-          </span>
-          <button class="secondary-button" id="importButton" type="button">
-            Import
-          </button>
-          <button class="secondary-button" id="exportButton" type="button">
-            Export
-          </button>
-          <button class="danger-button" id="resetButton" type="button">
-            Reset
-          </button>
-          <input
-            id="importInput"
-            class="visually-hidden"
-            type="file"
-            accept="application/json,.json"
-          />
-        </div>
-      </header>
 
-      <div class="privacy-note" role="note">
-        <strong>Your plan is saved on this device.</strong>
-        Data is saved in your browser using local storage. You should export or share
-        your plan before clearing browser data or moving to another device.
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Plan resource exchanges and reward purchases for the World of Warships Holiday Convoy event." />
+  <title>Holiday Convoy Forecast</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="event-config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" id="eventEyebrow">Holiday Convoy</p>
+        <h1 id="appTitle">Holiday Convoy Forecast</h1>
+        <p class="hero-subtitle" id="appSubtitle"></p>
       </div>
+      <div class="hero-actions" aria-label="Planner data actions">
+        <span class="saved-status" id="savedStatus" aria-live="polite">
+          Saved locally
+        </span>
+        <button class="secondary-button" id="importButton" type="button">
+          Import
+        </button>
+        <button class="secondary-button" id="exportButton" type="button">
+          Export
+        </button>
+        <button class="danger-button" id="resetButton" type="button">
+          Reset
+        </button>
+        <input id="importInput" class="visually-hidden" type="file" accept="application/json,.json" />
+      </div>
+    </header>
 
-      <details class="rules-panel">
-        <summary>
-          <span>Token Exchange Rates</span>
-          <small>Rates and caps for this years event</small>
-        </summary>
-        <div class="table-scroll">
-          <table class="data-table compact-table">
-            <thead>
-              <tr>
-                <th scope="col">Resource</th>
-                <th scope="col">Amount per Exchange</th>
-                <th scope="col">Tokens per Exchange</th>
-                <th scope="col">Event Cap</th>
-              </tr>
-            </thead>
-            <tbody id="resourceRulesBody"></tbody>
-          </table>
-        </div>
-      </details>
-
-      <main class="planner-layout">
-        <div class="planner-content">
-          <section class="panel" aria-labelledby="sourcesHeading">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">Build your budget</p>
-                <h2 id="sourcesHeading">Token Sources</h2>
-                <p>
-                  Add resources you have now or expect to earn during the event. Each row 
-                  calculates the tokens they equate to; remainder amounts are pooled and 
-                  converted in the summary below.
-                </p>
-              </div>
-              <button class="primary-button" id="addSourceButton" type="button">
-                <span aria-hidden="true">＋</span> Add Source
-              </button>
-            </div>
-
-            <div class="table-scroll">
-              <table class="data-table sources-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Source</th>
-                    <th scope="col">Resource Type</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col" class="centered-heading">Include?</th>
-                    <th scope="col">Row Tokens</th>
-                    <th scope="col">
-                      <span class="visually-hidden">Actions</span>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody id="sourcesBody"></tbody>
-              </table>
-            </div>
-
-            <div class="subsection-heading">
-              <div>
-                <h3>Resource Exchange Summary</h3>
-                <p>
-                  Pooled remainder resources are combined here, which may result in additional tokens.
-                </p>
-              </div>
-            </div>
-
-            <div class="table-scroll">
-              <table class="data-table compact-table breakdown-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Resource</th>
-                    <th scope="col">Counted Amount</th>
-                    <th scope="col">Final Remainder</th>
-                    <th scope="col">Total Tokens</th>
-                  </tr>
-                </thead>
-                <tbody id="resourceBreakdownBody"></tbody>
-              </table>
-            </div>
-          </section>
-
-          <section class="panel" aria-labelledby="rewardsHeading">
-            <div class="section-heading">
-              <div>
-                <p class="section-kicker">Spend your budget</p>
-                <h2 id="rewardsHeading">Planned Acquisitions</h2>
-                <p>
-                  Select the rewards you want and set a quantity up to the event
-                  maximum.
-                </p>
-              </div>
-            </div>
-
-            <div class="table-scroll">
-              <table class="data-table rewards-table">
-                <thead>
-                  <tr>
-                    <th scope="col">Reward</th>
-                    <th scope="col">Token Cost</th>
-                    <th scope="col" class="max-quantity-cell">Max</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col" class="centered-heading">Include</th>
-                    <th scope="col">Planned Cost</th>
-                  </tr>
-                </thead>
-                <tbody id="rewardsBody"></tbody>
-              </table>
-            </div>
-          </section>
-        </div>
-
-        <aside class="summary-panel" aria-labelledby="summaryHeading">
-          <div class="summary-sticky">
-            <p class="section-kicker">At a glance</p>
-            <h2 id="summaryHeading">Totals</h2>
-
-            <div class="summary-card budget-card">
-              <span>Token Budget</span>
-              <strong id="budgetValue">0</strong>
-            </div>
-
-            <div class="summary-card cost-card">
-              <span>Expected Cost</span>
-              <strong id="costValue">0</strong>
-            </div>
-
-            <div class="summary-card difference-card">
-              <span id="differenceLabel">Leftover Tokens</span>
-              <strong id="differenceValue">0</strong>
-            </div>
-
-            <div class="progress-section">
-              <div
-                class="progress-track"
-                role="progressbar"
-                aria-label="Percent of planned cost covered"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-valuenow="0"
-              >
-                <div class="progress-fill" id="budgetProgress"></div>
-              </div>
-              <p id="budgetProgressText">No rewards selected</p>
-            </div>
-
-            <div class="summary-divider"></div>
-            <h3>Capped Resource Leftovers</h3>
-            <p class="summary-help">
-              Amounts above an event cap are not converted into tokens.
-            </p>
-            <div id="cappedLeftovers"></div>
-          </div>
-        </aside>
-      </main>
-
-      <footer>
-        <p>
-          Made by HeyKrystal • Open Source on GitHub
-        </p>
-        <p>
-          <span id="footerYear"></span> · Good luck, we're all counting on you.
-        </p>
-      </footer>
+    <div class="privacy-note" role="note">
+      <strong>Your plan is saved on this device.</strong>
+      Data is saved in your browser using local storage. You should export or share
+      your plan before clearing browser data or moving to another device.
     </div>
 
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  </body>
+    <details class="rules-panel">
+      <summary>
+        <span>Token Exchange Rates</span>
+        <small>Rates and caps for this years event</small>
+      </summary>
+      <div class="table-scroll">
+        <table class="data-table compact-table">
+          <thead>
+            <tr>
+              <th scope="col">Resource</th>
+              <th scope="col">Amount per Exchange</th>
+              <th scope="col">Tokens per Exchange</th>
+              <th scope="col">Event Cap</th>
+            </tr>
+          </thead>
+          <tbody id="resourceRulesBody"></tbody>
+        </table>
+      </div>
+    </details>
+
+    <main class="planner-layout">
+      <div class="planner-content">
+        <section class="panel" aria-labelledby="sourcesHeading">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Build your budget</p>
+              <h2 id="sourcesHeading">Token Sources</h2>
+              <p>
+                Add resources you have now or expect to earn during the event. Each row
+                calculates the tokens they equate to; remainder amounts are pooled and
+                converted in the summary below.
+              </p>
+            </div>
+            <button class="primary-button" id="addSourceButton" type="button">
+              <span aria-hidden="true">＋</span> Add Source
+            </button>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table sources-table">
+              <thead>
+                <tr>
+                  <th class="reorder-header" aria-label="Rearrange"></th>
+                  <th scope="col">Source</th>
+                  <th scope="col">Resource Type</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Include?</th>
+                  <th scope="col">Row Tokens</th>
+                  <th scope="col">
+                    <span class="visually-hidden">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="sourcesBody"></tbody>
+            </table>
+          </div>
+
+          <div class="subsection-heading">
+            <div>
+              <h3>Resource Exchange Summary</h3>
+              <p>
+                Pooled remainder resources are combined here, which may result in additional tokens.
+              </p>
+            </div>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table compact-table breakdown-table">
+              <thead>
+                <tr>
+                  <th scope="col">Resource</th>
+                  <th scope="col">Counted Amount</th>
+                  <th scope="col">Final Remainder</th>
+                  <th scope="col">Total Tokens</th>
+                </tr>
+              </thead>
+              <tbody id="resourceBreakdownBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="rewardsHeading">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Spend your budget</p>
+              <h2 id="rewardsHeading">Planned Acquisitions</h2>
+              <p>
+                Select the rewards you want and set a quantity up to the event
+                maximum.
+              </p>
+            </div>
+          </div>
+
+          <div class="table-scroll">
+            <table class="data-table rewards-table">
+              <thead>
+                <tr>
+                  <th scope="col">Reward</th>
+                  <th scope="col">Token Cost</th>
+                  <th scope="col" class="max-quantity-cell">Max</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col" class="centered-heading">Include</th>
+                  <th scope="col">Planned Cost</th>
+                </tr>
+              </thead>
+              <tbody id="rewardsBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <aside class="summary-panel" aria-labelledby="summaryHeading">
+        <div class="summary-sticky">
+          <p class="section-kicker">At a glance</p>
+          <h2 id="summaryHeading">Totals</h2>
+
+          <div class="summary-card budget-card">
+            <span>Token Budget</span>
+            <strong id="budgetValue">0</strong>
+          </div>
+
+          <div class="summary-card cost-card">
+            <span>Expected Cost</span>
+            <strong id="costValue">0</strong>
+          </div>
+
+          <div class="summary-card difference-card">
+            <span id="differenceLabel">Leftover Tokens</span>
+            <strong id="differenceValue">0</strong>
+          </div>
+
+          <div class="progress-section">
+            <div class="progress-track" role="progressbar" aria-label="Percent of planned cost covered"
+              aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="progress-fill" id="budgetProgress"></div>
+            </div>
+            <p id="budgetProgressText">No rewards selected</p>
+          </div>
+
+          <div class="summary-divider"></div>
+          <h3>Capped Resource Leftovers</h3>
+          <p class="summary-help">
+            Amounts above an event cap are not converted into tokens.
+          </p>
+          <div id="cappedLeftovers"></div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p>
+        Made by HeyKrystal • Open Source on GitHub
+      </p>
+      <p>
+        <span id="footerYear"></span> · Good luck, we're all counting on you.
+      </p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+
 </html>
