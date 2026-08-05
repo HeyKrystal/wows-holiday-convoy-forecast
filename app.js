@@ -18,7 +18,7 @@
   const SCENARIO_COPY = Object.freeze({
     singular: "Scenario",
     plural: "Scenarios",
-    defaultName: "Main Scenario",
+    defaultName: "Default Scenario",
     newName: "New Scenario",
   });
 
@@ -30,6 +30,7 @@
   let scenarioLibrary = loadScenarioLibrary();
   let state = getActiveScenario().state;
   let saveStatusTimer = null;
+  let scenarioDialogRequest = null;
 
   let draggedSourceId = null;
   let dropTargetSourceId = null;
@@ -113,6 +114,34 @@
     elements.deleteScenarioButton = document.querySelector(
       "#deleteScenarioButton",
     );
+    elements.scenarioDialog = document.querySelector("#scenarioDialog");
+    elements.scenarioDialogForm = document.querySelector(
+      "#scenarioDialogForm",
+    );
+    elements.scenarioDialogKicker = document.querySelector(
+      "#scenarioDialogKicker",
+    );
+    elements.scenarioDialogTitle = document.querySelector(
+      "#scenarioDialogTitle",
+    );
+    elements.scenarioDialogDescription = document.querySelector(
+      "#scenarioDialogDescription",
+    );
+    elements.scenarioNameInput = document.querySelector(
+      "#scenarioNameInput",
+    );
+    elements.scenarioDialogError = document.querySelector(
+      "#scenarioDialogError",
+    );
+    elements.scenarioDialogSubmitButton = document.querySelector(
+      "#scenarioDialogSubmitButton",
+    );
+    elements.scenarioDialogCancelButton = document.querySelector(
+      "#scenarioDialogCancelButton",
+    );
+    elements.scenarioDialogCloseButton = document.querySelector(
+      "#scenarioDialogCloseButton",
+    );
     elements.budgetValue = document.querySelector("#budgetValue");
     elements.costValue = document.querySelector("#costValue");
     elements.differenceLabel = document.querySelector("#differenceLabel");
@@ -168,6 +197,27 @@
     elements.deleteScenarioButton.addEventListener(
       "click",
       deleteCurrentScenario,
+    );
+
+    elements.scenarioDialogForm.addEventListener(
+      "submit",
+      handleScenarioDialogSubmit,
+    );
+    elements.scenarioDialogCancelButton.addEventListener(
+      "click",
+      closeScenarioDialog,
+    );
+    elements.scenarioDialogCloseButton.addEventListener(
+      "click",
+      closeScenarioDialog,
+    );
+    elements.scenarioDialog.addEventListener(
+      "close",
+      resetScenarioDialog,
+    );
+    elements.scenarioNameInput.addEventListener(
+      "input",
+      clearScenarioDialogError,
     );
 
     elements.sourcesBody.addEventListener("input", handleSourceInput);
@@ -464,59 +514,63 @@
 
   function createNewScenario() {
     const suggestedName = makeUniqueScenarioName(SCENARIO_COPY.newName);
-    const name = requestScenarioName(
-      `Name the new ${SCENARIO_COPY.singular.toLowerCase()}:`,
-      suggestedName,
-    );
 
-    if (!name) {
-      return;
-    }
-
-    const scenario = createScenarioRecord(name);
-    scenarioLibrary.scenarios.push(scenario);
-    activateScenario(scenario.id);
-    showToast(`Created "${scenario.name}".`, "success");
+    openScenarioNameDialog({
+      title: `New ${SCENARIO_COPY.singular}`,
+      description: "Create a fresh set of token sources and planned acquisitions.",
+      submitLabel: "Create",
+      initialValue: suggestedName,
+      onSubmit(name) {
+        const scenario = createScenarioRecord(name);
+        scenarioLibrary.scenarios.push(scenario);
+        activateScenario(scenario.id);
+        showToast(`Created "${scenario.name}".`, "success");
+      },
+    });
   }
 
   function renameCurrentScenario() {
     const activeScenario = getActiveScenario();
-    const name = requestScenarioName(
-      `Rename this ${SCENARIO_COPY.singular.toLowerCase()}:`,
-      activeScenario.name,
-      activeScenario.id,
-    );
 
-    if (!name || name === activeScenario.name) {
-      return;
-    }
+    openScenarioNameDialog({
+      title: `Rename ${SCENARIO_COPY.singular}`,
+      description: "Choose a name that will make this scenario easier to recognize.",
+      submitLabel: "Rename",
+      initialValue: activeScenario.name,
+      excludedScenarioId: activeScenario.id,
+      onSubmit(name) {
+        if (name === activeScenario.name) {
+          return;
+        }
 
-    activeScenario.name = name;
-    activeScenario.updatedAt = new Date().toISOString();
-    persistScenarioLibrary();
-    renderScenarioManager();
-    showToast(`Renamed to "${name}".`, "success");
+        activeScenario.name = name;
+        activeScenario.updatedAt = new Date().toISOString();
+        persistScenarioLibrary();
+        renderScenarioManager();
+        showToast(`Renamed to "${name}".`, "success");
+      },
+    });
   }
 
   function duplicateCurrentScenario() {
     const activeScenario = getActiveScenario();
     const suggestedName = makeUniqueScenarioName(`${activeScenario.name} Copy`);
-    const name = requestScenarioName(
-      `Name the duplicated ${SCENARIO_COPY.singular.toLowerCase()}:`,
-      suggestedName,
-    );
 
-    if (!name) {
-      return;
-    }
-
-    const scenario = createScenarioRecord(
-      name,
-      clonePlannerState(activeScenario.state),
-    );
-    scenarioLibrary.scenarios.push(scenario);
-    activateScenario(scenario.id);
-    showToast(`Duplicated as "${scenario.name}".`, "success");
+    openScenarioNameDialog({
+      title: `Duplicate ${SCENARIO_COPY.singular}`,
+      description: `Create a copy of "${activeScenario.name}" that you can change independently.`,
+      submitLabel: "Duplicate",
+      initialValue: suggestedName,
+      onSubmit(name) {
+        const scenario = createScenarioRecord(
+          name,
+          clonePlannerState(activeScenario.state),
+        );
+        scenarioLibrary.scenarios.push(scenario);
+        activateScenario(scenario.id);
+        showToast(`Duplicated as "${scenario.name}".`, "success");
+      },
+    });
   }
 
   function deleteCurrentScenario() {
@@ -568,16 +622,63 @@
     updateDerivedViews();
   }
 
-  function requestScenarioName(message, defaultValue, excludedScenarioId = null) {
-    const enteredName = window.prompt(message, defaultValue);
-    if (enteredName === null) {
-      return null;
+  function openScenarioNameDialog({
+    title,
+    description,
+    submitLabel,
+    initialValue,
+    excludedScenarioId = null,
+    onSubmit,
+  }) {
+    scenarioDialogRequest = {
+      excludedScenarioId,
+      onSubmit,
+    };
+
+    elements.scenarioDialogKicker.textContent = SCENARIO_COPY.singular;
+    elements.scenarioDialogTitle.textContent = title;
+    elements.scenarioDialogDescription.textContent = description;
+    elements.scenarioDialogSubmitButton.textContent = submitLabel;
+    elements.scenarioNameInput.value = initialValue;
+    clearScenarioDialogError();
+
+    elements.scenarioDialog.showModal();
+
+    requestAnimationFrame(() => {
+      elements.scenarioNameInput.focus();
+      elements.scenarioNameInput.select();
+    });
+  }
+
+  function handleScenarioDialogSubmit(event) {
+    event.preventDefault();
+
+    if (!scenarioDialogRequest) {
+      closeScenarioDialog();
+      return;
     }
 
-    const name = normalizeScenarioName(enteredName);
+    const name = normalizeScenarioName(elements.scenarioNameInput.value);
+    const validationError = getScenarioNameValidationError(
+      name,
+      scenarioDialogRequest.excludedScenarioId,
+    );
+
+    if (validationError) {
+      elements.scenarioDialogError.textContent = validationError;
+      elements.scenarioNameInput.setAttribute("aria-invalid", "true");
+      elements.scenarioNameInput.focus();
+      return;
+    }
+
+    const submitHandler = scenarioDialogRequest.onSubmit;
+    elements.scenarioDialog.close();
+    submitHandler(name);
+  }
+
+  function getScenarioNameValidationError(name, excludedScenarioId = null) {
     if (!name) {
-      showToast(`${SCENARIO_COPY.singular} names cannot be blank.`, "error");
-      return null;
+      return `${SCENARIO_COPY.singular} names cannot be blank.`;
     }
 
     const nameAlreadyExists = scenarioLibrary.scenarios.some(
@@ -589,11 +690,27 @@
     );
 
     if (nameAlreadyExists) {
-      showToast(`A ${SCENARIO_COPY.singular.toLowerCase()} named "${name}" already exists.`, "error");
-      return null;
+      return `A ${SCENARIO_COPY.singular.toLowerCase()} named "${name}" already exists.`;
     }
 
-    return name;
+    return "";
+  }
+
+  function clearScenarioDialogError() {
+    elements.scenarioDialogError.textContent = "";
+    elements.scenarioNameInput.removeAttribute("aria-invalid");
+  }
+
+  function closeScenarioDialog() {
+    if (elements.scenarioDialog.open) {
+      elements.scenarioDialog.close();
+    }
+  }
+
+  function resetScenarioDialog() {
+    scenarioDialogRequest = null;
+    clearScenarioDialogError();
+    elements.scenarioDialogForm.reset();
   }
 
   function makeUniqueScenarioName(baseName) {
@@ -1579,19 +1696,18 @@
       const suggestedName = makeUniqueScenarioName(
         imported.name || removeFileExtension(file.name) || SCENARIO_COPY.newName,
       );
-      const requestedName = requestScenarioName(
-        `Name the imported ${SCENARIO_COPY.singular.toLowerCase()}:`,
-        suggestedName,
-      );
-
-      if (!requestedName) {
-        return;
-      }
-
-      const scenario = createScenarioRecord(requestedName, imported.state);
-      scenarioLibrary.scenarios.push(scenario);
-      activateScenario(scenario.id);
-      showToast(`Imported "${scenario.name}".`, "success");
+      openScenarioNameDialog({
+        title: `Import ${SCENARIO_COPY.singular}`,
+        description: "Name the imported scenario before adding it to this device.",
+        submitLabel: "Import",
+        initialValue: suggestedName,
+        onSubmit(name) {
+          const scenario = createScenarioRecord(name, imported.state);
+          scenarioLibrary.scenarios.push(scenario);
+          activateScenario(scenario.id);
+          showToast(`Imported "${scenario.name}".`, "success");
+        },
+      });
     } catch (error) {
       console.error(error);
       showToast(error.message || "Could not import that file.", "error");

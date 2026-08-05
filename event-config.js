@@ -71,21 +71,21 @@ window.HOLIDAY_CONVOY_CONFIG = {
   defaultSources: [
     {
       id: "default-current-coal",
-      name: "Current Coal",
+      name: "[Example] Current Coal",
       resourceId: "coal",
       value: 123456,
       included: true,
     },
     {
       id: "default-projected-coal-1",
-      name: "Coal Goal for 15.7 - 15.10",
+      name: "[Example] Projected Coal Earnings",
       resourceId: "coal",
       value: 234000,
       included: true,
     },
     {
       id: "default-daily-missions",
-      name: "Mission Completion Goal",
+      name: "[Example] Mission Completion Goal",
       resourceId: "daily-missions",
       value: 100,
       included: true,

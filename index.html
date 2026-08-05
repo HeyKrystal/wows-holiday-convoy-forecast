@@ -159,6 +159,11 @@
 
       <aside class="summary-panel" aria-labelledby="summaryHeading">
         <div class="summary-sticky">
+          <!--
+            Saved-scenario controls are intentionally self-contained.
+            You can move this entire <section> elsewhere in the page later
+            without changing the scenario storage or management logic.
+          -->
           <section class="scenario-manager" id="scenarioManager" aria-labelledby="scenarioManagerHeading">
             <div class="scenario-manager-header">
               <div>
@@ -234,6 +239,62 @@
       </p>
     </footer>
   </div>
+
+  <dialog
+    class="scenario-dialog"
+    id="scenarioDialog"
+    aria-labelledby="scenarioDialogTitle"
+    aria-describedby="scenarioDialogDescription"
+  >
+    <form class="scenario-dialog-form" id="scenarioDialogForm">
+      <button
+        class="scenario-dialog-close"
+        id="scenarioDialogCloseButton"
+        type="button"
+        aria-label="Close dialog"
+      >
+        ×
+      </button>
+
+      <p class="section-kicker" id="scenarioDialogKicker">Scenario</p>
+      <h2 id="scenarioDialogTitle">New Scenario</h2>
+      <p class="scenario-dialog-description" id="scenarioDialogDescription"></p>
+
+      <label class="scenario-dialog-field" for="scenarioNameInput">
+        <span>Scenario name</span>
+        <input
+          id="scenarioNameInput"
+          type="text"
+          maxlength="80"
+          autocomplete="off"
+          required
+        />
+      </label>
+
+      <p
+        class="scenario-dialog-error"
+        id="scenarioDialogError"
+        aria-live="polite"
+      ></p>
+
+      <div class="scenario-dialog-actions">
+        <button
+          class="scenario-dialog-cancel"
+          id="scenarioDialogCancelButton"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="primary-button"
+          id="scenarioDialogSubmitButton"
+          type="submit"
+        >
+          Create
+        </button>
+      </div>
+    </form>
+  </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>

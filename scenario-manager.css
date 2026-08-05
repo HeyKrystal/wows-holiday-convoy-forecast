@@ -132,3 +132,177 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+
+/* Scenario name dialog */
+
+.scenario-dialog {
+  width: min(460px, calc(100% - 32px));
+  padding: 0;
+  overflow: visible;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: var(--radius-lg);
+  color: var(--ink);
+  background: transparent;
+  box-shadow: 0 28px 80px rgba(16, 43, 64, 0.3);
+}
+
+.scenario-dialog::backdrop {
+  background: rgba(16, 43, 64, 0.56);
+  backdrop-filter: blur(5px);
+}
+
+.scenario-dialog-form {
+  position: relative;
+  padding: 28px;
+  overflow: hidden;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(20, 125, 126, 0.14), transparent 15rem),
+    var(--surface);
+}
+
+.scenario-dialog-form::after {
+  content: "";
+  position: absolute;
+  right: -72px;
+  bottom: -94px;
+  width: 210px;
+  height: 210px;
+  border: 32px solid rgba(39, 107, 140, 0.055);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.scenario-dialog-form > * {
+  position: relative;
+  z-index: 1;
+}
+
+.scenario-dialog .section-kicker {
+  margin-bottom: 5px;
+}
+
+.scenario-dialog h2 {
+  margin-bottom: 8px;
+}
+
+.scenario-dialog-description {
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.scenario-dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.scenario-dialog-close:hover {
+  border-color: var(--border);
+  color: var(--navy-dark);
+  background: #ffffff;
+}
+
+.scenario-dialog-field {
+  display: grid;
+  gap: 7px;
+  color: var(--navy-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.scenario-dialog-field input {
+  width: 100%;
+  height: 44px;
+  padding: 9px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  background: #ffffff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 650;
+  box-shadow: inset 0 1px 2px rgba(23, 59, 87, 0.035);
+}
+
+.scenario-dialog-field input:hover {
+  border-color: var(--blue);
+}
+
+.scenario-dialog-field input:focus {
+  border-color: var(--blue);
+  outline: 0;
+  box-shadow: 0 0 0 4px rgba(39, 107, 140, 0.13);
+}
+
+.scenario-dialog-field input[aria-invalid="true"] {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.1);
+}
+
+.scenario-dialog-error {
+  min-height: 1.3em;
+  margin: 7px 0 0;
+  color: var(--red);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.scenario-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 17px;
+}
+
+.scenario-dialog-cancel {
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--navy-dark);
+  background: var(--surface-muted);
+  font-weight: 750;
+}
+
+.scenario-dialog-cancel:hover {
+  border-color: var(--border-strong);
+  background: #ffffff;
+}
+
+.scenario-dialog-close:focus-visible,
+.scenario-dialog-cancel:focus-visible,
+.scenario-dialog-field input:focus-visible {
+  outline: 3px solid rgba(39, 107, 140, 0.26);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .scenario-dialog-form {
+    padding: 24px 20px 20px;
+  }
+
+  .scenario-dialog-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .scenario-dialog-actions > button {
+    justify-content: center;
+    width: 100%;
+  }
+}
