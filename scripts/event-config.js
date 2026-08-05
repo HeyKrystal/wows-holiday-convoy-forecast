@@ -117,7 +117,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "bismarck-41",
       name: "Bismarck '41",
-      tokenCost: 64000,
+      availability: "Update 15.7",
+      tokenCost: 60000,
       maxQuantity: 1,
       category: "Ship",
       defaultQuantity: 1,
@@ -126,6 +127,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "yimeng",
       name: "Yimeng",
+      availability: "Update 15.7",
       tokenCost: 84000,
       maxQuantity: 1,
       category: "Ship",
@@ -135,6 +137,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "messina",
       name: "Messina",
+      availability: "Update 15.7",
       tokenCost: 140000,
       maxQuantity: 1,
       category: "Ship",
@@ -144,6 +147,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "independencia",
       name: "Independencia",
+      availability: "Update 15.7",
       tokenCost: 140000,
       maxQuantity: 1,
       category: "Ship",
@@ -153,6 +157,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "prins-van-oranje",
       name: "Prins van Oranje",
+      availability: "Update 15.7",
       tokenCost: 140000,
       maxQuantity: 1,
       category: "Ship",
@@ -162,6 +167,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "georg-hoffmann",
       name: "Georg Hoffmann",
+      availability: "Update 15.7",
       tokenCost: 140000,
       maxQuantity: 1,
       category: "Ship",
@@ -180,6 +186,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-epic-ship",
       name: "Unannounced Ship 1 (New Jersey)",
+      availability: "Update 15.11",
       tokenCost: 400000,
       maxQuantity: 1,
       category: "Placeholder",
@@ -189,6 +196,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-1",
       name: "Unannounced Ship 2",
+      availability: "Update 15.11",
       tokenCost: 140000,
       maxQuantity: 1,
       category: "Placeholder",
@@ -198,6 +206,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-2",
       name: "Unannounced Ship 3",
+      availability: "Update 15.11",
       tokenCost: 140000,
       maxQuantity: 1,
       category: "Placeholder",
@@ -207,6 +216,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-3",
       name: "Unannounced Ship 4",
+      availability: "Update 15.11",
       tokenCost: 140000,
       maxQuantity: 1,
       category: "Placeholder",
@@ -216,6 +226,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "doubloons-3000",
       name: "3,000 Doubloons",
+      availability: "Update 15.7 through 16.0, One pack available per update",
       tokenCost: 9000,
       maxQuantity: 6,
       category: "Doubloons",

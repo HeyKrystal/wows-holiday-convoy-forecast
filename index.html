@@ -32,6 +32,7 @@
     })();
   </script>
   <link rel="stylesheet" href="styles/app.css" />
+  <link rel="stylesheet" href="styles/reward-availability.css" />
   <link rel="stylesheet" href="styles/scenario-manager.css" />
   <script src="scripts/event-config.js" defer></script>
   <script src="scripts/namespace.js" defer></script>
@@ -244,6 +245,7 @@
               <thead>
                 <tr>
                   <th scope="col">Reward</th>
+                  <th scope="col" class="reward-availability-column">Availability</th>
                   <th scope="col">Token Cost</th>
                   <th scope="col" class="max-quantity-cell">Max</th>
                   <th scope="col">Quantity</th>
@@ -343,7 +345,7 @@
     </main>
 
     <footer>
-      <p>Made by HeyKrystal • Open Source on GitHub</p>
+      <p>Made by HeyKrystal • Not affiliated with Wargaming • Open Source on GitHub</p>
 
       <label class="theme-control" for="themeSelect">
         <span>Theme</span>
@@ -411,8 +413,6 @@
       </div>
     </form>
   </dialog>
-
-
 
   <dialog
     class="scenario-dialog confirmation-dialog"

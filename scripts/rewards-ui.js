@@ -5,6 +5,13 @@
   const { clampInteger, cssEscape, formatNumber } = app.utils;
   const { createToggle } = app.uiCommon;
 
+  function getAvailability(reward) {
+    const configuredValue = String(reward.availability ?? "").trim();
+    return configuredValue
+      ? { label: configuredValue, isUnspecified: false }
+      : { label: "Not specified", isUnspecified: true };
+  }
+
   function create({ config, body, getState, onSave, onDerivedChange }) {
     function bind() {
       body.addEventListener("input", handleInput);
@@ -25,7 +32,30 @@
         const category = document.createElement("small");
         category.className = "category-label";
         category.textContent = reward.category;
-        rewardCell.append(rewardName, category);
+
+        const availability = getAvailability(reward);
+        const mobileAvailability = document.createElement("small");
+        mobileAvailability.className = "reward-availability-mobile";
+        mobileAvailability.textContent = `Available: ${availability.label}`;
+        mobileAvailability.classList.toggle(
+          "is-unspecified",
+          availability.isUnspecified,
+        );
+
+        rewardCell.append(rewardName, category, mobileAvailability);
+
+        const availabilityCell = document.createElement("td");
+        availabilityCell.className =
+          "reward-availability-cell reward-availability-column";
+
+        const availabilityLabel = document.createElement("span");
+        availabilityLabel.className = "reward-availability-label";
+        availabilityLabel.textContent = availability.label;
+        availabilityLabel.classList.toggle(
+          "is-unspecified",
+          availability.isUnspecified,
+        );
+        availabilityCell.append(availabilityLabel);
 
         const costCell = document.createElement("td");
         costCell.className = "numeric-cell";
@@ -63,7 +93,15 @@
         totalValue.className = "reward-total-value";
         totalCell.append(totalValue);
 
-        row.append(rewardCell, costCell, maxCell, quantityCell, includeCell, totalCell);
+        row.append(
+          rewardCell,
+          availabilityCell,
+          costCell,
+          maxCell,
+          quantityCell,
+          includeCell,
+          totalCell,
+        );
         body.append(row);
       }
     }

@@ -1,0 +1,62 @@
+/*
+ * Planned Acquisitions availability presentation
+ *
+ * Kept separate from app.css so this feature can be installed without
+ * replacing locally tuned application styles.
+ */
+
+.reward-availability-cell {
+  min-width: 126px;
+  text-align: left;
+}
+
+.reward-availability-label {
+  display: inline-flex;
+  align-items: center;
+  max-width: 180px;
+  padding: 4px 8px;
+  border: 1px solid var(--info-border);
+  border-radius: 999px;
+  color: var(--info-ink);
+  background: var(--info-bg);
+  font-size: 0.7rem;
+  font-weight: 750;
+  line-height: 1.25;
+  text-align: left;
+  white-space: normal;
+}
+
+.reward-availability-label.is-unspecified {
+  border-color: var(--border);
+  color: var(--muted);
+  background: var(--surface-muted);
+  font-weight: 650;
+}
+
+.reward-availability-mobile {
+  display: none;
+}
+
+/*
+ * At the point where the page becomes a single column, move Availability
+ * beneath the reward category instead of making the table wider.
+ */
+@media (max-width: 900px) {
+  .reward-availability-column {
+    display: none;
+  }
+
+  .reward-availability-mobile {
+    display: block;
+    margin-top: 4px;
+    color: var(--info-ink);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .reward-availability-mobile.is-unspecified {
+    color: var(--muted);
+    font-weight: 600;
+  }
+}
