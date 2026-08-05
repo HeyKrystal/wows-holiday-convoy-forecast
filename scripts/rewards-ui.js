@@ -4,6 +4,7 @@
   const app = window.HolidayConvoy;
   const { clampInteger, cssEscape, formatNumber } = app.utils;
   const { createToggle } = app.uiCommon;
+  const { createNationFlag, createTypeIcon } = app.shipIcons;
 
   function getAvailability(reward) {
     const configuredValue = String(reward.availability ?? "").trim();
@@ -12,7 +13,30 @@
       : { label: "Not specified", isUnspecified: true };
   }
 
-  function create({ config, body, getState, onSave, onDerivedChange }) {
+  function tierToRoman(tier) {
+    const numerals = {
+      1: "I",
+      2: "II",
+      3: "III",
+      4: "IV",
+      5: "V",
+      6: "VI",
+      7: "VII",
+      8: "VIII",
+      9: "IX",
+      10: "X",
+    };
+    return numerals[Number(tier)] ?? String(tier ?? "");
+  }
+
+  function create({
+    config,
+    body,
+    getState,
+    onSave,
+    onDerivedChange,
+    shipCatalog,
+  }) {
     function bind() {
       body.addEventListener("input", handleInput);
       body.addEventListener("change", handleChange);
@@ -25,13 +49,13 @@
         const selection = state.rewardSelections[reward.id];
         const row = document.createElement("tr");
         row.dataset.rewardId = reward.id;
+        if (reward.rarity) {
+          row.dataset.rarity = reward.rarity;
+        }
 
         const rewardCell = document.createElement("td");
-        const rewardName = document.createElement("strong");
-        rewardName.textContent = reward.name;
-        const category = document.createElement("small");
-        category.className = "category-label";
-        category.textContent = reward.category;
+        rewardCell.className = "reward-identity-cell";
+        const identity = createRewardIdentity(reward);
 
         const availability = getAvailability(reward);
         const mobileAvailability = document.createElement("small");
@@ -42,7 +66,7 @@
           availability.isUnspecified,
         );
 
-        rewardCell.append(rewardName, category, mobileAvailability);
+        rewardCell.append(identity, mobileAvailability);
 
         const availabilityCell = document.createElement("td");
         availabilityCell.className =
@@ -103,6 +127,86 @@
           totalCell,
         );
         body.append(row);
+      }
+
+      refreshShipMetadata();
+    }
+
+    function createRewardIdentity(reward) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "reward-identity";
+
+      const hasDetails = Boolean(reward.shipId || reward.rarity);
+      const nameElement = document.createElement(hasDetails ? "button" : "strong");
+      nameElement.className = hasDetails
+        ? "reward-ship-trigger"
+        : "reward-name-static";
+      nameElement.textContent = reward.name;
+
+      if (hasDetails) {
+        nameElement.type = "button";
+        nameElement.dataset.rewardId = reward.id;
+        nameElement.setAttribute("aria-haspopup", "dialog");
+        nameElement.setAttribute("aria-expanded", "false");
+        nameElement.setAttribute(
+          "aria-label",
+          `View details for ${reward.name}`,
+        );
+      }
+
+      const metadata = document.createElement("small");
+      metadata.className = "reward-ship-inline-meta";
+      metadata.dataset.shipMetadata = "";
+      renderMetadata(metadata, reward, shipCatalog?.get(reward.shipId));
+
+      wrapper.append(nameElement, metadata);
+      return wrapper;
+    }
+
+    function renderMetadata(element, reward, ship) {
+      element.replaceChildren();
+
+      if (ship) {
+        const typeIcon = createTypeIcon(ship, "reward-ship-type-icon");
+        if (typeIcon) {
+          element.append(typeIcon);
+        }
+
+        const nationFlag = createNationFlag(ship, "reward-ship-nation-flag");
+        if (nationFlag) {
+          element.append(nationFlag);
+        }
+
+        const details = document.createElement("span");
+        details.textContent = [
+          `Tier ${tierToRoman(ship.tier)}`,
+          ship.nation?.label,
+          ship.type?.label,
+        ]
+          .filter(Boolean)
+          .join(" · ");
+        element.append(details);
+      } else {
+        const category = document.createElement("span");
+        category.textContent = reward.category;
+        element.append(category);
+      }
+    }
+
+    function refreshShipMetadata() {
+      if (!shipCatalog) {
+        return;
+      }
+
+      for (const reward of config.rewards) {
+        const row = body.querySelector(
+          `tr[data-reward-id="${cssEscape(reward.id)}"]`,
+        );
+        const metadata = row?.querySelector("[data-ship-metadata]");
+        if (!metadata) {
+          continue;
+        }
+        renderMetadata(metadata, reward, shipCatalog.get(reward.shipId));
       }
     }
 
@@ -168,7 +272,7 @@
       onDerivedChange();
     }
 
-    return { bind, render, updateRows };
+    return { bind, refreshShipMetadata, render, updateRows };
   }
 
   app.rewardsUI = { create };

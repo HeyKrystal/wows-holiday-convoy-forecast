@@ -1,0 +1,382 @@
+:root {
+  --rarity-common: #7c8790;
+  --rarity-common-soft: #e9edef;
+  --rarity-uncommon: #2f9488;
+  --rarity-uncommon-soft: #d9efeb;
+  --rarity-rare: #3979c3;
+  --rarity-rare-soft: #dbe8f7;
+  --rarity-epic: #b82f42;
+  --rarity-epic-soft: #f5dce1;
+  --rarity-legendary: #c5972e;
+  --rarity-legendary-soft: #f7edcf;
+  --ship-card-shadow: 0 18px 45px rgba(18, 39, 54, 0.22);
+}
+
+html[data-theme="dark"] {
+  --rarity-common: #aab5bd;
+  --rarity-common-soft: #29343c;
+  --rarity-uncommon: #55c6b6;
+  --rarity-uncommon-soft: #1e3a38;
+  --rarity-rare: #70a9ef;
+  --rarity-rare-soft: #20364f;
+  --rarity-epic: #ed6472;
+  --rarity-epic-soft: #48262d;
+  --rarity-legendary: #e4b852;
+  --rarity-legendary-soft: #43371f;
+  --ship-card-shadow: 0 22px 55px rgba(0, 0, 0, 0.46);
+}
+
+.reward-identity-cell {
+  min-width: 190px;
+}
+
+.reward-identity {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+}
+
+.reward-name-static,
+.reward-ship-trigger {
+  font: inherit;
+  font-weight: 760;
+  line-height: 1.25;
+}
+
+.reward-ship-trigger {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 0;
+  color: var(--heading);
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px dotted color-mix(in srgb, var(--heading) 48%, transparent);
+  border-radius: 0;
+  cursor: help;
+}
+
+.reward-ship-trigger:hover,
+.reward-ship-trigger:focus-visible,
+.reward-ship-trigger[aria-expanded="true"] {
+  color: var(--teal-dark);
+  border-bottom-color: currentColor;
+}
+
+.reward-ship-trigger:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--teal) 55%, transparent);
+  outline-offset: 4px;
+}
+
+.reward-ship-inline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 7px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+
+.ship-type-icon {
+  position: relative;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  vertical-align: middle;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.12));
+}
+
+.ship-type-icon-layer {
+  display: block;
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.reward-ship-type-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.ship-hover-type-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.ship-nation-flag {
+  display: block;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.16));
+}
+
+.reward-ship-nation-flag {
+  width: 18px;
+  height: 18px;
+}
+
+.ship-hover-nation-flag {
+  width: 21px;
+  height: 21px;
+}
+
+.rewards-table tbody tr[data-rarity="common"],
+.ship-hover-card[data-rarity="common"] {
+  --reward-rarity: var(--rarity-common);
+  --reward-rarity-soft: var(--rarity-common-soft);
+}
+
+.rewards-table tbody tr[data-rarity="uncommon"],
+.ship-hover-card[data-rarity="uncommon"] {
+  --reward-rarity: var(--rarity-uncommon);
+  --reward-rarity-soft: var(--rarity-uncommon-soft);
+}
+
+.rewards-table tbody tr[data-rarity="rare"],
+.ship-hover-card[data-rarity="rare"] {
+  --reward-rarity: var(--rarity-rare);
+  --reward-rarity-soft: var(--rarity-rare-soft);
+}
+
+.rewards-table tbody tr[data-rarity="epic"],
+.ship-hover-card[data-rarity="epic"] {
+  --reward-rarity: var(--rarity-epic);
+  --reward-rarity-soft: var(--rarity-epic-soft);
+}
+
+.rewards-table tbody tr[data-rarity="legendary"],
+.ship-hover-card[data-rarity="legendary"] {
+  --reward-rarity: var(--rarity-legendary);
+  --reward-rarity-soft: var(--rarity-legendary-soft);
+}
+
+.rewards-table tbody tr[data-rarity] {
+  --reward-row-base: var(--surface);
+  --reward-wash-strong: color-mix(in srgb, var(--reward-rarity) 24%, transparent);
+  --reward-wash-medium: color-mix(in srgb, var(--reward-rarity) 11%, transparent);
+  --reward-wash-light: color-mix(in srgb, var(--reward-rarity) 4%, transparent);
+  background:
+    linear-gradient(
+      90deg,
+      var(--reward-wash-strong) 0%,
+      var(--reward-wash-medium) 22%,
+      var(--reward-wash-light) 52%,
+      transparent 82%
+    ),
+    var(--reward-row-base);
+}
+
+.rewards-table tbody tr[data-rarity]:nth-child(even) {
+  --reward-row-base: var(--surface-muted);
+}
+
+.rewards-table tbody tr[data-rarity].is-excluded {
+  --reward-row-base: var(--excluded-bg);
+  --reward-wash-strong: color-mix(in srgb, var(--reward-rarity) 11%, transparent);
+  --reward-wash-medium: color-mix(in srgb, var(--reward-rarity) 5%, transparent);
+  --reward-wash-light: transparent;
+}
+
+.rewards-table tbody tr[data-rarity] > td,
+.data-table.rewards-table tbody tr[data-rarity].is-excluded > td {
+  background: transparent;
+}
+
+.rewards-table tbody tr[data-rarity] > td:first-child {
+  box-shadow: inset 4px 0 0 var(--reward-rarity);
+}
+
+.ship-hover-card {
+  position: fixed;
+  z-index: 1200;
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(640px, calc(100vh - 24px));
+  overflow: auto;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-top: 4px solid var(--reward-rarity, var(--teal));
+  border-radius: 16px;
+  box-shadow: var(--ship-card-shadow);
+  overscroll-behavior: contain;
+}
+
+.ship-hover-card[data-pinned="false"] {
+  pointer-events: none;
+}
+
+.ship-hover-card[hidden] {
+  display: none;
+}
+
+.ship-hover-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 16px 12px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--reward-rarity, var(--teal)) 10%, transparent),
+    transparent 74%
+  );
+}
+
+.ship-hover-header h3 {
+  margin: 3px 0 0;
+  color: var(--heading);
+  font-size: 1.18rem;
+  line-height: 1.18;
+}
+
+.ship-hover-rarity {
+  color: var(--reward-rarity, var(--muted));
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.ship-hover-metadata {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.ship-hover-close {
+  flex: 0 0 auto;
+  width: 31px;
+  height: 31px;
+  padding: 0 0 2px;
+  color: var(--muted);
+  font-size: 1.35rem;
+  line-height: 1;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.ship-hover-card[data-pinned="false"] .ship-hover-close {
+  visibility: hidden;
+}
+
+.ship-hover-close:hover,
+.ship-hover-close:focus-visible {
+  color: var(--heading);
+  border-color: var(--border-strong);
+}
+
+.ship-hover-image-frame {
+  display: grid;
+  min-height: 130px;
+  place-items: center;
+  margin: 0 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 60%, color-mix(in srgb, var(--teal) 15%, transparent), transparent 58%),
+    var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.ship-hover-image {
+  display: block;
+  width: 100%;
+  max-height: 190px;
+  object-fit: contain;
+}
+
+.ship-hover-description,
+.ship-hover-message {
+  margin: 0;
+  padding: 13px 16px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.48;
+}
+
+.ship-hover-description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.ship-hover-ratings {
+  display: grid;
+  gap: 8px;
+  padding: 2px 16px 15px;
+}
+
+.ship-rating {
+  display: grid;
+  grid-template-columns: minmax(96px, 1fr) auto;
+  align-items: center;
+  gap: 3px 10px;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.ship-rating strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.ship-rating-track {
+  grid-column: 1 / -1;
+  height: 5px;
+  overflow: hidden;
+  background: var(--surface-muted);
+  border-radius: 999px;
+}
+
+.ship-rating-fill {
+  height: 100%;
+  background: var(--reward-rarity, var(--teal));
+  border-radius: inherit;
+}
+
+.ship-hover-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 16px 13px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  background: var(--surface-muted);
+  border-top: 1px solid var(--border);
+}
+
+.ship-hover-footer strong {
+  color: var(--ink);
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .ship-hover-card {
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    top: auto !important;
+    width: auto;
+    max-height: min(72vh, 620px);
+    border-radius: 18px;
+  }
+
+  .reward-identity-cell {
+    min-width: 170px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ship-hover-card,
+  .reward-ship-trigger {
+    scroll-behavior: auto;
+  }
+}

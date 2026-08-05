@@ -29,6 +29,20 @@ window.HOLIDAY_CONVOY_CONFIG = {
   },
 
   /**
+   * Shared normalized Wargaming data.
+   *
+   * The Pages URL is preferred. The raw GitHub URL is a fallback while Pages
+   * is unavailable or being configured.
+   */
+  shipData: {
+    urls: [
+      "https://heykrystal.github.io/wows-data/v1/ships.json",
+      "https://raw.githubusercontent.com/HeyKrystal/wows-shared-data/main/public/v1/ships.json",
+    ],
+    requestTimeoutMs: 8000,
+  },
+
+  /**
    * Resource conversion rules
    *
    * sourceRate: Amount of the resource required for one exchange.
@@ -217,6 +231,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "bismarck-41",
       name: "Bismarck '41",
+      shipId: "3552524080",
+      rarity: "rare",
       availability: "Update 15.7",
       tokenCost: 60000,
       maxQuantity: 1,
@@ -227,6 +243,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "yimeng",
       name: "Yimeng",
+      shipId: "3540989136",
+      rarity: "rare",
       availability: "Update 15.7",
       tokenCost: 84000,
       maxQuantity: 1,
@@ -237,8 +255,10 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "messina",
       name: "Messina",
+      shipId: "3530471152",
+      rarity: "rare",
       availability: "Update 15.7",
-      tokenCost: 840000,
+      tokenCost: 84000,
       maxQuantity: 1,
       category: "Ship",
       defaultQuantity: 1,
@@ -247,6 +267,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "independencia",
       name: "Independencia",
+      shipId: "3550459216",
+      rarity: "rare",
       availability: "Update 15.7",
       tokenCost: 140000,
       maxQuantity: 1,
@@ -257,6 +279,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "prinz-van-oranje",
       name: "Prinz van Oranje",
+      shipId: "3550394128",
+      rarity: "rare",
       availability: "Update 15.7",
       tokenCost: 140000,
       maxQuantity: 1,
@@ -267,6 +291,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "georg-hoffmann",
       name: "Georg Hoffmann",
+      shipId: "3550361392",
+      rarity: "rare",
       availability: "Update 15.7",
       tokenCost: 140000,
       maxQuantity: 1,
@@ -277,7 +303,9 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "kitakami",
       name: "Kitakami",
-      availability: "Update 15.11",
+      shipId: "3655251664",
+      rarity: "legendary",
+      availability: "Update 15.7",
       tokenCost: 540000,
       maxQuantity: 1,
       category: "Ship",
@@ -287,6 +315,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-epic-ship",
       name: "Unannounced Ship 1 (New Jersey)",
+      shipId: null,
+      rarity: "epic",
       availability: "Update 15.11",
       tokenCost: 400000,
       maxQuantity: 1,
@@ -297,6 +327,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-1",
       name: "Unannounced Ship 2",
+      shipId: null,
+      rarity: "rare",
       availability: "Update 15.11",
       tokenCost: 140000,
       maxQuantity: 1,
@@ -307,6 +339,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-2",
       name: "Unannounced Ship 3",
+      shipId: null,
+      rarity: "rare",
       availability: "Update 15.11",
       tokenCost: 140000,
       maxQuantity: 1,
@@ -317,6 +351,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-3",
       name: "Unannounced Ship 4",
+      shipId: null,
+      rarity: "rare",
       availability: "Update 15.11",
       tokenCost: 140000,
       maxQuantity: 1,
@@ -327,7 +363,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "doubloons-3000",
       name: "3,000 Doubloon Pack (Max 6)",
-      availability: "Update 15.7 through 16.0, One pack available per update",
+      availability: "One pack per update; 15.7 through 16.0",
       tokenCost: 9000,
       maxQuantity: 6,
       category: "Doubloons",

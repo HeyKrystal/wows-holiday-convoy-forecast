@@ -16,6 +16,7 @@
     const showSavedStatus = createSavedStatus(elements.savedStatus);
     const theme = app.theme.create({ control: elements.themeSelect });
     const aboutUI = app.aboutUI.create({ config, elements });
+    const shipCatalog = app.shipData.create(config.shipData);
 
     const store = app.scenarioStore.create({
       config,
@@ -26,6 +27,7 @@
     let sourcesUI;
     let rewardsUI;
     let summaryUI;
+    let rewardHover;
 
     function getState() {
       return store.getActive().state;
@@ -43,6 +45,7 @@
     }
 
     function renderPlanner() {
+      rewardHover?.close();
       sourcesUI.render();
       rewardsUI.render();
       updateDerivedViews();
@@ -70,6 +73,13 @@
       getState,
       onSave: saveState,
       onDerivedChange: updateDerivedViews,
+      shipCatalog,
+    });
+
+    rewardHover = app.rewardHover.create({
+      config,
+      body: elements.rewardsBody,
+      shipCatalog,
     });
 
     summaryUI = app.summaryUI.create({ config, elements });
@@ -90,12 +100,19 @@
     scenarioUI.bind();
     sourcesUI.bind();
     rewardsUI.bind();
+    rewardHover.bind();
     share.bind();
     elements.addSourceButton.addEventListener("click", sourcesUI.add);
 
     scenarioUI.render();
     summaryUI.renderResourceRules();
     renderPlanner();
+    shipCatalog
+      .load()
+      .then(rewardsUI.refreshShipMetadata)
+      .catch((error) => {
+        console.warn("Ship details could not be loaded.", error);
+      });
     share.handleIncomingLink();
   }
 
