@@ -12,7 +12,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
   eventYear: 2026,
   appTitle: "Holiday Convoy Forecast",
   appSubtitle:
-    "Forecast your Holiday Convoy token budget, account for multiple outcomes, and plan your rewards before committing resources.",
+    "Forecast your Holiday Convoy token budget, account for multiple scenarios, and plan your rewards before committing resources.",
 
   /**
    * Event schedule and official information
