@@ -8,6 +8,7 @@
     content="Plan resource exchanges and reward purchases for the World of Warships Holiday Convoy event." />
   <title>Holiday Convoy Forecast</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="scenario-manager.css" />
   <script src="event-config.js" defer></script>
   <script src="app.js" defer></script>
 </head>
@@ -20,7 +21,7 @@
         <h1 id="appTitle">Holiday Convoy Forecast</h1>
         <p class="hero-subtitle" id="appSubtitle"></p>
       </div>
-      <div class="hero-actions" aria-label="Planner data actions">
+      <div class="hero-actions" aria-label="Forecast data actions">
         <span class="saved-status" id="savedStatus" aria-live="polite">
           Saved locally
         </span>
@@ -38,9 +39,11 @@
     </header>
 
     <div class="privacy-note" role="note">
-      <strong>Your plan is saved on this device.</strong>
-      Data is saved in your browser using local storage. You should export or share
-      your plan before clearing browser data or moving to another device.
+      <strong id="storageNoticeHeading">Your scenarios are saved on this device.</strong>
+      <span id="storageNoticeText">
+        Data is saved in your browser using local storage. You should export or share
+        important scenarios before clearing browser data or moving to another device.
+      </span>
     </div>
 
     <details class="rules-panel">
@@ -156,6 +159,36 @@
 
       <aside class="summary-panel" aria-labelledby="summaryHeading">
         <div class="summary-sticky">
+          <section class="scenario-manager" id="scenarioManager" aria-labelledby="scenarioManagerHeading">
+            <div class="scenario-manager-header">
+              <div>
+                <p class="section-kicker">Saved locally</p>
+                <h3 id="scenarioManagerHeading">Scenarios</h3>
+              </div>
+              <span class="scenario-count" id="scenarioCount"></span>
+            </div>
+
+            <label class="scenario-select-label" for="scenarioSelect">
+              <span id="scenarioSelectLabel">Current scenario</span>
+              <select class="scenario-select" id="scenarioSelect"></select>
+            </label>
+
+            <div class="scenario-actions" aria-label="Scenario actions">
+              <button class="scenario-action-button" id="newScenarioButton" type="button">
+                New
+              </button>
+              <button class="scenario-action-button" id="renameScenarioButton" type="button">
+                Rename
+              </button>
+              <button class="scenario-action-button" id="duplicateScenarioButton" type="button">
+                Duplicate
+              </button>
+              <button class="scenario-action-button scenario-delete-button" id="deleteScenarioButton" type="button">
+                Delete
+              </button>
+            </div>
+          </section>
+
           <p class="section-kicker">At a glance</p>
           <h2 id="summaryHeading">Totals</h2>
 
@@ -197,7 +230,7 @@
         Made by HeyKrystal • Open Source on GitHub
       </p>
       <p>
-        <span id="footerYear"></span> · Good luck, we're all counting on you.
+        <!--<span id="footerYear"></span> · Good luck, we're all counting on you.-->
       </p>
     </footer>
   </div>

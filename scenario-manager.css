@@ -1,0 +1,134 @@
+/*
+ * Saved scenario controls
+ *
+ * This file is intentionally separate from styles.css. The entire
+ * #scenarioManager section can be moved elsewhere in index.html without
+ * changing the scenario storage and management logic in app.js.
+ */
+
+.scenario-manager {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #c7dedc;
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(237, 249, 247, 0.94)),
+    var(--surface-muted);
+}
+
+.scenario-manager-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.scenario-manager-header .section-kicker {
+  margin-bottom: 3px;
+}
+
+.scenario-manager-header h3 {
+  margin-bottom: 0;
+  font-size: 1.05rem;
+}
+
+.scenario-count {
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  border: 1px solid #c7dedc;
+  border-radius: 999px;
+  color: var(--teal-dark);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.7rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.scenario-select-label {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.scenario-select {
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 7px 32px 7px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  background: #ffffff;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.scenario-select:hover {
+  border-color: var(--blue);
+}
+
+.scenario-select:focus-visible,
+.scenario-action-button:focus-visible {
+  outline: 3px solid rgba(39, 107, 140, 0.26);
+  outline-offset: 2px;
+}
+
+.scenario-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.scenario-action-button {
+  min-width: 0;
+  padding: 8px 9px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--navy-dark);
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 0.76rem;
+  font-weight: 800;
+  white-space: nowrap;
+  transition:
+    transform 120ms ease,
+    border-color 120ms ease,
+    background 120ms ease;
+}
+
+.scenario-action-button:hover:not(:disabled) {
+  border-color: var(--border-strong);
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+.scenario-delete-button {
+  color: var(--red);
+}
+
+.scenario-delete-button:hover:not(:disabled) {
+  border-color: #f3c9c5;
+  background: var(--red-soft);
+}
+
+.scenario-action-button:disabled {
+  color: #8d9aa5;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+/* The Totals panel becomes a grid at tablet widths. Keep this component whole. */
+.summary-sticky > .scenario-manager {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .scenario-actions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
