@@ -33,12 +33,26 @@
     }
 
     function createDefaultLibrary() {
-      const scenario = createRecord(COPY.defaultName);
+      const starterScenarios = Array.isArray(config.starterScenarios)
+        ? config.starterScenarios
+            .map((starter) =>
+              createRecord(
+                starter.name,
+                app.plannerState.createStarter(config, starter),
+              ),
+            )
+            .filter(Boolean)
+        : [];
+
+      const scenarios = starterScenarios.length
+        ? starterScenarios
+        : [createRecord(COPY.defaultName)];
+
       return {
         libraryVersion: LIBRARY_VERSION,
         eventId: config.eventId,
-        activeScenarioId: scenario.id,
-        scenarios: [scenario],
+        activeScenarioId: scenarios[0].id,
+        scenarios,
       };
     }
 

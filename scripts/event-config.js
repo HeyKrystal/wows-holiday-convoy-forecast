@@ -79,8 +79,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
   ],
 
   /**
-   * Rows shown the first time the app is opened for this eventId.
-   * Keep this list generic so it works for any player.
+   * Rows shown upon a scenario reset.
+   * This is just for debugging now.
    */
   defaultSources: [
     {
@@ -103,6 +103,106 @@ window.HOLIDAY_CONVOY_CONFIG = {
       resourceId: "daily-missions",
       value: 130,
       included: true,
+    },
+  ],  
+  
+  /**
+   * First-run example Scenarios
+   *
+   * These are created only when no saved Scenario library exists for this
+   * eventId. Existing users and migrated saves are never modified.
+   * Values are based on examples from the official event announcement.
+   */
+  starterScenarios: [
+    {
+      name: "Casual Example",
+      sources: [
+        {
+          id: "starter-casual-missions",
+          name: "Expected Daily Mission Sets",
+          resourceId: "daily-missions",
+          value: 50,
+          included: true,
+        },
+        {
+          id: "starter-casual-coal",
+          name: "Planned Coal Exchange",
+          resourceId: "coal",
+          value: 30000,
+          included: true,
+        },
+      ],
+      rewardSelections: {
+        "bismarck-41": {
+          quantity: 1,
+          included: true,
+        },
+        "doubloons-3000": {
+          quantity: 1,
+          included: true,
+        },
+      },
+    },
+    {
+      name: "Consistent Example",
+      sources: [
+        {
+          id: "starter-consistent-missions",
+          name: "Expected Daily Mission Sets",
+          resourceId: "daily-missions",
+          value: 70,
+          included: true,
+        },
+        {
+          id: "starter-casual-coal",
+          name: "Planned Coal Exchange",
+          resourceId: "coal",
+          value: 120000,
+          included: true,
+        },
+      ],
+      rewardSelections: {
+        yimeng: {
+          quantity: 1,
+          included: true,
+        },
+        "doubloons-3000": {
+          quantity: 4,
+          included: true,
+        },
+      },
+    },
+    {
+      name: "Dedicated Example",
+      sources: [
+        {
+          id: "starter-dedicated-missions",
+          name: "All Daily Mission Sets",
+          resourceId: "daily-missions",
+          value: 173,
+          included: true,
+        },
+        {
+          id: "starter-dedicated-coal",
+          name: "Maximum Coal Exchange",
+          resourceId: "coal",
+          value: 650000,
+          included: true,
+        },
+        {
+          id: "starter-dedicated-steel",
+          name: "Planned Steel Exchange",
+          resourceId: "steel",
+          value: 46000,
+          included: true,
+        },
+      ],
+      rewardSelections: {
+        kitakami: {
+          quantity: 1,
+          included: true,
+        },
+      },
     },
   ],
 
@@ -138,7 +238,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       id: "messina",
       name: "Messina",
       availability: "Update 15.7",
-      tokenCost: 140000,
+      tokenCost: 840000,
       maxQuantity: 1,
       category: "Ship",
       defaultQuantity: 1,
@@ -155,8 +255,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
       defaultIncluded: false,
     },
     {
-      id: "prins-van-oranje",
-      name: "Prins van Oranje",
+      id: "prinz-van-oranje",
+      name: "Prinz van Oranje",
       availability: "Update 15.7",
       tokenCost: 140000,
       maxQuantity: 1,
@@ -177,6 +277,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "kitakami",
       name: "Kitakami",
+      availability: "Update 15.11",
       tokenCost: 540000,
       maxQuantity: 1,
       category: "Ship",
@@ -225,7 +326,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     },
     {
       id: "doubloons-3000",
-      name: "3,000 Doubloons",
+      name: "3,000 Doubloon Pack (Max 6)",
       availability: "Update 15.7 through 16.0, One pack available per update",
       tokenCost: 9000,
       maxQuantity: 6,

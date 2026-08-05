@@ -111,13 +111,9 @@
               </div>
             </div>
 
-            <a
-              class="official-event-link"
-              id="officialEventLink"
-              href="https://blog.worldofwarships.com/blog/holiday-convoy-sets-sail"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a class="official-event-link" id="officialEventLink"
+              href="https://blog.worldofwarships.com/blog/holiday-convoy-sets-sail" target="_blank"
+              rel="noopener noreferrer">
               Read the official Holiday Convoy announcement
               <span aria-hidden="true">↗</span>
             </a>
@@ -133,6 +129,11 @@
           </span>
         </div>
 
+        <p class="about-disclaimer">
+          Casual, Consistent, and Dedicated examples are editable starting
+          points based on the event announcement, not recommendations.
+        </p>
+        
         <p class="about-disclaimer">
           Event details can change. Check the official announcement before
           committing resources in game.
@@ -358,19 +359,10 @@
     </footer>
   </div>
 
-  <dialog
-    class="scenario-dialog"
-    id="scenarioDialog"
-    aria-labelledby="scenarioDialogTitle"
-    aria-describedby="scenarioDialogDescription"
-  >
+  <dialog class="scenario-dialog" id="scenarioDialog" aria-labelledby="scenarioDialogTitle"
+    aria-describedby="scenarioDialogDescription">
     <form class="scenario-dialog-form" id="scenarioDialogForm">
-      <button
-        class="scenario-dialog-close"
-        id="scenarioDialogCloseButton"
-        type="button"
-        aria-label="Close dialog"
-      >
+      <button class="scenario-dialog-close" id="scenarioDialogCloseButton" type="button" aria-label="Close dialog">
         <span aria-hidden="true">×</span>
       </button>
 
@@ -380,96 +372,52 @@
 
       <label class="scenario-dialog-field" for="scenarioNameInput">
         <span>Scenario name</span>
-        <input
-          id="scenarioNameInput"
-          type="text"
-          maxlength="80"
-          autocomplete="off"
-          required
-        />
+        <input id="scenarioNameInput" type="text" maxlength="80" autocomplete="off" required />
       </label>
 
-      <p
-        class="scenario-dialog-error"
-        id="scenarioDialogError"
-        aria-live="polite"
-      ></p>
+      <p class="scenario-dialog-error" id="scenarioDialogError" aria-live="polite"></p>
 
       <div class="scenario-dialog-actions">
-        <button
-          class="scenario-dialog-cancel"
-          id="scenarioDialogCancelButton"
-          type="button"
-        >
+        <button class="scenario-dialog-cancel" id="scenarioDialogCancelButton" type="button">
           Cancel
         </button>
-        <button
-          class="primary-button"
-          id="scenarioDialogSubmitButton"
-          type="submit"
-        >
+        <button class="primary-button" id="scenarioDialogSubmitButton" type="submit">
           Create
         </button>
       </div>
     </form>
   </dialog>
 
-  <dialog
-    class="scenario-dialog confirmation-dialog"
-    id="deleteScenarioDialog"
-    aria-labelledby="deleteScenarioDialogTitle"
-    aria-describedby="deleteScenarioDialogDescription"
-  >
+
+
+  <dialog class="scenario-dialog confirmation-dialog" id="deleteScenarioDialog"
+    aria-labelledby="deleteScenarioDialogTitle" aria-describedby="deleteScenarioDialogDescription">
     <div class="scenario-dialog-form">
-      <button
-        class="scenario-dialog-close"
-        id="deleteScenarioDialogCloseButton"
-        type="button"
-        aria-label="Close delete confirmation"
-      >
+      <button class="scenario-dialog-close" id="deleteScenarioDialogCloseButton" type="button"
+        aria-label="Close delete confirmation">
         <span aria-hidden="true">×</span>
       </button>
 
       <p class="section-kicker">Delete Scenario</p>
       <h2 id="deleteScenarioDialogTitle">Delete Scenario?</h2>
-      <p
-        class="scenario-dialog-description"
-        id="deleteScenarioDialogDescription"
-      ></p>
+      <p class="scenario-dialog-description" id="deleteScenarioDialogDescription"></p>
 
       <p class="confirmation-warning">This cannot be undone.</p>
 
       <div class="scenario-dialog-actions">
-        <button
-          class="scenario-dialog-cancel"
-          id="deleteScenarioDialogCancelButton"
-          type="button"
-        >
+        <button class="scenario-dialog-cancel" id="deleteScenarioDialogCancelButton" type="button">
           Cancel
         </button>
-        <button
-          class="confirmation-delete-button"
-          id="confirmDeleteScenarioButton"
-          type="button"
-        >
+        <button class="confirmation-delete-button" id="confirmDeleteScenarioButton" type="button">
           Delete Scenario
         </button>
       </div>
     </div>
   </dialog>
 
-  <dialog
-    class="scenario-dialog share-dialog"
-    id="shareDialog"
-    aria-labelledby="shareDialogTitle"
-  >
+  <dialog class="scenario-dialog share-dialog" id="shareDialog" aria-labelledby="shareDialogTitle">
     <div class="scenario-dialog-form">
-      <button
-        class="scenario-dialog-close"
-        id="shareDialogCloseButton"
-        type="button"
-        aria-label="Close share dialog"
-      >
+      <button class="scenario-dialog-close" id="shareDialogCloseButton" type="button" aria-label="Close share dialog">
         <span aria-hidden="true">×</span>
       </button>
 

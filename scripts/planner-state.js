@@ -27,6 +27,55 @@
       }
       rewardIds.add(reward.id);
     }
+
+    validateStarterScenarios(config.starterScenarios, resourceIds, rewardIds);
+  }
+
+  function validateStarterScenarios(starterScenarios, resourceIds, rewardIds) {
+    if (starterScenarios == null) {
+      return;
+    }
+    if (!Array.isArray(starterScenarios)) {
+      throw new Error("starterScenarios must be an array when provided.");
+    }
+
+    const scenarioNames = new Set();
+    for (const [index, starter] of starterScenarios.entries()) {
+      if (!starter || typeof starter !== "object") {
+        throw new Error(`Starter Scenario ${index + 1} must be an object.`);
+      }
+
+      const name = String(starter.name ?? "").trim();
+      const normalizedName = name.toLocaleLowerCase();
+      if (!name) {
+        throw new Error(`Starter Scenario ${index + 1} must have a name.`);
+      }
+      if (scenarioNames.has(normalizedName)) {
+        throw new Error(`Starter Scenario names must be unique: ${name}.`);
+      }
+      scenarioNames.add(normalizedName);
+
+      if (!Array.isArray(starter.sources) || starter.sources.length === 0) {
+        throw new Error(`${name} must contain at least one token source.`);
+      }
+      for (const source of starter.sources) {
+        if (!resourceIds.has(source?.resourceId)) {
+          throw new Error(
+            `${name} uses an unknown resource: ${source?.resourceId}.`,
+          );
+        }
+      }
+
+      const selections = starter.rewardSelections ?? {};
+      if (!selections || typeof selections !== "object" || Array.isArray(selections)) {
+        throw new Error(`${name} rewardSelections must be an object.`);
+      }
+      for (const rewardId of Object.keys(selections)) {
+        if (!rewardIds.has(rewardId)) {
+          throw new Error(`${name} uses an unknown reward: ${rewardId}.`);
+        }
+      }
+    }
   }
 
   function createDefault(config) {
@@ -48,6 +97,43 @@
         ]),
       ),
     };
+  }
+
+  function createStarter(config, starter) {
+    const rewardSelections = Object.fromEntries(
+      config.rewards.map((reward) => [
+        reward.id,
+        {
+          quantity: clampInteger(
+            reward.defaultQuantity ?? 1,
+            0,
+            reward.maxQuantity,
+          ),
+          included: false,
+        },
+      ]),
+    );
+
+    for (const reward of config.rewards) {
+      const selection = starter.rewardSelections?.[reward.id];
+      if (!selection) {
+        continue;
+      }
+      rewardSelections[reward.id] = {
+        quantity: clampInteger(selection.quantity ?? 1, 0, reward.maxQuantity),
+        included: selection.included !== false,
+      };
+    }
+
+    return normalize(
+      {
+        schemaVersion: config.schemaVersion,
+        eventId: config.eventId,
+        sources: starter.sources.map((source) => ({ ...source })),
+        rewardSelections,
+      },
+      config,
+    );
   }
 
   function normalizeSourceRow(row) {
@@ -98,6 +184,7 @@
 
   app.plannerState = {
     createDefault,
+    createStarter,
     normalize,
     normalizeSourceRow,
     validateConfig,

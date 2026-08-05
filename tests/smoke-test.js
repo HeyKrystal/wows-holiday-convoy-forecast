@@ -61,25 +61,54 @@ for (const file of [
 
 const config = context.window.HOLIDAY_CONVOY_CONFIG;
 const app = context.window.HolidayConvoy;
+const storageKey = `holiday-convoy-budget:${config.eventId}`;
 app.plannerState.validateConfig(config);
 app.aboutUI.validateEventInfo(config.eventInfo);
+
+function getReward(id) {
+  const reward = config.rewards.find((item) => item.id === id);
+  if (!reward) {
+    throw new Error(`Missing reward: ${id}`);
+  }
+  return reward;
+}
+
+function assertEqual(actual, expected, message) {
+  if (actual !== expected) {
+    throw new Error(`${message} Expected ${expected}, received ${actual}.`);
+  }
+}
+
+assertEqual(getReward("bismarck-41").tokenCost, 60000, "Bismarck cost mismatch.");
+assertEqual(getReward("messina").tokenCost, 84000, "Messina cost mismatch.");
+assertEqual(
+  getReward("prins-van-oranje").name,
+  "Prinz van Oranje",
+  "Prinz spelling mismatch.",
+);
+
+for (const reward of config.rewards) {
+  if (typeof reward.availability !== "string" || !reward.availability.trim()) {
+    throw new Error(`Reward availability is missing for ${reward.id}.`);
+  }
+}
 
 const countdownStatus = app.aboutUI.getEventStatus(
   config.eventInfo,
   new Date(2026, 7, 5),
 );
-if (countdownStatus !== "Event starts in 7 days") {
-  throw new Error(`Unexpected event countdown: ${countdownStatus}`);
-}
+assertEqual(countdownStatus, "Event starts in 7 days", "Unexpected countdown.");
 
 const encoded = app.utils.encodeBase64Url("Scenario: Coal + 日本語");
-if (app.utils.decodeBase64Url(encoded) !== "Scenario: Coal + 日本語") {
-  throw new Error("Base64 URL round-trip failed.");
-}
+assertEqual(
+  app.utils.decodeBase64Url(encoded),
+  "Scenario: Coal + 日本語",
+  "Base64 URL round-trip failed.",
+);
 
 const defaultState = app.plannerState.createDefault(config);
-const calculations = app.calculator.calculate(defaultState, config);
-if (!Number.isFinite(calculations.budgetTokens)) {
+const defaultCalculations = app.calculator.calculate(defaultState, config);
+if (!Number.isFinite(defaultCalculations.budgetTokens)) {
   throw new Error("Calculator did not return a numeric budget.");
 }
 
@@ -89,13 +118,19 @@ const sharedScenario = {
 };
 const sharedEncoded = app.share.encodeScenario(sharedScenario, config);
 const sharedDecoded = app.share.decodeScenario(sharedEncoded, config);
-if (
-  sharedDecoded.name !== sharedScenario.name ||
-  sharedDecoded.state.sources.length !== defaultState.sources.length
-) {
-  throw new Error("Shared Scenario URL encoding failed.");
-}
+assertEqual(
+  sharedDecoded.name,
+  sharedScenario.name,
+  "Shared Scenario name mismatch.",
+);
+assertEqual(
+  sharedDecoded.state.sources.length,
+  defaultState.sources.length,
+  "Shared Scenario source count mismatch.",
+);
 
+// A new browser receives the configured starter Scenarios.
+storage.clear();
 let savedCount = 0;
 const store = app.scenarioStore.create({
   config,
@@ -105,33 +140,60 @@ const store = app.scenarioStore.create({
   },
 });
 
-if (store.getLibrary().scenarios.length !== 1) {
-  throw new Error("Default scenario library was not created.");
+const starterNames = store.getLibrary().scenarios.map((scenario) => scenario.name);
+assertEqual(starterNames.length, 3, "Starter Scenario count mismatch.");
+assertEqual(starterNames.join("|"), "Casual Example|Consistent Example|Dedicated Example", "Starter Scenario names mismatch.");
+
+const expectedPresets = {
+  "Casual Example": { budget: 60000, cost: 60000 },
+  "Consistent Example": { budget: 84000, cost: 84000 },
+  "Dedicated Example": { budget: 540600, cost: 540000 },
+};
+
+for (const scenario of store.getLibrary().scenarios) {
+  const calculations = app.calculator.calculate(scenario.state, config);
+  const expected = expectedPresets[scenario.name];
+  assertEqual(calculations.budgetTokens, expected.budget, `${scenario.name} budget mismatch.`);
+  assertEqual(calculations.plannedCost, expected.cost, `${scenario.name} cost mismatch.`);
 }
 
 const second = store.add("Coal Focus", defaultState);
 store.rename(second.id, "Coal Focus Revised");
 const copy = store.duplicate(second.id, "Coal Focus Copy");
-if (store.getActive().id !== copy.id || store.getLibrary().scenarios.length !== 3) {
-  throw new Error("Scenario create/duplicate behavior failed.");
-}
+assertEqual(store.getActive().id, copy.id, "Scenario duplicate was not activated.");
+assertEqual(store.getLibrary().scenarios.length, 5, "Scenario create count mismatch.");
 store.remove(copy.id);
-if (store.getLibrary().scenarios.length !== 2) {
-  throw new Error("Scenario deletion failed.");
-}
+assertEqual(store.getLibrary().scenarios.length, 4, "Scenario deletion failed.");
 if (savedCount < 4) {
   throw new Error("Scenario changes were not persisted.");
 }
 
-// Verify migration from the original single-state format.
-const storageKey = `holiday-convoy-budget:${config.eventId}`;
+// Existing named Scenario libraries are not injected with starter Scenarios.
+storage.set(
+  storageKey,
+  JSON.stringify({
+    libraryVersion: 1,
+    eventId: config.eventId,
+    activeScenarioId: "existing-1",
+    scenarios: [
+      {
+        id: "existing-1",
+        name: "My Existing Plan",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        state: defaultState,
+      },
+    ],
+  }),
+);
+const existingStore = app.scenarioStore.create({ config });
+assertEqual(existingStore.getLibrary().scenarios.length, 1, "Existing library was modified.");
+assertEqual(existingStore.getActive().name, "My Existing Plan", "Existing Scenario was replaced.");
+
+// The original single-state format still migrates to one Scenario.
 storage.set(storageKey, JSON.stringify(defaultState));
 const migratedStore = app.scenarioStore.create({ config });
-if (
-  migratedStore.getLibrary().scenarios.length !== 1 ||
-  migratedStore.getActive().state.eventId !== config.eventId
-) {
-  throw new Error("Original single-state migration failed.");
-}
+assertEqual(migratedStore.getLibrary().scenarios.length, 1, "Old save migration count mismatch.");
+assertEqual(migratedStore.getActive().state.eventId, config.eventId, "Old save migration failed.");
 
-console.log("Holiday Convoy modular smoke tests passed.");
+console.log("Holiday Convoy starter Scenario smoke tests passed.");
