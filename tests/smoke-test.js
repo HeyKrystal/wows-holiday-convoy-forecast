@@ -50,6 +50,7 @@ for (const file of [
   "scripts/utils.js",
   "scripts/planner-state.js",
   "scripts/calculator.js",
+  "scripts/about-ui.js",
   "scripts/scenario-store.js",
   "scripts/share.js",
 ]) {
@@ -61,6 +62,15 @@ for (const file of [
 const config = context.window.HOLIDAY_CONVOY_CONFIG;
 const app = context.window.HolidayConvoy;
 app.plannerState.validateConfig(config);
+app.aboutUI.validateEventInfo(config.eventInfo);
+
+const countdownStatus = app.aboutUI.getEventStatus(
+  config.eventInfo,
+  new Date(2026, 7, 5),
+);
+if (countdownStatus !== "Event starts in 7 days") {
+  throw new Error(`Unexpected event countdown: ${countdownStatus}`);
+}
 
 const encoded = app.utils.encodeBase64Url("Scenario: Coal + 日本語");
 if (app.utils.decodeBase64Url(encoded) !== "Scenario: Coal + 日本語") {

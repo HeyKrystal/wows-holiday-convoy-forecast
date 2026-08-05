@@ -15,6 +15,20 @@ window.HOLIDAY_CONVOY_CONFIG = {
     "Forecast your Holiday Convoy token budget, account for multiple outcomes, and plan your rewards before committing resources.",
 
   /**
+   * Event schedule and official information
+   *
+   * Dates use YYYY-MM-DD and are interpreted as local calendar dates.
+   * Update these values for future events.
+   */
+  eventInfo: {
+    earnStartDate: "2026-08-12",
+    earnEndDate: "2027-01-31",
+    spendEndDate: "2027-02-10",
+    eventPageUrl:
+      "https://blog.worldofwarships.com/blog/holiday-convoy-sets-sail",
+  },
+
+  /**
    * Resource conversion rules
    *
    * sourceRate: Amount of the resource required for one exchange.

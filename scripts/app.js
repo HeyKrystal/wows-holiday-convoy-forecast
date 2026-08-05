@@ -15,6 +15,7 @@
     const showToast = app.uiCommon.createToast(elements.toast);
     const showSavedStatus = createSavedStatus(elements.savedStatus);
     const theme = app.theme.create({ control: elements.themeSelect });
+    const aboutUI = app.aboutUI.create({ config, elements });
 
     const store = app.scenarioStore.create({
       config,
@@ -83,6 +84,7 @@
     });
 
     theme.bind();
+    aboutUI.start();
     applyEventCopy(elements);
     scenarioUI.applyCopy();
     scenarioUI.bind();
@@ -131,6 +133,10 @@
       "savedStatus",
       "storageNoticeHeading",
       "storageNoticeText",
+      "eventStatusText",
+      "earnDateRange",
+      "spendDateRange",
+      "officialEventLink",
       "scenarioManagerHeading",
       "scenarioSelectLabel",
       "scenarioSelect",

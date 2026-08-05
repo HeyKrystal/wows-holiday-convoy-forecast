@@ -39,6 +39,7 @@
   <script src="scripts/planner-state.js" defer></script>
   <script src="scripts/calculator.js" defer></script>
   <script src="scripts/ui-common.js" defer></script>
+  <script src="scripts/about-ui.js" defer></script>
   <script src="scripts/scenario-store.js" defer></script>
   <script src="scripts/scenario-ui.js" defer></script>
   <script src="scripts/sources-ui.js" defer></script>
@@ -68,13 +69,75 @@
       </div>
     </header>
 
-    <div class="privacy-note" role="note">
-      <strong id="storageNoticeHeading">Your scenarios are saved on this device.</strong>
-      <span id="storageNoticeText">
-        Data is saved in your browser using local storage. You should export or share
-        important scenarios before clearing browser data or moving to another device.
-      </span>
-    </div>
+    <details class="rules-panel about-panel">
+      <summary>
+        <span>About &amp; Quick Start</span>
+        <small id="eventStatusText">Loading event schedule...</small>
+      </summary>
+
+      <div class="about-content">
+        <div class="about-intro">
+          <p class="section-kicker">Holiday Convoy Forecast</p>
+          <h2>Plan before you spend</h2>
+          <p>
+            This unofficial community tool helps you estimate Convoy Tokens,
+            compare reward costs, and save different what-if Scenarios before
+            committing resources in game.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <section class="about-section" aria-labelledby="quickStartHeading">
+            <h3 id="quickStartHeading">Quick Start</h3>
+            <ol class="quick-start-list">
+              <li>Choose an existing Scenario or create a new one.</li>
+              <li>Add the resources and Daily Mission Sets you expect to use.</li>
+              <li>Select the rewards you want under Planned Acquisitions.</li>
+              <li>Compare your Token Budget and Expected Cost, then adjust.</li>
+            </ol>
+          </section>
+
+          <section class="about-section" aria-labelledby="eventScheduleHeading">
+            <h3 id="eventScheduleHeading">Event Schedule</h3>
+            <div class="event-schedule">
+              <div class="event-date-card">
+                <span>Earn tokens</span>
+                <strong id="earnDateRange"></strong>
+              </div>
+              <div class="event-date-card">
+                <span>Spend tokens</span>
+                <strong id="spendDateRange"></strong>
+              </div>
+            </div>
+
+            <a
+              class="official-event-link"
+              id="officialEventLink"
+              href="https://blog.worldofwarships.com/blog/holiday-convoy-sets-sail"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the official Holiday Convoy announcement
+              <span aria-hidden="true">↗</span>
+            </a>
+          </section>
+        </div>
+
+        <div class="about-storage-note" role="note">
+          <strong id="storageNoticeHeading">Your scenarios are saved on this device.</strong>
+          <span id="storageNoticeText">
+            Data is saved in your browser using local storage. You should export or
+            share important scenarios before clearing browser data or moving to
+            another device.
+          </span>
+        </div>
+
+        <p class="about-disclaimer">
+          Event details can change. Check the official announcement before
+          committing resources in game.
+        </p>
+      </div>
+    </details>
 
     <details class="rules-panel">
       <summary>
