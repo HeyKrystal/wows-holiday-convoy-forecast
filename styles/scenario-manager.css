@@ -1,18 +1,68 @@
 /*
  * Saved scenario controls
  *
- * This file is intentionally separate from styles.css. The entire
+ * This file is intentionally separate from app.css. The entire
  * #scenarioManager section can be moved elsewhere in index.html without
- * changing the scenario storage and management logic in app.js.
+ * changing the scenario storage and management logic in JavaScript.
  */
+
+:root {
+  --scenario-border: #c7dedc;
+  --scenario-bg-start: rgba(255, 255, 255, 0.78);
+  --scenario-bg-end: rgba(237, 249, 247, 0.94);
+  --scenario-pill-bg: rgba(255, 255, 255, 0.72);
+  --scenario-button-bg: rgba(255, 255, 255, 0.82);
+  --scenario-button-hover: #ffffff;
+  --scenario-button-disabled: rgba(255, 255, 255, 0.45);
+  --scenario-disabled-ink: #8d9aa5;
+  --scenario-share-border: #9cc9c6;
+  --scenario-share-bg: rgba(237, 249, 247, 0.9);
+  --dialog-border: rgba(255, 255, 255, 0.72);
+  --dialog-shadow: 0 28px 80px rgba(16, 43, 64, 0.3);
+  --dialog-backdrop: rgba(16, 43, 64, 0.56);
+  --dialog-glow: rgba(20, 125, 126, 0.14);
+  --dialog-decoration: rgba(39, 107, 140, 0.055);
+  --dialog-close-bg: rgba(255, 255, 255, 0.72);
+  --dialog-input-shadow: inset 0 1px 2px rgba(23, 59, 87, 0.035);
+  --dialog-focus-ring: rgba(39, 107, 140, 0.13);
+  --dialog-error-ring: rgba(180, 35, 24, 0.1);
+  --warning-border: #ead8a7;
+  --warning-ink: #75510d;
+  --warning-bg: #fff9e9;
+}
+
+html[data-theme="dark"] {
+  --scenario-border: #315958;
+  --scenario-bg-start: rgba(29, 50, 58, 0.94);
+  --scenario-bg-end: rgba(24, 57, 57, 0.94);
+  --scenario-pill-bg: rgba(23, 36, 45, 0.86);
+  --scenario-button-bg: rgba(31, 49, 59, 0.92);
+  --scenario-button-hover: #263b47;
+  --scenario-button-disabled: rgba(31, 49, 59, 0.48);
+  --scenario-disabled-ink: #778994;
+  --scenario-share-border: #3d7774;
+  --scenario-share-bg: rgba(24, 61, 60, 0.9);
+  --dialog-border: rgba(139, 193, 196, 0.22);
+  --dialog-shadow: 0 28px 80px rgba(0, 0, 0, 0.5);
+  --dialog-backdrop: rgba(3, 10, 14, 0.72);
+  --dialog-glow: rgba(58, 167, 164, 0.14);
+  --dialog-decoration: rgba(103, 169, 198, 0.07);
+  --dialog-close-bg: rgba(34, 53, 64, 0.88);
+  --dialog-input-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.26);
+  --dialog-focus-ring: rgba(103, 169, 198, 0.2);
+  --dialog-error-ring: rgba(239, 116, 106, 0.16);
+  --warning-border: #6a582f;
+  --warning-ink: #e5c77c;
+  --warning-bg: #352d1d;
+}
 
 .scenario-manager {
   margin-bottom: 20px;
   padding: 15px;
-  border: 1px solid #c7dedc;
+  border: 1px solid var(--scenario-border);
   border-radius: var(--radius-md);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(237, 249, 247, 0.94)),
+    linear-gradient(145deg, var(--scenario-bg-start), var(--scenario-bg-end)),
     var(--surface-muted);
 }
 
@@ -36,10 +86,10 @@
 .scenario-count {
   flex: 0 0 auto;
   padding: 4px 8px;
-  border: 1px solid #c7dedc;
+  border: 1px solid var(--scenario-border);
   border-radius: 999px;
   color: var(--teal-dark);
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--scenario-pill-bg);
   font-size: 0.7rem;
   font-weight: 800;
   white-space: nowrap;
@@ -61,7 +111,7 @@
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
   color: var(--ink);
-  background: #ffffff;
+  background: var(--surface-input);
   font: inherit;
   font-size: 0.86rem;
   font-weight: 700;
@@ -73,7 +123,7 @@
 
 .scenario-select:focus-visible,
 .scenario-action-button:focus-visible {
-  outline: 3px solid rgba(39, 107, 140, 0.26);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -90,7 +140,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--navy-dark);
-  background: rgba(255, 255, 255, 0.82);
+  background: var(--scenario-button-bg);
   font-size: 0.76rem;
   font-weight: 800;
   white-space: nowrap;
@@ -102,7 +152,7 @@
 
 .scenario-action-button:hover:not(:disabled) {
   border-color: var(--border-strong);
-  background: #ffffff;
+  background: var(--scenario-button-hover);
   transform: translateY(-1px);
 }
 
@@ -111,19 +161,67 @@
 }
 
 .scenario-delete-button:hover:not(:disabled) {
-  border-color: #f3c9c5;
+  border-color: var(--danger-border-soft);
   background: var(--red-soft);
 }
 
 .scenario-action-button:disabled {
-  color: #8d9aa5;
-  background: rgba(255, 255, 255, 0.45);
+  color: var(--scenario-disabled-ink);
+  background: var(--scenario-button-disabled);
   cursor: not-allowed;
   opacity: 0.62;
 }
 
+.scenario-action-divider {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 1px;
+  margin: 8px 0;
+  background: var(--border);
+}
+
+.confirmation-dialog {
+  width: min(430px, calc(100% - 32px));
+}
+
+.confirmation-warning {
+  margin: -6px 0 0;
+  padding: 11px 13px;
+  border: 1px solid var(--danger-border-soft);
+  border-radius: var(--radius-sm);
+  color: var(--toast-error-ink);
+  background: var(--red-soft);
+  font-size: 0.8rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.confirmation-delete-button {
+  padding: 9px 14px;
+  border: 1px solid var(--red);
+  border-radius: var(--radius-sm);
+  color: var(--on-accent);
+  background: var(--red);
+  font-weight: 800;
+  transition:
+    transform 120ms ease,
+    filter 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.confirmation-delete-button:hover {
+  filter: brightness(0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 13px rgba(180, 35, 24, 0.18);
+}
+
+.confirmation-delete-button:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 /* The Totals panel becomes a grid at tablet widths. Keep this component whole. */
-.summary-sticky>.scenario-manager {
+.summary-sticky > .scenario-manager {
   grid-column: 1 / -1;
 }
 
@@ -140,15 +238,15 @@
   width: min(460px, calc(100% - 32px));
   padding: 0;
   overflow: visible;
-  border: 1px solid rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--dialog-border);
   border-radius: var(--radius-lg);
   color: var(--ink);
   background: transparent;
-  box-shadow: 0 28px 80px rgba(16, 43, 64, 0.3);
+  box-shadow: var(--dialog-shadow);
 }
 
 .scenario-dialog::backdrop {
-  background: rgba(16, 43, 64, 0.56);
+  background: var(--dialog-backdrop);
   backdrop-filter: blur(5px);
 }
 
@@ -158,7 +256,7 @@
   overflow: hidden;
   border-radius: inherit;
   background:
-    radial-gradient(circle at 100% 0%, rgba(20, 125, 126, 0.14), transparent 15rem),
+    radial-gradient(circle at 100% 0%, var(--dialog-glow), transparent 15rem),
     var(--surface);
 }
 
@@ -169,12 +267,12 @@
   bottom: -94px;
   width: 210px;
   height: 210px;
-  border: 32px solid rgba(39, 107, 140, 0.055);
+  border: 32px solid var(--dialog-decoration);
   border-radius: 50%;
   pointer-events: none;
 }
 
-.scenario-dialog-form>* {
+.scenario-dialog-form > * {
   position: relative;
   z-index: 1;
 }
@@ -207,7 +305,7 @@
   border: 1px solid transparent;
   border-radius: 50%;
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--dialog-close-bg);
   font-size: 1.35rem;
   line-height: 1;
 }
@@ -215,7 +313,7 @@
 .scenario-dialog-close:hover {
   border-color: var(--border);
   color: var(--navy-dark);
-  background: #ffffff;
+  background: var(--surface-input);
 }
 
 .scenario-dialog-field {
@@ -233,11 +331,11 @@
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
   color: var(--ink);
-  background: #ffffff;
+  background: var(--surface-input);
   font: inherit;
   font-size: 0.95rem;
   font-weight: 650;
-  box-shadow: inset 0 1px 2px rgba(23, 59, 87, 0.035);
+  box-shadow: var(--dialog-input-shadow);
 }
 
 .scenario-dialog-field input:hover {
@@ -247,12 +345,12 @@
 .scenario-dialog-field input:focus {
   border-color: var(--blue);
   outline: 0;
-  box-shadow: 0 0 0 4px rgba(39, 107, 140, 0.13);
+  box-shadow: 0 0 0 4px var(--dialog-focus-ring);
 }
 
 .scenario-dialog-field input[aria-invalid="true"] {
   border-color: var(--red);
-  box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.1);
+  box-shadow: 0 0 0 4px var(--dialog-error-ring);
 }
 
 .scenario-dialog-error {
@@ -281,53 +379,13 @@
 
 .scenario-dialog-cancel:hover {
   border-color: var(--border-strong);
-  background: #ffffff;
+  background: var(--surface-input);
 }
 
 .scenario-dialog-close:focus-visible,
 .scenario-dialog-cancel:focus-visible,
 .scenario-dialog-field input:focus-visible {
-  outline: 3px solid rgba(39, 107, 140, 0.26);
-  outline-offset: 2px;
-}
-
-.confirmation-dialog {
-  width: min(430px, calc(100% - 32px));
-}
-
-.confirmation-warning {
-  margin: -6px 0 0;
-  padding: 11px 13px;
-  border: 1px solid #f1c5c1;
-  border-radius: var(--radius-sm);
-  color: #84251d;
-  background: var(--red-soft);
-  font-size: 0.8rem;
-  font-weight: 750;
-  line-height: 1.45;
-}
-
-.confirmation-delete-button {
-  padding: 9px 14px;
-  border: 1px solid #d36c64;
-  border-radius: var(--radius-sm);
-  color: #ffffff;
-  background: var(--red);
-  font-weight: 800;
-  transition:
-    transform 120ms ease,
-    background 120ms ease,
-    box-shadow 120ms ease;
-}
-
-.confirmation-delete-button:hover {
-  background: #921f17;
-  transform: translateY(-1px);
-  box-shadow: 0 5px 13px rgba(180, 35, 24, 0.18);
-}
-
-.confirmation-delete-button:focus-visible {
-  outline: 3px solid rgba(180, 35, 24, 0.25);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -341,7 +399,7 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .scenario-dialog-actions>button {
+  .scenario-dialog-actions > button {
     justify-content: center;
     width: 100%;
   }
@@ -352,16 +410,16 @@
 .scenario-share-button {
   grid-column: 1 / -1;
   color: var(--teal-dark);
-  border-color: #c7dedc;
-  background: rgba(237, 249, 247, 0.9);
+  border-color: var(--scenario-border);
+  background: var(--scenario-share-bg);
 }
 
 .scenario-share-button:hover:not(:disabled) {
-  border-color: #9cc9c6;
-  background: #edf9f7;
+  border-color: var(--scenario-share-border);
+  background: var(--info-bg);
 }
 
-.scenario-dialog-close>span {
+.scenario-dialog-close > span {
   display: block;
   transform: translateY(-1px);
 }
@@ -393,20 +451,12 @@
 .share-link-warning {
   margin: 14px 0 0;
   padding: 10px 12px;
-  border: 1px solid #ead8a7;
+  border: 1px solid var(--warning-border);
   border-radius: var(--radius-sm);
-  color: #75510d;
-  background: #fff9e9;
+  color: var(--warning-ink);
+  background: var(--warning-bg);
   font-size: 0.76rem;
   line-height: 1.45;
-}
-
-.scenario-action-divider {
-  grid-column: 1 / -1;
-  width: 100%;
-  height: 1px;
-  margin: 8px 0;
-  background: var(--border);
 }
 
 @media (min-width: 641px) and (max-width: 900px) {
@@ -432,4 +482,61 @@
     margin-top: 4px;
     text-align: left;
   }
+}
+/* Stronger Scenario controls in dark mode */
+
+html[data-theme="dark"] .scenario-action-button {
+  color: #dceaf1;
+  background: #223744;
+  border-color: #3b5869;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+html[data-theme="dark"] .scenario-action-button:hover:not(:disabled) {
+  color: #f2f7fa;
+  background: #2a4656;
+  border-color: #5a7c8f;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 4px 9px rgba(0, 0, 0, 0.18);
+}
+
+/* Delete remains visually destructive */
+
+html[data-theme="dark"] .scenario-delete-button {
+  color: #ff958d;
+  background: rgba(180, 35, 24, 0.12);
+  border-color: #70413e;
+}
+
+html[data-theme="dark"] .scenario-delete-button:hover:not(:disabled) {
+  color: #ffd0cc;
+  background: rgba(180, 35, 24, 0.26);
+  border-color: #b85d56;
+}
+
+/* Give Share a stronger teal identity */
+
+html[data-theme="dark"] .scenario-share-button {
+  color: #a9e2dd;
+  background: #203e3e;
+  border-color: #3b6967;
+}
+
+html[data-theme="dark"] .scenario-share-button:hover:not(:disabled) {
+  color: #d5f5f1;
+  background: #29504e;
+  border-color: #57918d;
+}
+
+/* Only truly disabled buttons should look greyed out */
+
+html[data-theme="dark"] .scenario-action-button:disabled {
+  color: #788994;
+  background: #1c2a33;
+  border-color: #2b3c47;
+  box-shadow: none;
+  opacity: 0.58;
 }

@@ -22,12 +22,6 @@
         duplicateCurrentScenario,
       );
       elements.deleteScenarioButton.addEventListener("click", deleteCurrentScenario);
-      elements.deleteScenarioDialogCloseButton.addEventListener("click", closeDeleteDialog);
-      elements.deleteScenarioDialogCancelButton.addEventListener("click", closeDeleteDialog);
-      elements.confirmDeleteScenarioButton.addEventListener("click", confirmDeleteCurrentScenario);
-      elements.deleteScenarioDialog.addEventListener("close", resetDeleteDialog);
-
-
       elements.resetButton.addEventListener("click", resetCurrentScenario);
       elements.exportButton.addEventListener("click", exportCurrentScenario);
       elements.importButton.addEventListener("click", () => elements.importInput.click());
@@ -38,6 +32,20 @@
       elements.scenarioDialogCloseButton.addEventListener("click", closeDialog);
       elements.scenarioDialog.addEventListener("close", resetDialog);
       elements.scenarioNameInput.addEventListener("input", clearDialogError);
+
+      elements.deleteScenarioDialogCloseButton.addEventListener(
+        "click",
+        closeDeleteDialog,
+      );
+      elements.deleteScenarioDialogCancelButton.addEventListener(
+        "click",
+        closeDeleteDialog,
+      );
+      elements.confirmDeleteScenarioButton.addEventListener(
+        "click",
+        confirmDeleteCurrentScenario,
+      );
+      elements.deleteScenarioDialog.addEventListener("close", resetDeleteDialog);
     }
 
     function applyCopy() {
@@ -133,7 +141,6 @@
 
     function deleteCurrentScenario() {
       const active = store.getActive();
-
       if (store.getLibrary().scenarios.length === 1) {
         showToast(
           `At least one ${store.COPY.singular.toLowerCase()} must remain.`,
@@ -143,15 +150,10 @@
       }
 
       pendingDeleteScenarioId = active.id;
-
-      elements.deleteScenarioDialogTitle.textContent =
-        `Delete "${active.name}"?`;
-
+      elements.deleteScenarioDialogTitle.textContent = `Delete "${active.name}"?`;
       elements.deleteScenarioDialogDescription.textContent =
         "The token sources and planned acquisitions saved in this scenario will be permanently removed.";
-
       elements.deleteScenarioDialog.showModal();
-
       requestAnimationFrame(() => {
         elements.deleteScenarioDialogCancelButton.focus();
       });
@@ -159,7 +161,6 @@
 
     function confirmDeleteCurrentScenario() {
       const scenarioId = pendingDeleteScenarioId;
-
       if (!scenarioId) {
         closeDeleteDialog();
         return;
@@ -169,19 +170,16 @@
         .getLibrary()
         .scenarios
         .find((item) => item.id === scenarioId);
-
       if (!scenario) {
         closeDeleteDialog();
         return;
       }
 
       const scenarioName = scenario.name;
-
       elements.deleteScenarioDialog.close();
       store.remove(scenarioId);
       render();
       onScenarioChanged();
-
       showToast(`Deleted "${scenarioName}".`, "success");
     }
 
@@ -193,9 +191,7 @@
 
     function resetDeleteDialog() {
       pendingDeleteScenarioId = null;
-      elements.deleteScenarioDialogTitle.textContent =
-        "Delete Scenario?";
-
+      elements.deleteScenarioDialogTitle.textContent = "Delete Scenario?";
       elements.deleteScenarioDialogDescription.textContent = "";
     }
 

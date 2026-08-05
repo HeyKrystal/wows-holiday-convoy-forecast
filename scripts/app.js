@@ -14,6 +14,7 @@
     const elements = cacheElements();
     const showToast = app.uiCommon.createToast(elements.toast);
     const showSavedStatus = createSavedStatus(elements.savedStatus);
+    const theme = app.theme.create({ control: elements.themeSelect });
 
     const store = app.scenarioStore.create({
       config,
@@ -81,6 +82,7 @@
       showToast,
     });
 
+    theme.bind();
     applyEventCopy(elements);
     scenarioUI.applyCopy();
     scenarioUI.bind();
@@ -171,6 +173,7 @@
       "budgetProgressText",
       "cappedLeftovers",
       "toast",
+      "themeSelect",
     ];
     return Object.fromEntries(
       ids.map((id) => {
