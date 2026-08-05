@@ -97,7 +97,12 @@
         valueInput.min = "0";
         valueInput.step = "1";
         valueInput.inputMode = "numeric";
-        valueInput.setAttribute("aria-label", "Resource amount");
+        valueInput.setAttribute(
+          "aria-label",
+          resource.id === "daily-missions"
+            ? "Number of full Daily Mission Sets"
+            : `${resource.label} amount`,
+        );
         valueCell.append(valueInput);
 
         const includeCell = document.createElement("td");
