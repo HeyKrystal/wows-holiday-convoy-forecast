@@ -78,7 +78,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     },
     {
       id: "default-projected-coal-1",
-      name: "[Example] Projected Coal Earnings",
+      name: "[Example] Expected Coal Earnings",
       resourceId: "coal",
       value: 234000,
       included: true,
@@ -87,7 +87,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       id: "default-daily-missions",
       name: "[Example] Mission Completion Goal",
       resourceId: "daily-missions",
-      value: 100,
+      value: 130,
       included: true,
     },
   ],
@@ -107,7 +107,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       maxQuantity: 1,
       category: "Ship",
       defaultQuantity: 1,
-      defaultIncluded: false,
+      defaultIncluded: true,
     },
     {
       id: "yimeng",
@@ -143,7 +143,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       maxQuantity: 1,
       category: "Ship",
       defaultQuantity: 1,
-      defaultIncluded: false,
+      defaultIncluded: true,
     },
     {
       id: "georg-hoffmann",
@@ -206,7 +206,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       maxQuantity: 6,
       category: "Doubloons",
       defaultQuantity: 6,
-      defaultIncluded: false,
+      defaultIncluded: true,
     },
   ],
 };

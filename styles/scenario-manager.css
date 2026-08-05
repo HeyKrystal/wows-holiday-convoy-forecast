@@ -306,3 +306,82 @@
     width: 100%;
   }
 }
+
+/* URL sharing */
+
+.scenario-share-button {
+  grid-column: 1 / -1;
+  color: var(--teal-dark);
+  border-color: #c7dedc;
+  background: rgba(237, 249, 247, 0.9);
+}
+
+.scenario-share-button:hover:not(:disabled) {
+  border-color: #9cc9c6;
+  background: #edf9f7;
+}
+
+.scenario-dialog-close > span {
+  display: block;
+  transform: translateY(-1px);
+}
+
+.share-dialog {
+  width: min(610px, calc(100% - 32px));
+}
+
+.share-link-input {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+}
+
+.share-link-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+.share-link-meta span:last-child {
+  text-align: right;
+}
+
+.share-link-warning {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border: 1px solid #ead8a7;
+  border-radius: var(--radius-sm);
+  color: #75510d;
+  background: #fff9e9;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .scenario-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .scenario-share-button {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-link-meta {
+    display: block;
+  }
+
+  .share-link-meta span {
+    display: block;
+  }
+
+  .share-link-meta span:last-child {
+    margin-top: 4px;
+    text-align: left;
+  }
+}

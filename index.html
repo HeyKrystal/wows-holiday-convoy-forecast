@@ -5,12 +5,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="Forecast your Holiday Convoy token budget, account for multiple scenarios, and plan your rewards before committing resources." />
+    content="Plan resource exchanges and reward purchases for the World of Warships Holiday Convoy event." />
   <title>Holiday Convoy Forecast</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="scenario-manager.css" />
-  <script src="event-config.js" defer></script>
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="styles/app.css" />
+  <link rel="stylesheet" href="styles/scenario-manager.css" />
+  <script src="scripts/event-config.js" defer></script>
+  <script src="scripts/namespace.js" defer></script>
+  <script src="scripts/utils.js" defer></script>
+  <script src="scripts/planner-state.js" defer></script>
+  <script src="scripts/calculator.js" defer></script>
+  <script src="scripts/ui-common.js" defer></script>
+  <script src="scripts/scenario-store.js" defer></script>
+  <script src="scripts/scenario-ui.js" defer></script>
+  <script src="scripts/sources-ui.js" defer></script>
+  <script src="scripts/rewards-ui.js" defer></script>
+  <script src="scripts/summary-ui.js" defer></script>
+  <script src="scripts/share.js" defer></script>
+  <script src="scripts/app.js" defer></script>
 </head>
 
 <body>
@@ -191,6 +202,9 @@
               <button class="scenario-action-button scenario-delete-button" id="deleteScenarioButton" type="button">
                 Delete
               </button>
+              <button class="scenario-action-button scenario-share-button" id="shareScenarioButton" type="button">
+                Share
+              </button>
             </div>
           </section>
 
@@ -231,12 +245,7 @@
     </main>
 
     <footer>
-      <p>
-        Made by HeyKrystal • Open Source on GitHub
-      </p>
-      <p>
-        <!--<span id="footerYear"></span> · Good luck, we're all counting on you.-->
-      </p>
+      <p>Made by HeyKrystal • Open Source on GitHub</p>
     </footer>
   </div>
 
@@ -253,7 +262,7 @@
         type="button"
         aria-label="Close dialog"
       >
-        ×
+        <span aria-hidden="true">×</span>
       </button>
 
       <p class="section-kicker" id="scenarioDialogKicker">Scenario</p>
@@ -294,6 +303,61 @@
         </button>
       </div>
     </form>
+  </dialog>
+
+
+  <dialog
+    class="scenario-dialog share-dialog"
+    id="shareDialog"
+    aria-labelledby="shareDialogTitle"
+  >
+    <div class="scenario-dialog-form">
+      <button
+        class="scenario-dialog-close"
+        id="shareDialogCloseButton"
+        type="button"
+        aria-label="Close share dialog"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+
+      <p class="section-kicker">Share Scenario</p>
+      <h2 id="shareDialogTitle">Share Scenario</h2>
+      <p class="scenario-dialog-description">
+        Anyone with this link can import a copy of this scenario. Your other
+        locally saved scenarios are not included.
+      </p>
+
+      <label class="scenario-dialog-field" for="shareLinkInput">
+        <span>Share link</span>
+        <input id="shareLinkInput" class="share-link-input" type="text" readonly />
+      </label>
+
+      <div class="share-link-meta">
+        <span id="shareLinkLength"></span>
+        <span>Scenario data stays after the <code>#</code> in the URL.</span>
+      </div>
+
+      <p class="share-link-warning" id="shareLocalFileWarning" hidden>
+        This app is currently open from a local file. The generated link contains
+        this computer's file path and will not work for someone else until the app
+        is hosted, such as on GitHub Pages.
+      </p>
+
+      <p class="share-link-warning" id="shareLinkWarning" hidden>
+        This is a long link. Some messaging apps may shorten or break it; exporting
+        the scenario file is a safer backup.
+      </p>
+
+      <div class="scenario-dialog-actions">
+        <button class="scenario-dialog-cancel" id="shareDialogDoneButton" type="button">
+          Done
+        </button>
+        <button class="primary-button" id="copyShareLinkButton" type="button">
+          Copy Link
+        </button>
+      </div>
+    </div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
