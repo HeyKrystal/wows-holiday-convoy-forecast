@@ -183,6 +183,7 @@ html[data-theme="dark"] {
 .rewards-table tbody tr[data-rarity] > td,
 .data-table.rewards-table tbody tr[data-rarity].is-excluded > td {
   background: transparent;
+  padding-left: 12px;
 }
 
 .rewards-table tbody tr[data-rarity] > td:first-child {
