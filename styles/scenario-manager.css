@@ -123,7 +123,7 @@
 }
 
 /* The Totals panel becomes a grid at tablet widths. Keep this component whole. */
-.summary-sticky > .scenario-manager {
+.summary-sticky>.scenario-manager {
   grid-column: 1 / -1;
 }
 
@@ -174,7 +174,7 @@
   pointer-events: none;
 }
 
-.scenario-dialog-form > * {
+.scenario-dialog-form>* {
   position: relative;
   z-index: 1;
 }
@@ -291,6 +291,46 @@
   outline-offset: 2px;
 }
 
+.confirmation-dialog {
+  width: min(430px, calc(100% - 32px));
+}
+
+.confirmation-warning {
+  margin: -6px 0 0;
+  padding: 11px 13px;
+  border: 1px solid #f1c5c1;
+  border-radius: var(--radius-sm);
+  color: #84251d;
+  background: var(--red-soft);
+  font-size: 0.8rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.confirmation-delete-button {
+  padding: 9px 14px;
+  border: 1px solid #d36c64;
+  border-radius: var(--radius-sm);
+  color: #ffffff;
+  background: var(--red);
+  font-weight: 800;
+  transition:
+    transform 120ms ease,
+    background 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.confirmation-delete-button:hover {
+  background: #921f17;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 13px rgba(180, 35, 24, 0.18);
+}
+
+.confirmation-delete-button:focus-visible {
+  outline: 3px solid rgba(180, 35, 24, 0.25);
+  outline-offset: 2px;
+}
+
 @media (max-width: 480px) {
   .scenario-dialog-form {
     padding: 24px 20px 20px;
@@ -301,7 +341,7 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .scenario-dialog-actions > button {
+  .scenario-dialog-actions>button {
     justify-content: center;
     width: 100%;
   }
@@ -321,7 +361,7 @@
   background: #edf9f7;
 }
 
-.scenario-dialog-close > span {
+.scenario-dialog-close>span {
   display: block;
   transform: translateY(-1px);
 }
@@ -359,6 +399,14 @@
   background: #fff9e9;
   font-size: 0.76rem;
   line-height: 1.45;
+}
+
+.scenario-action-divider {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 1px;
+  margin: 8px 0;
+  background: var(--border);
 }
 
 @media (min-width: 641px) and (max-width: 900px) {

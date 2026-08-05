@@ -36,7 +36,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     },
     {
       id: "daily-missions",
-      label: "Daily Missions",
+      label: "Daily Mission Sets",
       sourceRate: 1,
       targetTokens: 1200,
       cap: 173,

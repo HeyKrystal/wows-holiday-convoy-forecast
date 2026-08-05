@@ -287,6 +287,21 @@ h3 {
   padding: 7px 15px 15px;
 }
 
+.resource-rule-note {
+  margin: 0 15px 15px;
+  padding: 11px 13px;
+  border: 1px solid #cae4e2;
+  border-radius: var(--radius-sm);
+  color: #365f60;
+  background: #edf9f7;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.resource-rule-note strong {
+  color: var(--teal-dark);
+}
+
 .planner-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(290px, 350px);
