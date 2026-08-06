@@ -86,6 +86,12 @@
       elements.shareDialogDoneButton.addEventListener("click", closeShareDialog);
       elements.copyShareLinkButton.addEventListener("click", copyShareLink);
       elements.shareLinkInput.addEventListener("focus", (event) => event.target.select());
+
+      /*
+       * Handle share links clicked from within the already-open application.
+       * Changing only the URL fragment does not reload the page.
+       */
+      window.addEventListener("hashchange", handleIncomingLink);
     }
 
     function createShareUrl() {
@@ -148,6 +154,30 @@
         return;
       }
       if (!imported) {
+        return;
+      }
+      
+      const existingScenario = store
+        .getLibrary()
+        .scenarios
+        .find(
+          (scenario) =>
+            scenario.name.localeCompare(imported.name, undefined, {
+              sensitivity: "accent",
+            }) === 0,
+        );
+
+      if (existingScenario) {
+        store.activate(existingScenario.id);
+        scenarioUI.render();
+        onScenarioChanged();
+        clearShareHash();
+
+        showToast(
+          `Loaded existing scenario “${existingScenario.name}”.`,
+          "success",
+        );
+
         return;
       }
 
