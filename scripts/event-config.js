@@ -98,24 +98,10 @@ window.HOLIDAY_CONVOY_CONFIG = {
    */
   defaultSources: [
     {
-      id: "default-current-coal",
-      name: "[Example] Current Coal",
-      resourceId: "coal",
-      value: 123456,
-      included: true,
-    },
-    {
-      id: "default-projected-coal-1",
-      name: "[Example] Expected Coal Earnings",
-      resourceId: "coal",
-      value: 234000,
-      included: true,
-    },
-    {
       id: "default-daily-missions",
-      name: "[Example] Mission Completion Goal",
+      name: "Mission Set Completion Goal",
       resourceId: "daily-missions",
-      value: 130,
+      value: 120,
       included: true,
     },
   ],  
@@ -261,7 +247,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       maxQuantity: 1,
       category: "Ship",
       defaultQuantity: 1,
-      defaultIncluded: true,
+      defaultIncluded: false,
     },
     {
       id: "yimeng",
@@ -309,7 +295,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       maxQuantity: 1,
       category: "Ship",
       defaultQuantity: 1,
-      defaultIncluded: true,
+      defaultIncluded: false,
     },
     {
       id: "georg-hoffmann",
@@ -348,7 +334,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       defaultIncluded: false,
     },
     {
-      id: "unannounced-rare-ship-1",
+      id: "unannounced-rare-ship-2",
       name: "Unannounced Ship 2",
       shipId: null,
       rarity: "rare",
@@ -360,7 +346,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       defaultIncluded: false,
     },
     {
-      id: "unannounced-rare-ship-2",
+      id: "unannounced-rare-ship-3",
       name: "Unannounced Ship 3",
       shipId: null,
       rarity: "rare",
@@ -372,7 +358,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       defaultIncluded: false,
     },
     {
-      id: "unannounced-rare-ship-3",
+      id: "unannounced-rare-ship-4",
       name: "Unannounced Ship 4",
       shipId: null,
       rarity: "rare",
@@ -391,7 +377,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       maxQuantity: 6,
       category: "Doubloons",
       defaultQuantity: 6,
-      defaultIncluded: true,
+      defaultIncluded: false,
     },
   ],
 };

@@ -5,8 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="Free unofficial World of Warships Holiday Convoy event planner for 2026. Estimate Convoy Tokens, compare rewards, and save or share scenarios." />
-  <title>World of Warships Holiday Convoy Event Planner (2026)</title>
+    content="Plan resource exchanges and reward purchases for the World of Warships Holiday Convoy event." />
+  <title>World of Warships Holiday Convoy Planner 2026</title>
   <link rel="canonical" href="https://heykrystal.github.io/wows-holiday-convoy-forecast/" />
 
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
@@ -17,9 +17,9 @@
   <meta name="theme-color" media="(prefers-color-scheme: light)" content="#e9f1f3" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d171f" />
 
-  <meta property="og:title" content="World of Warships Holiday Convoy Event Planner (2026)" />
+  <meta property="og:title" content="Holiday Convoy Forecast" />
   <meta property="og:description"
-    content="Free unofficial World of Warships Holiday Convoy event planner for 2026. Estimate Convoy Tokens, compare rewards, and save or share scenarios." />
+    content="Forecast your Holiday Convoy token budget, compare rewards, and plan resources before committing them in game." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://heykrystal.github.io/wows-holiday-convoy-forecast/" />
   <meta property="og:image"
@@ -33,43 +33,11 @@
     content="Holiday Convoy Forecast logo beside a description of the token budgeting and reward planning app." />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="World of Warships Holiday Convoy Event Planner (2026)" />
+  <meta name="twitter:title" content="Holiday Convoy Forecast" />
   <meta name="twitter:description"
-    content="Free unofficial World of Warships Holiday Convoy event planner for 2026. Estimate Convoy Tokens, compare rewards, and save or share scenarios." />
+    content="Forecast your Holiday Convoy token budget, compare rewards, and plan resources before committing them in game." />
   <meta name="twitter:image"
     content="https://heykrystal.github.io/wows-holiday-convoy-forecast/images/social-preview.png" />
-
-  <script id="holiday-convoy-structured-data" type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Holiday Convoy Forecast",
-    "alternateName": [
-      "World of Warships Holiday Convoy Event Planner",
-      "WoWS Holiday Convoy Event Planner"
-    ],
-    "description": "Free unofficial World of Warships Holiday Convoy event planner for 2026. Estimate Convoy Tokens, compare rewards, and save or share scenarios.",
-    "url": "https://heykrystal.github.io/wows-holiday-convoy-forecast/",
-    "image": "https://heykrystal.github.io/wows-holiday-convoy-forecast/images/social-preview.png",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Any",
-    "browserRequirements": "Requires JavaScript and a modern web browser.",
-    "isAccessibleForFree": true,
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "HeyKrystal",
-      "url": "https://github.com/HeyKrystal"
-    },
-    "sameAs": "https://github.com/HeyKrystal/wows-holiday-convoy-planner",
-    "inLanguage": "en-US",
-    "dateModified": "2026-08-06"
-  }
-  </script>
   <script>
     (() => {
       const storageKey = "holiday-convoy-theme";
@@ -152,10 +120,9 @@
           <p class="section-kicker">Holiday Convoy Forecast</p>
           <h2>Plan before you spend</h2>
           <p>
-            Holiday Convoy Forecast is a free, unofficial World of Warships
-            Holiday Convoy event planner and token calculator for 2026. Estimate
-            Convoy Tokens, compare reward costs, and save or share different
-            what-if Scenarios before committing valuable resources in game.
+            This tool helps you estimate Convoy Tokens, compare reward costs,
+            and save different what-if Scenarios before committing valuable
+            resources in game.
           </p>
         </div>
 
