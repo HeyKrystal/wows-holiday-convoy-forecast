@@ -446,13 +446,44 @@ html[data-theme="dark"] {
 
 @media (max-width: 640px) {
   .ship-hover-card {
-    right: 10px;
-    bottom: 10px;
     left: 10px;
+    right: auto;
+    bottom: 10px;
     top: auto !important;
-    width: auto;
+
+    /*
+     * Give the card an explicit viewport-based width. This avoids the card
+     * expanding to the intrinsic width of its contents on mobile browsers.
+     */
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+    min-width: 0;
+
+    max-height: calc(100vh - 20px);
     max-height: calc(100dvh - 20px);
+
+    overflow-x: hidden;
+    overflow-x: clip;
     border-radius: 18px;
+  }
+
+  /*
+   * Allow every section inside the card to shrink with the card.
+   */
+  .ship-hover-card>*,
+  .ship-hover-header>* {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .ship-hover-header h3,
+  .ship-hover-description,
+  .ship-hover-footer strong {
+    overflow-wrap: anywhere;
+  }
+
+  .ship-hover-image {
+    max-width: 100%;
   }
 
   .reward-identity-cell {

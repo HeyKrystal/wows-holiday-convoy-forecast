@@ -629,6 +629,7 @@ h3 {
   min-width: 0;
   max-width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
   overscroll-behavior-x: contain;
   border-radius: var(--radius-md);
   -webkit-overflow-scrolling: touch;
@@ -1243,6 +1244,9 @@ footer p {
   .planner-layout {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .summary-panel {
@@ -1441,5 +1445,41 @@ footer p {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/*
+ * Mobile width containment
+ *
+ * Wide tables may scroll inside .table-scroll, but their intrinsic width
+ * must not enlarge the planner, panels, or document.
+ */
+@media (max-width: 900px) {
+
+  .planner-layout,
+  .planner-content,
+  .summary-panel,
+  .summary-sticky,
+  .panel {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .planner-layout>*,
+  .planner-content>* {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .table-scroll {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
   }
 }
