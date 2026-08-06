@@ -158,29 +158,26 @@ html[data-theme="dark"] {
 
 
 /*
- * The application should never move horizontally as a whole.
- *
- * `hidden` is the compatibility fallback. Modern browsers use `clip`, which
- * prevents horizontal document scrolling without creating another scroll area.
+ * Prevent the document itself from scrolling horizontally.
+ * Wide tables remain scrollable inside their .table-scroll containers.
  */
 html {
   width: 100%;
   min-width: 0;
   max-width: 100%;
-  overflow-x: hidden;
-  overflow-x: clip;
+  overflow-x: hidden !important;
   overscroll-behavior-x: none;
   background: var(--page-bg);
 }
 
 body {
+  position: relative;
   width: 100%;
   min-width: 0;
   max-width: 100%;
   margin: 0;
   min-height: 100vh;
-  overflow-x: hidden;
-  overflow-x: clip;
+  overflow-x: hidden !important;
   overscroll-behavior-x: none;
   color: var(--ink);
   background:
@@ -208,6 +205,8 @@ code {
 
 .page-shell {
   width: min(1560px, calc(100% - 40px));
+  min-width: 0;
+  max-width: 100%;
   margin: 0 auto;
   padding: 36px 0 28px;
 }
@@ -625,6 +624,7 @@ h3 {
 }
 
 .table-scroll {
+  display: block;
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -1324,13 +1324,11 @@ footer p {
     margin: 3px 0 0;
   }
 
-  @media (max-width: 640px) {
-    .page-shell {
-      width: calc(100% - 16px);
-      max-width: 620px;
-      min-width: 0;
-      padding-bottom: 18px;
-    }
+  .page-shell {
+    width: calc(100% - 16px);
+    max-width: 620px;
+    min-width: 0;
+    padding-bottom: 18px;
   }
 
   .hero,
@@ -1455,8 +1453,6 @@ footer p {
  * must not enlarge the planner, panels, or document.
  */
 @media (max-width: 900px) {
-
-  .planner-layout,
   .planner-content,
   .summary-panel,
   .summary-sticky,
@@ -1466,20 +1462,9 @@ footer p {
     max-width: 100%;
   }
 
-  .planner-layout>*,
-  .planner-content>* {
+  .planner-layout > *,
+  .planner-content > * {
     min-width: 0;
     max-width: 100%;
-  }
-
-  .table-scroll {
-    display: block;
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
   }
 }
