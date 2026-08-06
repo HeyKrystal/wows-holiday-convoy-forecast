@@ -153,20 +153,63 @@ html[data-theme="dark"] {
   --reward-rarity-soft: var(--rarity-legendary-soft);
 }
 
-.rewards-table tbody tr[data-rarity] {
+/*
+ * Every acquisition receives an accent.
+ *
+ * Rewards without a configured rarity use the normal heading color:
+ * light in dark mode and dark in light mode. Rarity selectors above this
+ * block override --reward-rarity for ships and other rarity-based rewards.
+ */
+.rewards-table tbody tr {
+  --reward-rarity: var(--heading);
   --reward-row-base: var(--surface);
-  --reward-wash-strong: color-mix(in srgb, var(--reward-rarity) 24%, transparent);
-  --reward-wash-medium: color-mix(in srgb, var(--reward-rarity) 11%, transparent);
-  --reward-wash-light: color-mix(in srgb, var(--reward-rarity) 4%, transparent);
+  --reward-wash-strong: color-mix(in srgb,
+      var(--reward-rarity) 18%,
+      transparent);
+  --reward-wash-medium: color-mix(in srgb,
+      var(--reward-rarity) 8%,
+      transparent);
+  --reward-wash-light: color-mix(in srgb,
+      var(--reward-rarity) 3%,
+      transparent);
+
   background:
-    linear-gradient(
-      90deg,
+    linear-gradient(90deg,
       var(--reward-wash-strong) 0%,
       var(--reward-wash-medium) 22%,
       var(--reward-wash-light) 52%,
-      transparent 82%
-    ),
+      transparent 82%),
     var(--reward-row-base);
+}
+
+.rewards-table tbody tr.is-excluded {
+  --reward-row-base: var(--excluded-bg);
+  --reward-wash-strong: color-mix(in srgb,
+      var(--reward-rarity) 8%,
+      transparent);
+  --reward-wash-medium: color-mix(in srgb,
+      var(--reward-rarity) 4%,
+      transparent);
+  --reward-wash-light: transparent;
+}
+
+/*
+ * Keep all Planned Acquisitions cells transparent so the row-level gradient
+ * remains visible. This also overrides the application's alternating rows.
+ */
+.data-table.rewards-table tbody tr>td,
+.data-table.rewards-table tbody tr.is-excluded>td {
+  padding-left: 12px;
+  background: transparent;
+}
+
+.rewards-table tbody tr>td:first-child {
+  box-shadow: inset 4px 0 0 var(--reward-rarity);
+}
+
+.rewards-table tbody tr .reward-name-static,
+.rewards-table tbody tr .reward-ship-trigger {
+  color: var(--heading);
 }
 
 .rewards-table tbody tr[data-rarity].is-excluded {
@@ -176,13 +219,13 @@ html[data-theme="dark"] {
   --reward-wash-light: transparent;
 }
 
-.rewards-table tbody tr[data-rarity] > td,
-.data-table.rewards-table tbody tr[data-rarity].is-excluded > td {
+.rewards-table tbody tr[data-rarity]>td,
+.data-table.rewards-table tbody tr[data-rarity].is-excluded>td {
   background: transparent;
   padding-left: 12px;
 }
 
-.rewards-table tbody tr[data-rarity] > td:first-child {
+.rewards-table tbody tr[data-rarity]>td:first-child {
   box-shadow: inset 4px 0 0 var(--reward-rarity);
 }
 
@@ -190,8 +233,10 @@ html[data-theme="dark"] {
   position: fixed;
   z-index: 1200;
   width: min(360px, calc(100vw - 24px));
-  max-height: min(640px, calc(100vh - 24px));
-  overflow: auto;
+  max-height: calc(100vh - 24px);
+  max-height: calc(100dvh - 24px);
+  overflow-x: hidden;
+  overflow-y: auto;
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--border-strong);
@@ -214,11 +259,9 @@ html[data-theme="dark"] {
   justify-content: space-between;
   gap: 16px;
   padding: 16px 16px 12px;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--reward-rarity, var(--teal)) 10%, transparent),
-    transparent 74%
-  );
+  background: linear-gradient(90deg,
+      color-mix(in srgb, var(--reward-rarity, var(--teal)) 10%, transparent),
+      transparent 74%);
 }
 
 .ship-hover-header h3 {
@@ -273,13 +316,24 @@ html[data-theme="dark"] {
   display: grid;
   min-height: 130px;
   place-items: center;
-  margin: 0 12px;
+  margin: 0;
   overflow: hidden;
+
   background:
-    radial-gradient(circle at 50% 60%, color-mix(in srgb, var(--teal) 15%, transparent), transparent 58%),
+    radial-gradient(circle at 50% 60%,
+      color-mix(in srgb, var(--teal) 15%, transparent),
+      transparent 58%),
+    linear-gradient(90deg,
+      color-mix(in srgb,
+        var(--reward-rarity, var(--teal)) 8%,
+        transparent),
+      transparent 74%),
     var(--surface-muted);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
 }
 
 .ship-hover-image {
@@ -299,10 +353,45 @@ html[data-theme="dark"] {
 }
 
 .ship-hover-description {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
+  display: block;
+  max-height: 7rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.ship-hover-description::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ship-hover-description::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ship-hover-description::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.ship-hover-card[data-pinned="true"] .ship-hover-description:hover {
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.ship-hover-card[data-pinned="true"] .ship-hover-description:focus-visible {
+  scrollbar-color: var(--border-strong) transparent;
+  outline: 2px solid var(--reward-rarity, var(--teal));
+  outline-offset: -3px;
+}
+
+.ship-hover-card[data-pinned="true"] .ship-hover-description:hover::-webkit-scrollbar-thumb,
+.ship-hover-card[data-pinned="true"] .ship-hover-description:focus-visible::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 .ship-hover-ratings {
@@ -362,7 +451,7 @@ html[data-theme="dark"] {
     left: 10px;
     top: auto !important;
     width: auto;
-    max-height: min(72vh, 620px);
+    max-height: calc(100dvh - 20px);
     border-radius: 18px;
   }
 
@@ -372,6 +461,7 @@ html[data-theme="dark"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .ship-hover-card,
   .reward-ship-trigger {
     scroll-behavior: auto;

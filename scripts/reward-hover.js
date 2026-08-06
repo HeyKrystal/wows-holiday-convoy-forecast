@@ -296,6 +296,8 @@
       if (ship.description) {
         const description = document.createElement("p");
         description.className = "ship-hover-description";
+        description.tabIndex = pinned ? 0 : -1;
+        description.setAttribute("aria-label", "Ship description");
         description.textContent = ship.description;
         fragment.append(description);
       }

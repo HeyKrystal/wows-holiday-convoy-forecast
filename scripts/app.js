@@ -143,7 +143,6 @@
       "resourceBreakdownBody",
       "rewardsBody",
       "addSourceButton",
-      "resetButton",
       "exportButton",
       "importButton",
       "importInput",

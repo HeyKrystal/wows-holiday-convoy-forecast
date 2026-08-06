@@ -291,7 +291,7 @@ h3 {
   justify-content: flex-end;
   align-items: center;
   gap: 9px;
-  min-width: 330px;
+  min-width: 0px;
 }
 
 .saved-status {

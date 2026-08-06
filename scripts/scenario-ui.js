@@ -22,7 +22,6 @@
         duplicateCurrentScenario,
       );
       elements.deleteScenarioButton.addEventListener("click", deleteCurrentScenario);
-      elements.resetButton.addEventListener("click", resetCurrentScenario);
       elements.exportButton.addEventListener("click", exportCurrentScenario);
       elements.importButton.addEventListener("click", () => elements.importInput.click());
       elements.importInput.addEventListener("change", importScenarioFile);
@@ -193,16 +192,6 @@
       pendingDeleteScenarioId = null;
       elements.deleteScenarioDialogTitle.textContent = "Delete Scenario?";
       elements.deleteScenarioDialogDescription.textContent = "";
-    }
-
-    function resetCurrentScenario() {
-      const active = store.getActive();
-      if (!window.confirm(`Reset "${active.name}" to its default rows and selections?`)) {
-        return;
-      }
-      store.resetActive();
-      onScenarioChanged();
-      showToast(`"${active.name}" reset to defaults.`, "success");
     }
 
     function exportCurrentScenario() {
