@@ -167,24 +167,23 @@
       element.replaceChildren();
 
       if (ship) {
-        const typeIcon = createTypeIcon(ship, "reward-ship-type-icon");
-        if (typeIcon) {
-          element.append(typeIcon);
-        }
-
         const nationFlag = createNationFlag(ship, "reward-ship-nation-flag");
         if (nationFlag) {
           element.append(nationFlag);
         }
 
+        const typeIcon = createTypeIcon(ship, "reward-ship-type-icon");
+        if (typeIcon) {
+          element.append(typeIcon);
+        }
+
         const details = document.createElement("span");
         details.textContent = [
           `Tier ${tierToRoman(ship.tier)}`,
-          ship.nation?.label,
           ship.type?.label,
         ]
           .filter(Boolean)
-          .join(" · ");
+          .join(" ");
         element.append(details);
       } else {
         const category = document.createElement("span");

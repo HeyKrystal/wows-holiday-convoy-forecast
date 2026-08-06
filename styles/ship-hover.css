@@ -73,7 +73,7 @@ html[data-theme="dark"] {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 4px 7px;
+  gap: 2px 3px;
   color: var(--muted);
   font-size: 0.75rem;
   line-height: 1.25;
@@ -169,10 +169,6 @@ html[data-theme="dark"] {
     var(--reward-row-base);
 }
 
-.rewards-table tbody tr[data-rarity]:nth-child(even) {
-  --reward-row-base: var(--surface-muted);
-}
-
 .rewards-table tbody tr[data-rarity].is-excluded {
   --reward-row-base: var(--excluded-bg);
   --reward-wash-strong: color-mix(in srgb, var(--reward-rarity) 11%, transparent);
@@ -243,8 +239,8 @@ html[data-theme="dark"] {
 .ship-hover-metadata {
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin: 7px 0 0;
+  gap: 3px;
+  margin: 3px 0 0;
   color: var(--muted);
   font-size: 0.78rem;
 }

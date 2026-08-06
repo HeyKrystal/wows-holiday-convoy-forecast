@@ -326,22 +326,22 @@
         const metadata = document.createElement("p");
         metadata.className = "ship-hover-metadata";
 
-        const typeIcon = createTypeIcon(ship, "ship-hover-type-icon");
-        if (typeIcon) {
-          metadata.append(typeIcon);
-        }
-
         const nationFlag = createNationFlag(ship, "ship-hover-nation-flag");
         if (nationFlag) {
           metadata.append(nationFlag);
         }
 
+        const typeIcon = createTypeIcon(ship, "ship-hover-type-icon");
+        if (typeIcon) {
+          metadata.append(typeIcon);
+        }
+
         const tier = tierToRoman(ship.tier);
         metadata.append(
           document.createTextNode(
-            [`Tier ${tier}`, ship.nation?.label, ship.type?.label]
+            [`Tier ${tier}`, ship.type?.label]
               .filter(Boolean)
-              .join(" · "),
+              .join(" "),
           ),
         );
         titleBlock.append(metadata);
