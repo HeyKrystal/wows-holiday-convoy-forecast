@@ -163,18 +163,13 @@ html[data-theme="dark"] {
  * `hidden` is the compatibility fallback. Modern browsers use `clip`, which
  * prevents horizontal document scrolling without creating another scroll area.
  */
-html,
-body {
-  max-width: 100%;
-  overflow-x: hidden;
-  overflow-x: clip;
-}
-
 html {
   width: 100%;
+  min-width: 0;
   max-width: 100%;
   overflow-x: hidden;
   overflow-x: clip;
+  overscroll-behavior-x: none;
   background: var(--page-bg);
 }
 
@@ -186,6 +181,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-x: clip;
+  overscroll-behavior-x: none;
   color: var(--ink);
   background:
     radial-gradient(circle at 10% 0%, var(--page-glow), transparent 28rem),
