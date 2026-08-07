@@ -8,11 +8,11 @@
 window.HOLIDAY_CONVOY_CONFIG = {
   schemaVersion: 1,
   eventId: "holiday-convoy-2026",
-  eventName: "Holiday Convoy",
+  eventName: "WoWs Holiday Convoy",
   eventYear: 2026,
   appTitle: "Holiday Convoy Forecast",
   appSubtitle:
-    "Forecast your Holiday Convoy token budget, account for multiple scenarios, and plan your rewards before committing resources.",
+    "Estimate Convoy Tokens, compare reward costs, and save or share different what-if Scenarios before committing valuable resources in game.",
 
   /**
    * Event schedule and official information
