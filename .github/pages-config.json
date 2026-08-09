@@ -1,0 +1,21 @@
+{
+  "_comment": "Convoy Forecast Pages configuration. The shared deployment implementation lives in HeyKrystal/github-automation.",
+
+  "deploy": [
+    "index.html",
+    "sitemap.xml",
+    "robots.txt",
+    "CNAME",
+    ".nojekyll",
+    "styles",
+    "src",
+    "images"
+  ],
+
+  "socialPreview": {
+    "skipGeneration": false,
+    "watch": [
+      "images"
+    ]
+  }
+}

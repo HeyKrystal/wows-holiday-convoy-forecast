@@ -8,7 +8,7 @@
 window.HOLIDAY_CONVOY_CONFIG = {
   schemaVersion: 1,
   eventId: "holiday-convoy-2026",
-  eventName: "WoWs Holiday Convoy",
+  eventName: "World of Warships",
   eventYear: 2026,
   appTitle: "Holiday Convoy Forecast",
   appSubtitle:
