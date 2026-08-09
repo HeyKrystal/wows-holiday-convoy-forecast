@@ -36,6 +36,73 @@
   color: color-mix(in srgb, var(--muted) 55%, var(--ink));
 }
 
+/* -----------------------------
+   Wargaming disclaimer
+----------------------------- */
+
+.footer-disclaimer {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  cursor: help;
+
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.footer-disclaimer:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.footer-disclaimer-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  z-index: 20;
+
+  width: max-content;
+  max-width: min(320px, calc(100vw - 32px));
+  padding: 9px 11px;
+
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1.45;
+
+  white-space: normal;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 4px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 140ms ease,
+    visibility 140ms ease,
+    transform 160ms ease;
+}
+
+.footer-disclaimer:hover .footer-disclaimer-tooltip,
+.footer-disclaimer:focus .footer-disclaimer-tooltip,
+.footer-disclaimer:focus-within .footer-disclaimer-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
 .theme-control {
   display: flex;
   align-items: center;
@@ -102,6 +169,20 @@
 
   .footer-copy {
     font-size: 0.7rem;
+  }
+
+  .footer-disclaimer-tooltip {
+    left: 0;
+
+    max-width: min(300px, calc(100vw - 32px));
+
+    transform: translateY(4px);
+  }
+
+  .footer-disclaimer:hover .footer-disclaimer-tooltip,
+  .footer-disclaimer:focus .footer-disclaimer-tooltip,
+  .footer-disclaimer:focus-within .footer-disclaimer-tooltip {
+    transform: translateY(0);
   }
 
   .theme-control {

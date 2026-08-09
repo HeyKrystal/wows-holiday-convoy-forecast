@@ -112,6 +112,16 @@ styles.css       Layout, table styling, colors, and responsive behavior
 README.md        Setup and maintenance notes
 ```
 
+## Wargaming Assets
+
+This application uses World of Warships game data and displays some Wargaming-owned artwork and icons.
+
+World of Warships, related trademarks, and Wargaming-owned artwork remain the property of Wargaming. Those assets are **not covered by this repository's MIT license**. The MIT license applies only to the original code and other material I own.
+
+This is an unofficial fan project and is not affiliated with, endorsed by, or supported by Wargaming.
+
+Shared static Wargaming artwork is maintained through the [wows-shared-data](https://github.com/HeyKrystal/wows-shared-data) repository.
+
 ## Issues
 
 This is an initial conversion intended for local review. Before publishing it, verify the final event costs, reward names, conversion rates, and limits against the event announcement.
