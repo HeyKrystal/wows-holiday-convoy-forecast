@@ -92,11 +92,14 @@
       document.documentElement.dataset.themePreference = preference;
     })();
   </script>
+  <link rel="stylesheet" href="styles/theme.css" />
   <link rel="stylesheet" href="styles/branding.css" />
   <link rel="stylesheet" href="styles/app.css" />
   <link rel="stylesheet" href="styles/reward-availability.css" />
   <link rel="stylesheet" href="styles/ship-hover.css" />
   <link rel="stylesheet" href="styles/scenario-manager.css" />
+  <link rel="stylesheet" href="styles/footer.css" />
+  <link rel="stylesheet" href="styles/tool-tabs.css" />
   <script src="src/event-config.js" defer></script>
   <script src="src/namespace.js" defer></script>
   <script src="src/utils.js" defer></script>
@@ -108,10 +111,7 @@
   <script src="src/scenario-ui.js" defer></script>
   <script src="src/sources-ui.js" defer></script>
   <script src="src/ship-data.js" defer></script>
-  <script src="src/ship-data.js" defer></script>
   <script src="src/ship-icons.js" defer></script>
-  <script src="src/reward-hover.js" defer></script>
-  <script src="src/rewards-ui.js" defer></script>
   <script src="src/reward-hover.js" defer></script>
   <script src="src/rewards-ui.js" defer></script>
   <script src="src/summary-ui.js" defer></script>
@@ -436,20 +436,33 @@
     </main>
 
     <footer class="site-footer">
+      <nav class="tool-dock" aria-label="Other World of Warships tools">
+        <span class="tool-dock-label">
+          Other WoWs tools &#8250;
+        </span>
+
+        <a class="tool-tab" href="https://collections.krstldv.com/" aria-label="Open Collections Calc">
+          <div class="tool-tab-title">
+            <img class="tool-tab-icon" src="https://collections.krstldv.com/images/app-icon.png" alt="" />
+            <span>Collections Calc</span>
+          </div>
+
+          <p class="tool-tab-description">
+            Estimate how many containers are needed to finish a collection before committing valuable resources. 
+          </p>
+        </a>
+      </nav>
+
       <div class="footer-copy">
         <span>Made by HeyKrystal</span>
         <span aria-hidden="true">•</span>
         <span>Not affiliated with Wargaming</span>
         <span aria-hidden="true">•</span>
-        <a href="https://github.com/HeyKrystal/wows-holiday-convoy-forecast" target="_blank"
-          rel="noopener noreferrer">Open Source on GitHub</a>
+        <a href="https://github.com/HeyKrystal/wows-holiday-convoy-forecast" target="_blank" rel="noopener noreferrer">
+          Open Source on GitHub
+        </a>
       </div>
 
-      <!--
-        Keep id="themeSelect" for compatibility with the existing app bootstrap.
-        theme.js now treats this as the theme-selection control as a whole rather
-        than assuming the element itself is an HTML <select>.
-      -->
       <div class="theme-control" id="themeSelect" aria-label="Theme preference">
         <span class="theme-label">Theme</span>
         <div class="theme-options" role="group" aria-label="Choose a color theme">

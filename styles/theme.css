@@ -1,0 +1,164 @@
+/* ==========================================================================
+   Holiday Convoy Theme Tokens
+   --------------------------------------------------------------------------
+   Shared light/dark variables for the application and reusable components.
+
+   Load this stylesheet before all other application/component stylesheets.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Core surfaces and text */
+  --page-bg: #edf2f6;
+  --page-bg-top: #e8f0f5;
+  --page-glow: rgba(39, 107, 140, 0.12);
+  --surface: #ffffff;
+  --surface-muted: #f5f8fb;
+  --surface-input: #ffffff;
+  --surface-hover: #ffffff;
+  --ink: #172b3a;
+  --heading: #102b40;
+  --muted: #617383;
+  --muted-disabled: #81909d;
+  --border: #d6e0e8;
+  --border-strong: #b9c8d4;
+  --page-texture-opacity: 0.045;
+
+
+  /* Brand and state colors */
+  --navy: #173b57;
+  --navy-dark: #102b40;
+  --blue: #276b8c;
+  --teal: #147d7e;
+  --teal-dark: #0d6162;
+  --gold: #bd842a;
+  --gold-soft: #fff2d8;
+  --green: #18794e;
+  --green-soft: #e4f5ec;
+  --red: #b42318;
+  --red-soft: #fde8e7;
+  --on-accent: #ffffff;
+
+  /* Hero */
+  --hero-start: rgba(23, 59, 87, 0.98);
+  --hero-end: rgba(20, 125, 126, 0.92);
+  --hero-border: rgba(255, 255, 255, 0.14);
+  --hero-decoration: rgba(255, 255, 255, 0.06);
+  --hero-muted: rgba(255, 255, 255, 0.78);
+  --hero-soft: #bce9e5;
+  --hero-control-border: rgba(255, 255, 255, 0.3);
+  --hero-control-border-hover: rgba(255, 255, 255, 0.55);
+  --hero-control-bg: rgba(255, 255, 255, 0.08);
+  --hero-control-bg-hover: rgba(255, 255, 255, 0.16);
+  --hero-danger-hover: rgba(180, 35, 24, 0.5);
+
+  /* Reusable component colors */
+  --focus-ring: rgba(39, 107, 140, 0.26);
+  --input-focus-ring: rgba(39, 107, 140, 0.11);
+  --info-border: #cae4e2;
+  --info-ink: #365f60;
+  --info-bg: #edf9f7;
+  --rules-bg: rgba(255, 255, 255, 0.72);
+  --rules-shadow: 0 8px 24px rgba(23, 59, 87, 0.04);
+  --table-header-bg: #173b57;
+  --table-header-ink: #ffffff;
+  --excluded-bg: #f7f9fa;
+  --cap-limited-bg: #fff8e8;
+  --danger-border-soft: #f3c9c5;
+  --toggle-off: #aebbc5;
+  --toggle-knob: #ffffff;
+  --toggle-inset: rgba(23, 59, 87, 0.12);
+  --toggle-shadow: 0 1px 4px rgba(23, 59, 87, 0.26);
+  --progress-track: #dfe8ee;
+  --budget-border: #b8d7d5;
+  --budget-bg: #edf9f7;
+  --cost-border: #ead8a7;
+  --cost-bg: #fff9e9;
+  --toast-success-border: #abd8bf;
+  --toast-success-ink: #125b39;
+  --toast-success-bg: #e7f8ee;
+  --toast-error-border: #efb5b0;
+  --toast-error-ink: #84251d;
+  --toast-error-bg: #fff0ef;
+
+  --shadow: 0 18px 45px rgba(23, 59, 87, 0.09);
+  --primary-shadow: 0 5px 13px rgba(20, 125, 126, 0.18);
+  --toast-shadow: 0 12px 36px rgba(23, 59, 87, 0.18);
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --page-bg: #0d171f;
+  --page-bg-top: #142630;
+  --page-glow: rgba(78, 183, 179, 0.12);
+  --surface: #17242d;
+  --surface-muted: #1d2d37;
+  --surface-input: #1b2a34;
+  --surface-hover: #223540;
+  --ink: #e7eff3;
+  --heading: #eaf3f7;
+  --muted: #a5b5c0;
+  --muted-disabled: #788a96;
+  --border: #2d414e;
+  --border-strong: #435a68;
+  --page-texture-opacity: 0.025;
+
+  --navy: #254e64;
+  --navy-dark: #dcecf3;
+  --blue: #67a9c6;
+  --teal: #3aa7a4;
+  --teal-dark: #75d0cc;
+  --gold: #d4a14f;
+  --gold-soft: #3b301d;
+  --green: #5ac58f;
+  --green-soft: #183829;
+  --red: #ef746a;
+  --red-soft: #3d2224;
+
+  --hero-start: rgba(20, 45, 60, 0.99);
+  --hero-end: rgba(16, 91, 93, 0.95);
+  --hero-border: rgba(180, 226, 224, 0.16);
+  --hero-decoration: rgba(214, 242, 241, 0.055);
+  --hero-muted: rgba(237, 248, 249, 0.78);
+  --hero-soft: #a9dfdc;
+
+  --focus-ring: rgba(103, 169, 198, 0.34);
+  --input-focus-ring: rgba(103, 169, 198, 0.18);
+  --info-border: #305c5c;
+  --info-ink: #b8d8d6;
+  --info-bg: #173234;
+  --rules-bg: rgba(23, 36, 45, 0.86);
+  --rules-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  --table-header-bg: #234a60;
+  --table-header-ink: #f5fbfd;
+  --excluded-bg: #18242c;
+  --cap-limited-bg: #382f1e;
+  --danger-border-soft: #76403f;
+  --toggle-off: #536773;
+  --toggle-knob: #edf5f7;
+  --toggle-inset: rgba(0, 0, 0, 0.18);
+  --toggle-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
+  --progress-track: #2b3e49;
+  --budget-border: #315f5d;
+  --budget-bg: #183536;
+  --cost-border: #68552d;
+  --cost-bg: #352d1d;
+  --toast-success-border: #356e51;
+  --toast-success-ink: #b9e8cf;
+  --toast-success-bg: #173629;
+  --toast-error-border: #7a4542;
+  --toast-error-ink: #ffc0ba;
+  --toast-error-bg: #3b2223;
+
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+  --primary-shadow: 0 5px 13px rgba(0, 0, 0, 0.24);
+  --toast-shadow: 0 12px 36px rgba(0, 0, 0, 0.34);
+}

@@ -1,159 +1,15 @@
-:root {
-  color-scheme: light;
+/* ==========================================================================
+   Holiday Convoy Application Styles
+   --------------------------------------------------------------------------
+   Main application layout and components.
 
-  /* Core surfaces and text */
-  --page-bg: #edf2f6;
-  --page-bg-top: #e8f0f5;
-  --page-glow: rgba(39, 107, 140, 0.12);
-  --surface: #ffffff;
-  --surface-muted: #f5f8fb;
-  --surface-input: #ffffff;
-  --surface-hover: #ffffff;
-  --ink: #172b3a;
-  --heading: #102b40;
-  --muted: #617383;
-  --muted-disabled: #81909d;
-  --border: #d6e0e8;
-  --border-strong: #b9c8d4;
-  --page-texture-opacity: 0.045;
+   Shared theme tokens: theme.css
+   Footer + theme selector: footer.css
+   Cross-site tool tabs: tool-tabs.css
 
-
-  /* Brand and state colors */
-  --navy: #173b57;
-  --navy-dark: #102b40;
-  --blue: #276b8c;
-  --teal: #147d7e;
-  --teal-dark: #0d6162;
-  --gold: #bd842a;
-  --gold-soft: #fff2d8;
-  --green: #18794e;
-  --green-soft: #e4f5ec;
-  --red: #b42318;
-  --red-soft: #fde8e7;
-  --on-accent: #ffffff;
-
-  /* Hero */
-  --hero-start: rgba(23, 59, 87, 0.98);
-  --hero-end: rgba(20, 125, 126, 0.92);
-  --hero-border: rgba(255, 255, 255, 0.14);
-  --hero-decoration: rgba(255, 255, 255, 0.06);
-  --hero-muted: rgba(255, 255, 255, 0.78);
-  --hero-soft: #bce9e5;
-  --hero-control-border: rgba(255, 255, 255, 0.3);
-  --hero-control-border-hover: rgba(255, 255, 255, 0.55);
-  --hero-control-bg: rgba(255, 255, 255, 0.08);
-  --hero-control-bg-hover: rgba(255, 255, 255, 0.16);
-  --hero-danger-hover: rgba(180, 35, 24, 0.5);
-
-  /* Reusable component colors */
-  --focus-ring: rgba(39, 107, 140, 0.26);
-  --input-focus-ring: rgba(39, 107, 140, 0.11);
-  --info-border: #cae4e2;
-  --info-ink: #365f60;
-  --info-bg: #edf9f7;
-  --rules-bg: rgba(255, 255, 255, 0.72);
-  --rules-shadow: 0 8px 24px rgba(23, 59, 87, 0.04);
-  --table-header-bg: #173b57;
-  --table-header-ink: #ffffff;
-  --excluded-bg: #f7f9fa;
-  --cap-limited-bg: #fff8e8;
-  --danger-border-soft: #f3c9c5;
-  --toggle-off: #aebbc5;
-  --toggle-knob: #ffffff;
-  --toggle-inset: rgba(23, 59, 87, 0.12);
-  --toggle-shadow: 0 1px 4px rgba(23, 59, 87, 0.26);
-  --progress-track: #dfe8ee;
-  --budget-border: #b8d7d5;
-  --budget-bg: #edf9f7;
-  --cost-border: #ead8a7;
-  --cost-bg: #fff9e9;
-  --toast-success-border: #abd8bf;
-  --toast-success-ink: #125b39;
-  --toast-success-bg: #e7f8ee;
-  --toast-error-border: #efb5b0;
-  --toast-error-ink: #84251d;
-  --toast-error-bg: #fff0ef;
-
-  --shadow: 0 18px 45px rgba(23, 59, 87, 0.09);
-  --primary-shadow: 0 5px 13px rgba(20, 125, 126, 0.18);
-  --toast-shadow: 0 12px 36px rgba(23, 59, 87, 0.18);
-  --radius-lg: 18px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-}
-
-html[data-theme="dark"] {
-  color-scheme: dark;
-
-  --page-bg: #0d171f;
-  --page-bg-top: #142630;
-  --page-glow: rgba(78, 183, 179, 0.12);
-  --surface: #17242d;
-  --surface-muted: #1d2d37;
-  --surface-input: #1b2a34;
-  --surface-hover: #223540;
-  --ink: #e7eff3;
-  --heading: #eaf3f7;
-  --muted: #a5b5c0;
-  --muted-disabled: #788a96;
-  --border: #2d414e;
-  --border-strong: #435a68;
-  --page-texture-opacity: 0.025;
-
-  --navy: #254e64;
-  --navy-dark: #dcecf3;
-  --blue: #67a9c6;
-  --teal: #3aa7a4;
-  --teal-dark: #75d0cc;
-  --gold: #d4a14f;
-  --gold-soft: #3b301d;
-  --green: #5ac58f;
-  --green-soft: #183829;
-  --red: #ef746a;
-  --red-soft: #3d2224;
-
-  --hero-start: rgba(20, 45, 60, 0.99);
-  --hero-end: rgba(16, 91, 93, 0.95);
-  --hero-border: rgba(180, 226, 224, 0.16);
-  --hero-decoration: rgba(214, 242, 241, 0.055);
-  --hero-muted: rgba(237, 248, 249, 0.78);
-  --hero-soft: #a9dfdc;
-
-  --focus-ring: rgba(103, 169, 198, 0.34);
-  --input-focus-ring: rgba(103, 169, 198, 0.18);
-  --info-border: #305c5c;
-  --info-ink: #b8d8d6;
-  --info-bg: #173234;
-  --rules-bg: rgba(23, 36, 45, 0.86);
-  --rules-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-  --table-header-bg: #234a60;
-  --table-header-ink: #f5fbfd;
-  --excluded-bg: #18242c;
-  --cap-limited-bg: #382f1e;
-  --danger-border-soft: #76403f;
-  --toggle-off: #536773;
-  --toggle-knob: #edf5f7;
-  --toggle-inset: rgba(0, 0, 0, 0.18);
-  --toggle-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
-  --progress-track: #2b3e49;
-  --budget-border: #315f5d;
-  --budget-bg: #183536;
-  --cost-border: #68552d;
-  --cost-bg: #352d1d;
-  --toast-success-border: #356e51;
-  --toast-success-ink: #b9e8cf;
-  --toast-success-bg: #173629;
-  --toast-error-border: #7a4542;
-  --toast-error-ink: #ffc0ba;
-  --toast-error-bg: #3b2223;
-
-  --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-  --primary-shadow: 0 5px 13px rgba(0, 0, 0, 0.24);
-  --toast-shadow: 0 12px 36px rgba(0, 0, 0, 0.34);
-}
+   Feature-specific styles remain intentionally separate:
+   branding.css, reward-availability.css, ship-hover.css, scenario-manager.css
+   ========================================================================== */
 
 * {
   box-sizing: border-box;
@@ -231,7 +87,7 @@ code {
   min-width: 0;
   max-width: 100%;
   margin: 0 auto;
-  padding: 36px 0 28px;
+  padding: 32px 0 28px;
 }
 
 .hero {
@@ -1240,81 +1096,6 @@ html[data-theme="dark"] .resource-badge {
   background: color-mix(in srgb, var(--badge-color) 20%, var(--surface));
 }
 
-/* Site footer -------------------------------------------------------------
- * Shared visual pattern with Collections Calc: a quiet divider, compact
- * attribution text, and a segmented System / Light / Dark theme control.
- */
-.site-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: 18px;
-  padding: 15px 4px 2px;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 0.76rem;
-}
-
-.footer-copy {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 5px 8px;
-}
-
-.footer-copy a {
-  color: color-mix(in srgb, var(--muted) 55%, var(--ink));
-}
-
-.theme-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.theme-label {
-  color: var(--muted);
-  font-size: 0.7rem;
-  font-weight: 750;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.theme-options {
-  display: inline-flex;
-  padding: 3px;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  background: var(--surface-muted);
-}
-
-.theme-options button {
-  min-width: 50px;
-  padding: 5px 8px;
-  border: 0;
-  border-radius: 6px;
-  color: var(--muted);
-  background: transparent;
-  cursor: pointer;
-  font-size: 0.68rem;
-  font-weight: 750;
-}
-
-.theme-options button:hover {
-  color: var(--heading);
-}
-
-.theme-options button[aria-pressed="true"] {
-  color: var(--heading);
-  background: var(--surface);
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
-}
-
-.theme-options button:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 2px;
-}
 
 .toast {
   position: fixed;
@@ -1384,7 +1165,7 @@ html[data-theme="dark"] .resource-badge {
     width: calc(100% - 24px);
     max-width: 760px;
     min-width: 0;
-    padding-top: 12px;
+    /*padding-top: 12px;*/
   }
 
   .hero {
@@ -1585,24 +1366,7 @@ html[data-theme="dark"] .resource-badge {
     display: none;
   }
 
-  .site-footer {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 12px;
-  }
 
-  .footer-copy {
-    font-size: 0.7rem;
-  }
-
-  .theme-control {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .theme-options {
-    margin-left: auto;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

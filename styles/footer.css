@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Site Footer + Theme Selector
+   --------------------------------------------------------------------------
+   Shared footer presentation used by the WoWS tools.
+
+   Depends on theme.css:
+   --border, --muted, --ink, --heading, --surface-muted, --surface,
+   --focus-ring
+   ========================================================================== */
+
+.site-footer {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin-top: 18px;
+  padding: 15px 4px 2px;
+
+  border-top: 1px solid var(--border);
+
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.footer-copy {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+}
+
+.footer-copy a {
+  color: color-mix(in srgb, var(--muted) 55%, var(--ink));
+}
+
+.theme-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-label {
+  color: var(--muted);
+
+  font-size: 0.7rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.theme-options {
+  display: inline-flex;
+
+  padding: 3px;
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  background: var(--surface-muted);
+}
+
+.theme-options button {
+  min-width: 50px;
+  padding: 5px 8px;
+
+  border: 0;
+  border-radius: 6px;
+
+  color: var(--muted);
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.theme-options button:hover {
+  color: var(--heading);
+}
+
+.theme-options button[aria-pressed="true"] {
+  color: var(--heading);
+  background: var(--surface);
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.08);
+}
+
+.theme-options button:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+  }
+
+  .theme-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .theme-options {
+    margin-left: auto;
+  }
+}

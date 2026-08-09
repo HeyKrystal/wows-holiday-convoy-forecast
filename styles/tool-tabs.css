@@ -1,0 +1,226 @@
+/* ==========================================================================
+   Other WoWS Tool Tabs
+   --------------------------------------------------------------------------
+   Reusable cross-site navigation tabs that appear to rise from the footer.
+
+   Place .tool-dock INSIDE .site-footer.
+
+   Convoy variable mapping:
+   --ink             -> tab text
+   --surface         -> raised tab surface
+   --surface-muted   -> lower tab surface
+   --heading         -> title
+   --muted           -> description/group label
+   --blue            -> interaction accent
+   ========================================================================== */
+
+:root {
+  --tool-tab-collapsed-height: 40px;
+  --tool-tab-expanded-height: 112px;
+  --tool-tab-clearance: 16px;
+}
+
+/*
+ * Reserve enough layout space above a footer containing tool tabs so an
+ * expanded tab never covers the application's main content.
+ */
+.site-footer:has(.tool-dock) {
+  margin-top:
+    calc(
+      var(--tool-tab-expanded-height) +
+      var(--tool-tab-clearance)
+    );
+}
+
+.tool-dock {
+  position: absolute;
+  left: 4px;
+  bottom: 100%;
+  z-index: 5;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  max-width: calc(100% - 8px);
+
+  /*
+   * Small optical correction so the tabs visually meet the 1px footer line.
+   * Positive values move down; negative values move up.
+   */
+  transform: translateY(-2px);
+}
+
+/*
+ * Only this title strip is visible at rest.
+ *
+ * The dock is anchored to the footer's top border. Increasing the tab height
+ * therefore makes it grow upward without moving the footer itself.
+ */
+.tool-tab {
+  display: block;
+
+  width: max-content;
+  min-width: 160px;
+  max-width: 230px;
+  height: var(--tool-tab-collapsed-height);
+  padding: 8px 12px;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border-strong);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+
+  color: var(--ink);
+  background:
+    linear-gradient(
+      145deg,
+      var(--surface),
+      var(--surface-muted)
+    );
+
+  box-shadow: 0 -5px 14px rgba(0, 0, 0, 0.10);
+
+  text-decoration: none;
+
+  transition:
+    height 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.tool-tab:hover,
+.tool-tab:focus-visible {
+  height: var(--tool-tab-expanded-height);
+
+  color: var(--ink);
+  border-color: var(--blue);
+
+  box-shadow:
+    0 -10px 25px rgba(0, 0, 0, 0.16),
+    0 0 0 1px color-mix(in srgb, var(--blue) 25%, transparent);
+}
+
+.tool-tab:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.tool-tab-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  height: 22px;
+
+  color: var(--heading);
+
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+.tool-tab-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+
+  object-fit: contain;
+
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.tool-tab:hover .tool-tab-icon,
+.tool-tab:focus-visible .tool-tab-icon {
+  transform: scale(1.1);
+}
+
+.tool-tab-description {
+  margin: 14px 0 0;
+
+  color: var(--muted);
+
+  font-size: 0.72rem;
+  line-height: 1.45;
+
+  opacity: 0;
+  transform: translateY(5px);
+
+  transition:
+    opacity 150ms ease 45ms,
+    transform 190ms ease 45ms;
+}
+
+.tool-tab:hover .tool-tab-description,
+.tool-tab:focus-visible .tool-tab-description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tool-dock-label {
+  align-self: flex-end;
+
+  margin: 0 4px 12px 0;
+
+  color: var(--muted);
+
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+
+  white-space: nowrap;
+}
+
+/*
+ * Touch devices have no dependable hover interaction. Keep only the compact
+ * clickable tab and reserve only the compact amount of footer clearance.
+ */
+@media (hover: none) {
+  .site-footer:has(.tool-dock) {
+    margin-top:
+      calc(
+        var(--tool-tab-collapsed-height) +
+        var(--tool-tab-clearance)
+      );
+  }
+
+  .tool-tab,
+  .tool-tab:hover,
+  .tool-tab:focus-visible {
+    height: var(--tool-tab-collapsed-height);
+  }
+
+  .tool-tab-description {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .tool-dock {
+    left: 0;
+    right: 0;
+    gap: 6px;
+
+    max-width: 100%;
+  }
+
+  .tool-tab {
+    min-width: 0;
+    max-width: min(210px, calc(100vw - 36px));
+  }
+
+  .tool-tab-title {
+    font-size: 0.72rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-tab,
+  .tool-tab-icon,
+  .tool-tab-description {
+    transition: none;
+  }
+}
