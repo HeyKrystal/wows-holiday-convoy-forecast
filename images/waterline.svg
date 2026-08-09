@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="320" viewBox="0 0 1400 320" fill="none">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" y1="120" x2="0" y2="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#46C4F3"/>
+      <stop offset="0.45" stop-color="#1692D0"/>
+      <stop offset="1" stop-color="#0A5C96"/>
+    </linearGradient>
+    <linearGradient id="deepGrad" x1="0" y1="150" x2="0" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B82C0"/>
+      <stop offset="1" stop-color="#084A79"/>
+    </linearGradient>
+    <linearGradient id="foamGrad" x1="0" y1="102" x2="0" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.98"/>
+      <stop offset="0.45" stop-color="#D7F4FF" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#C0EBFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="highlightGrad" x1="0" y1="135" x2="0" y2="235" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9BE7FF" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#9BE7FF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#86E3FF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#86E3FF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="foamSoft" x="-10%" y="-20%" width="120%" height="160%">
+      <feGaussianBlur stdDeviation="0.8"/>
+    </filter>
+    <mask id="fadeMask">
+      <linearGradient id="fadeGrad" x1="0" y1="0" x2="1400" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="black"/>
+        <stop offset="0.06" stop-color="white"/>
+        <stop offset="0.94" stop-color="white"/>
+        <stop offset="1" stop-color="black"/>
+      </linearGradient>
+      <rect width="1400" height="320" fill="url(#fadeGrad)"/>
+    </mask>
+  </defs>
+
+  <g mask="url(#fadeMask)">
+    <ellipse cx="700" cy="212" rx="560" ry="52" fill="url(#glow)" filter="url(#softBlur)"/>
+
+    <path d="M80 196C132 186 188 183 242 188C294 193 339 205 388 206C439 207 483 191 536 186C596 180 648 187 703 198C744 206 790 212 839 211C889 210 932 198 981 192C1036 186 1089 191 1140 201C1195 212 1249 212 1320 198L1320 232C1249 237 1195 241 1140 244C1087 247 1036 247 981 247C928 247 885 246 839 246C790 246 744 247 703 247C648 247 596 247 536 247C483 247 439 247 388 247C339 247 294 247 242 245C188 243 132 238 80 230Z" fill="url(#bodyGrad)"/>
+
+    <path d="M80 220C131 205 177 210 225 213C273 216 326 225 377 221C427 217 474 198 527 199C580 200 625 216 680 220C734 223 787 215 841 214C895 213 936 220 989 219C1038 218 1081 210 1129 209C1188 208 1242 214 1320 223L1320 246C1241 248 1187 250 1129 251C1073 252 1033 252 989 252C936 252 895 252 841 252C787 252 734 252 680 252C625 252 580 252 527 252C474 252 427 252 377 251C326 250 273 249 225 247C177 245 131 241 80 236Z" fill="url(#deepGrad)" opacity="0.9"/>
+
+    <path d="M95 188C126 171 168 162 208 165C253 169 282 190 323 193C371 196 408 174 451 170C500 166 538 177 578 190C614 201 651 206 691 202C732 198 766 185 804 175C845 165 889 162 930 170C971 178 1003 196 1045 197C1091 198 1130 181 1172 171C1211 162 1252 164 1298 179" stroke="url(#highlightGrad)" stroke-width="18" stroke-linecap="round" fill="none" opacity="0.9"/>
+
+    <g filter="url(#foamSoft)">
+      <path d="M150 185C177 167 221 162 257 171C278 176 295 187 307 196C292 194 279 194 266 194C233 194 206 190 183 188C170 187 160 186 150 185Z" fill="url(#foamGrad)"/>
+      <path d="M590 191C618 172 660 167 698 176C718 181 735 191 748 200C733 199 719 199 706 199C676 199 648 196 623 194C611 193 600 192 590 191Z" fill="url(#foamGrad)"/>
+      <path d="M1010 188C1039 171 1082 166 1122 174C1146 179 1166 191 1182 201C1166 199 1150 199 1135 199C1100 199 1070 194 1046 191C1033 190 1021 189 1010 188Z" fill="url(#foamGrad)"/>
+
+      <path d="M333 202C360 201 386 198 409 194C438 189 463 181 485 180C507 178 528 186 553 194C527 191 503 191 479 194C448 198 421 206 392 208C370 210 350 208 333 202Z" fill="url(#foamGrad)" opacity="0.72"/>
+      <path d="M778 208C806 206 833 201 857 197C887 192 912 185 936 185C957 185 976 192 1000 200C975 198 952 198 928 201C897 205 870 212 840 214C817 216 795 214 778 208Z" fill="url(#foamGrad)" opacity="0.72"/>
+      <path d="M1202 199C1223 198 1243 196 1260 194C1282 191 1298 187 1312 188C1320 188 1326 190 1334 194C1320 194 1307 195 1293 198C1270 201 1249 207 1226 208C1218 209 1209 205 1202 199Z" fill="url(#foamGrad)" opacity="0.72"/>
+    </g>
+
+    <path d="M120 231C205 226 284 224 360 224C449 224 528 227 608 229C674 231 742 232 811 231C880 230 948 227 1016 225C1111 222 1205 221 1280 224" stroke="#B8EEFF" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </g>
+</svg>

@@ -316,6 +316,7 @@ html[data-theme="dark"] {
   display: grid;
   min-height: 130px;
   place-items: center;
+
   margin: 0;
   overflow: hidden;
 
@@ -334,6 +335,8 @@ html[data-theme="dark"] {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   border-radius: 0;
+
+
 }
 
 .ship-hover-image {
@@ -341,6 +344,29 @@ html[data-theme="dark"] {
   width: 100%;
   max-height: 190px;
   object-fit: contain;
+}
+
+.ship-hover-water {
+  position: relative;
+  z-index: 3;
+
+  align-self: end;
+
+  width: 180%;
+  height: auto;
+
+  margin-bottom: -2px;
+
+  pointer-events: none;
+
+  transform: translateY(0px);
+  transform: scaleX(-1);
+  opacity: 0.85;
+}
+
+.ship-hover-image,
+.ship-hover-water {
+  grid-area: 1 / 1;
 }
 
 .ship-hover-description,
@@ -378,8 +404,8 @@ html[data-theme="dark"] {
 }
 
 .ship-hover-card[data-pinned="true"] .ship-hover-description:focus-visible {
-    outline: 2px solid var(--reward-rarity, var(--teal));
-    outline-offset: -3px;
+  outline: 2px solid var(--reward-rarity, var(--teal));
+  outline-offset: -3px;
 }
 
 .ship-hover-ratings {

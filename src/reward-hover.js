@@ -284,12 +284,20 @@
       if (imageUrl) {
         const imageFrame = document.createElement("div");
         imageFrame.className = "ship-hover-image-frame";
+
         const image = document.createElement("img");
         image.className = "ship-hover-image";
         image.src = imageUrl;
         image.alt = "";
         image.loading = "lazy";
-        imageFrame.append(image);
+
+        const water = document.createElement("img");
+        water.className = "ship-hover-water";
+        water.src = "images/waterline.png";
+        water.alt = "";
+        water.setAttribute("aria-hidden", "true");
+
+        imageFrame.append(image, water);
         fragment.append(imageFrame);
       }
 
