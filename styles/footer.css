@@ -73,9 +73,9 @@
   border: 1px solid var(--border-strong);
   border-radius: 8px;
 
-  color: var(--ink);
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  color: var(--text, var(--ink));
+  background: var(--panel-raised, var(--surface));
+  box-shadow: var(--shadow-soft, var(--shadow));
 
   font-size: 0.7rem;
   font-weight: 500;
