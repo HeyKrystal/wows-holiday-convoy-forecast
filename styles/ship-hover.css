@@ -359,7 +359,7 @@ html[data-theme="dark"] {
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
+  scrollbar-color: var(--border-strong) transparent;
 }
 
 .ship-hover-description::-webkit-scrollbar {
@@ -371,27 +371,15 @@ html[data-theme="dark"] {
 }
 
 .ship-hover-description::-webkit-scrollbar-thumb {
-  background: transparent;
+  background: var(--border-strong);
   border: 2px solid transparent;
   border-radius: 999px;
   background-clip: padding-box;
 }
 
-.ship-hover-card[data-pinned="true"] .ship-hover-description:hover {
-  scrollbar-color: var(--border-strong) transparent;
-}
-
 .ship-hover-card[data-pinned="true"] .ship-hover-description:focus-visible {
-  scrollbar-color: var(--border-strong) transparent;
-  outline: 2px solid var(--reward-rarity, var(--teal));
-  outline-offset: -3px;
-}
-
-.ship-hover-card[data-pinned="true"] .ship-hover-description:hover::-webkit-scrollbar-thumb,
-.ship-hover-card[data-pinned="true"] .ship-hover-description:focus-visible::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border: 2px solid transparent;
-  background-clip: padding-box;
+    outline: 2px solid var(--reward-rarity, var(--teal));
+    outline-offset: -3px;
 }
 
 .ship-hover-ratings {
