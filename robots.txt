@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://convoy.krstldv.com//sitemap.xml
