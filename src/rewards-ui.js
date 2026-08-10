@@ -248,6 +248,7 @@
         1,
         target.reward.maxQuantity,
       );
+      event.target.value = target.selection.quantity;
       onSave();
       onDerivedChange();
     }
