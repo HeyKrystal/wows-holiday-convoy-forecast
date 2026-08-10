@@ -1090,12 +1090,31 @@ details[open]>summary .details-indicator-arm-right {
   color: var(--teal-dark);
 }
 
+.resource-rule-note-warning {
+  border-color: #b8a35a;
+  background: #f7f2df;
+  color: #5a5132;
+}
+
+.resource-rule-note-warning strong {
+  color: #7a651f;
+}
+
+html[data-theme="dark"] .resource-rule-note-warning {
+  border-color: #6f6335;
+  background: #262318;
+  color: #d8cfaa;
+}
+
+html[data-theme="dark"] .resource-rule-note-warning strong {
+  color: #cab665;
+}
+
 html[data-theme="dark"] .resource-badge {
   border-color: color-mix(in srgb, var(--badge-color) 42%, var(--border));
   color: color-mix(in srgb, var(--badge-color) 42%, var(--ink));
   background: color-mix(in srgb, var(--badge-color) 20%, var(--surface));
 }
-
 
 .toast {
   position: fixed;

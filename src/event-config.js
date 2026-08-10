@@ -90,6 +90,15 @@ window.HOLIDAY_CONVOY_CONFIG = {
       color: "#3d4852",
       accent: "#e4e7eb",
     },
+    {
+      id: "convoy-tokens",
+      label: "Owned Tokens",
+      sourceRate: 1,
+      targetTokens: 1,
+      cap: null,
+      color: "#7a5a14",
+      accent: "#f4e7b2",
+    },
   ],
 
   /**
