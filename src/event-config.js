@@ -36,7 +36,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
    */
   shipData: {
     urls: [
-      "https://heykrystal.github.io/wows-shared-data/v1/ships.json",
+      "https://heykrystal.github.io/wows-shared-data/public/v1/ships.json",
       "https://raw.githubusercontent.com/HeyKrystal/wows-shared-data/main/public/v1/ships.json",
     ],
     requestTimeoutMs: 8000,
@@ -104,8 +104,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
       value: 120,
       included: true,
     },
-  ],  
-  
+  ],
+
   /**
    * First-run example Scenarios
    *
