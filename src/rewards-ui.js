@@ -95,7 +95,7 @@
         quantityInput.className = "table-input numeric-input quantity-input";
         quantityInput.dataset.field = "quantity";
         quantityInput.value = selection.quantity;
-        quantityInput.min = "0";
+        quantityInput.min = "1";
         quantityInput.max = String(reward.maxQuantity);
         quantityInput.step = "1";
         quantityInput.inputMode = "numeric";
@@ -245,7 +245,7 @@
       }
       target.selection.quantity = clampInteger(
         event.target.value,
-        0,
+        1,
         target.reward.maxQuantity,
       );
       onSave();
@@ -262,7 +262,7 @@
       } else if (target.field === "quantity") {
         target.selection.quantity = clampInteger(
           event.target.value,
-          0,
+          1,
           target.reward.maxQuantity,
         );
         event.target.value = target.selection.quantity;

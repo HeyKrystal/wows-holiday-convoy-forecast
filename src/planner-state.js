@@ -89,7 +89,7 @@
           {
             quantity: clampInteger(
               reward.defaultQuantity ?? 1,
-              0,
+              1,
               reward.maxQuantity,
             ),
             included: Boolean(reward.defaultIncluded),
@@ -106,7 +106,7 @@
         {
           quantity: clampInteger(
             reward.defaultQuantity ?? 1,
-            0,
+            1,
             reward.maxQuantity,
           ),
           included: false,
@@ -120,7 +120,7 @@
         continue;
       }
       rewardSelections[reward.id] = {
-        quantity: clampInteger(selection.quantity ?? 1, 0, reward.maxQuantity),
+        quantity: clampInteger(selection.quantity ?? 1, 1, reward.maxQuantity),
         included: selection.included !== false,
       };
     }
@@ -169,7 +169,7 @@
         continue;
       }
       rewardSelections[reward.id] = {
-        quantity: clampInteger(selection.quantity, 0, reward.maxQuantity),
+        quantity: clampInteger(selection.quantity, 1, reward.maxQuantity),
         included: Boolean(selection.included),
       };
     }
