@@ -149,6 +149,8 @@
       "savedStatus",
       "storageNoticeHeading",
       "storageNoticeText",
+      "eventRegionSelect",
+      "eventTimeZoneText",
       "eventStatusText",
       "earnDateRange",
       "spendDateRange",

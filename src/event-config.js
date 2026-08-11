@@ -17,13 +17,38 @@ window.HOLIDAY_CONVOY_CONFIG = {
   /**
    * Event schedule and official information
    *
-   * Dates use YYYY-MM-DD and are interpreted as local calendar dates.
-   * Update these values for future events.
+   * All event timestamps use ISO 8601 UTC.
+   *
+   * IMPORTANT:
+   * The regional timestamps below are PLACEHOLDERS until the official
+   * server-specific Holiday Convoy schedule is confirmed.
    */
   eventInfo: {
-    earnStartDate: "2026-08-12",
-    earnEndDate: "2027-01-31",
-    spendEndDate: "2027-02-10",
+    defaultRegion: "na",
+
+    regions: {
+      na: {
+        label: "NA",
+        earnStart: "2026-08-12T10:00:00Z",
+        earnEnd: "2027-02-01T08:00:00Z",
+        spendEnd: "2027-02-10T08:00:00Z",
+      },
+
+      eu: {
+        label: "EU",
+        earnStart: "2026-08-13T03:00:00Z",
+        earnEnd: "2027-02-02T01:00:00Z",
+        spendEnd: "2027-02-11T01:00:00Z",
+      },
+
+      asia: {
+        label: "ASIA",
+        earnStart: "2026-08-12T20:00:00Z",
+        earnEnd: "2027-02-01T19:00:00Z",
+        spendEnd: "2027-02-10T19:00:00Z",
+      },
+    },
+
     eventPageUrl:
       "https://blog.worldofwarships.com/blog/holiday-convoy-sets-sail",
   },
