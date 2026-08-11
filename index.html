@@ -185,11 +185,23 @@
 
           <section class="about-section" aria-labelledby="eventScheduleHeading">
             <h3 id="eventScheduleHeading">Event Schedule</h3>
+
+            <div class="event-region-control">
+              <label for="eventRegionSelect">Server region</label>
+
+              <select class="event-region-select" id="eventRegionSelect" aria-describedby="eventTimeZoneText"></select>
+
+              <small id="eventTimeZoneText">
+                Times are shown in your local time.
+              </small>
+            </div>
+
             <div class="event-schedule">
               <div class="event-date-card">
                 <span>Earn tokens</span>
                 <strong id="earnDateRange"></strong>
               </div>
+
               <div class="event-date-card">
                 <span>Spend tokens</span>
                 <strong id="spendDateRange"></strong>
@@ -288,19 +300,11 @@
       </div>
 
       <div class="resource-rule-note resource-rule-note-warning" role="note">
-        <p>
-          <strong>About Owned Tokens:</strong>
-          Using Owned Tokens below is completely optional and best for users who want to 
-          track their balance more closely. As you exchange resources in game, you can 
-          replace those sources here with Owned Tokens, kind of like balancing a checkbook;
-          Meemaw would be so proud of you.
-        </p>
-        <p>
-          Just keep in mind that this can get complicated, especially with Daily Mission
-          Sets. Those tokens are awarded automatically, and there’s no practical way to
-          track exactly how many sets you’ve already completed unless you update the
-          planner constantly.
-        </p>
+        <strong>About Converted Tokens:</strong>
+        Using these is more advanced, and totally optional for those who want to get
+        into the nitty-gritty. As you trade resources for tokens, you can adjust your
+        sources below to reflect your exchanges. Kinda like balancing a checkbook;
+        Meemaw would be so proud of you. Just be wary, trying to balance the daily mission sets can get very confusing.
       </div>
     </details>
 

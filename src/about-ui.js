@@ -2,150 +2,381 @@
   "use strict";
 
   const app = window.HolidayConvoy;
-  const DAY_MS = 24 * 60 * 60 * 1000;
-  const dateFormatter = new Intl.DateTimeFormat("en-US", {
+
+  const REGION_STORAGE_KEY = "holiday-convoy-region";
+
+  const MINUTE_MS = 60 * 1000;
+  const HOUR_MS = 60 * MINUTE_MS;
+  const DAY_MS = 24 * HOUR_MS;
+  const DETAILED_COUNTDOWN_THRESHOLD_MS = 3 * DAY_MS;
+
+  const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
     month: "long",
     day: "numeric",
     year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
   });
 
   function create({ config, elements }) {
     const eventInfo = config.eventInfo;
-    let midnightTimer = null;
+
+    let selectedRegionId = null;
+    let statusTimer = null;
 
     function start() {
       validateEventInfo(eventInfo);
+
+      populateRegionSelect();
+
+      selectedRegionId = resolveInitialRegion();
+      elements.eventRegionSelect.value = selectedRegionId;
+
+      renderTimeZoneNote();
       renderSchedule();
       updateStatus();
-      scheduleNextMidnightUpdate();
+
+      elements.eventRegionSelect.addEventListener(
+        "change",
+        handleRegionChange,
+      );
+
+      startStatusTimer();
+    }
+
+    function populateRegionSelect() {
+      elements.eventRegionSelect.replaceChildren();
+
+      for (const [regionId, region] of Object.entries(eventInfo.regions)) {
+        const option = document.createElement("option");
+
+        option.value = regionId;
+        option.textContent = region.label;
+
+        elements.eventRegionSelect.append(option);
+      }
+    }
+
+    function resolveInitialRegion() {
+      const savedRegion = loadRegionPreference();
+
+      if (isValidRegion(eventInfo, savedRegion)) {
+        return savedRegion;
+      }
+
+      const inferredRegion = inferRegionFromTimeZone();
+
+      if (isValidRegion(eventInfo, inferredRegion)) {
+        return inferredRegion;
+      }
+
+      return eventInfo.defaultRegion;
+    }
+
+    function handleRegionChange(event) {
+      const regionId = event.target.value;
+
+      if (!isValidRegion(eventInfo, regionId)) {
+        return;
+      }
+
+      selectedRegionId = regionId;
+
+      saveRegionPreference(regionId);
+
+      renderSchedule();
+      updateStatus();
     }
 
     function renderSchedule() {
-      const earnStart = parseLocalDate(eventInfo.earnStartDate);
-      const earnEnd = parseLocalDate(eventInfo.earnEndDate);
-      const spendEnd = parseLocalDate(eventInfo.spendEndDate);
+      const region = getRegion(eventInfo, selectedRegionId);
+
+      const earnStart = parseUtcTimestamp(region.earnStart);
+      const earnEnd = parseUtcTimestamp(region.earnEnd);
+      const spendEnd = parseUtcTimestamp(region.spendEnd);
 
       elements.earnDateRange.textContent =
-        `${dateFormatter.format(earnStart)} to ${dateFormatter.format(earnEnd)}`;
+        `${dateTimeFormatter.format(earnStart)} to ` +
+        `${dateTimeFormatter.format(earnEnd)}`;
+
       elements.spendDateRange.textContent =
-        `Until ${dateFormatter.format(spendEnd)}`;
+        `Until ${dateTimeFormatter.format(spendEnd)}`;
+
       elements.officialEventLink.href = eventInfo.eventPageUrl;
     }
 
+    function renderTimeZoneNote() {
+      const timeZone =
+        Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      elements.eventTimeZoneText.textContent = timeZone
+        ? `Times are shown in your local time (${timeZone}).`
+        : "Times are shown in your local time.";
+    }
+
     function updateStatus(now = new Date()) {
-      elements.eventStatusText.textContent = getEventStatus(eventInfo, now);
-    }
-
-    function scheduleNextMidnightUpdate() {
-      clearTimeout(midnightTimer);
-
-      const now = new Date();
-      const nextMidnight = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() + 1,
-        0,
-        0,
-        2,
+      elements.eventStatusText.textContent = getEventStatus(
+        eventInfo,
+        now,
+        selectedRegionId,
       );
-
-      midnightTimer = window.setTimeout(() => {
-        updateStatus();
-        scheduleNextMidnightUpdate();
-      }, nextMidnight.getTime() - now.getTime());
     }
 
-    return { start, updateStatus };
+    function startStatusTimer() {
+      clearInterval(statusTimer);
+
+      statusTimer = window.setInterval(
+        () => updateStatus(),
+        MINUTE_MS,
+      );
+    }
+
+    return {
+      start,
+      updateStatus,
+    };
   }
 
-  function getEventStatus(eventInfo, now = new Date()) {
+  function getEventStatus(
+    eventInfo,
+    now = new Date(),
+    regionId = eventInfo.defaultRegion,
+  ) {
     validateEventInfo(eventInfo);
 
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const earnStart = parseLocalDate(eventInfo.earnStartDate);
-    const earnEnd = parseLocalDate(eventInfo.earnEndDate);
-    const spendEnd = parseLocalDate(eventInfo.spendEndDate);
+    const region = getRegion(eventInfo, regionId);
 
-    if (today < earnStart) {
-      return describeCountdown("Event starts", daysBetween(today, earnStart));
-    }
+    const earnStart = parseUtcTimestamp(region.earnStart);
+    const earnEnd = parseUtcTimestamp(region.earnEnd);
+    const spendEnd = parseUtcTimestamp(region.spendEnd);
 
-    if (today <= earnEnd) {
+    if (now < earnStart) {
       return describeCountdown(
-        "Token earning ends",
-        daysBetween(today, earnEnd),
+        "Event starts",
+        earnStart.getTime() - now.getTime(),
       );
     }
 
-    if (today <= spendEnd) {
-      return describeCountdown("Spending ends", daysBetween(today, spendEnd));
+    if (now < earnEnd) {
+      return describeCountdown(
+        "Token earning ends",
+        earnEnd.getTime() - now.getTime(),
+      );
     }
 
-    return "Event has ended";
-  }
-
-  function describeCountdown(label, days) {
-    if (days <= 0) {
-      return `${label} today`;
-    }
-    if (days === 1) {
-      return `${label} tomorrow`;
-    }
-    return `${label} in ${days} days`;
-  }
-
-  function daysBetween(fromDate, toDate) {
-    return Math.round((toDayNumber(toDate) - toDayNumber(fromDate)) / DAY_MS);
-  }
-
-  function toDayNumber(date) {
-    return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
-  }
-
-  function parseLocalDate(value) {
-    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value));
-    if (!match) {
-      throw new Error(`Invalid event date: ${value}`);
+    if (now < spendEnd) {
+      return describeCountdown(
+        "Spending ends",
+        spendEnd.getTime() - now.getTime(),
+      );
     }
 
-    const [, year, month, day] = match;
-    const date = new Date(Number(year), Number(month) - 1, Number(day));
+    return `Event has concluded for ${region.label}`;
+  }
+
+  function describeCountdown(label, remainingMs) {
+    if (remainingMs <= 0) {
+      return label;
+    }
+
+    if (remainingMs < HOUR_MS) {
+      const minutes = Math.max(
+        1,
+        Math.floor(remainingMs / MINUTE_MS),
+      );
+
+      return `${label} in ${formatUnit(minutes, "minute")}`;
+    }
+
+    if (remainingMs < DAY_MS) {
+      const hours = Math.floor(remainingMs / HOUR_MS);
+      const minutes = Math.floor(
+        (remainingMs % HOUR_MS) / MINUTE_MS,
+      );
+
+      return `${label} in ${formatDuration([
+        [hours, "hour"],
+        [minutes, "minute"],
+      ])}`;
+    }
+
+    if (remainingMs < DETAILED_COUNTDOWN_THRESHOLD_MS) {
+      const days = Math.floor(remainingMs / DAY_MS);
+      const hours = Math.floor(
+        (remainingMs % DAY_MS) / HOUR_MS,
+      );
+
+      return `${label} in ${formatDuration([
+        [days, "day"],
+        [hours, "hour"],
+      ])}`;
+    }
+
+    const days = Math.ceil(remainingMs / DAY_MS);
+
+    return `${label} in ${formatUnit(days, "day")}`;
+  }
+
+  function formatDuration(parts) {
+    return parts
+      .filter(([value]) => value > 0)
+      .map(([value, unit]) => formatUnit(value, unit))
+      .join(", ");
+  }
+
+  function formatUnit(value, unit) {
+    return `${value} ${unit}${value === 1 ? "" : "s"}`;
+  }
+
+  function inferRegionFromTimeZone() {
+    const timeZone =
+      Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
 
     if (
-      date.getFullYear() !== Number(year) ||
-      date.getMonth() !== Number(month) - 1 ||
-      date.getDate() !== Number(day)
+      timeZone.startsWith("America/") ||
+      timeZone === "Pacific/Honolulu"
     ) {
-      throw new Error(`Invalid event date: ${value}`);
+      return "na";
     }
 
-    return date;
+    if (
+      timeZone.startsWith("Europe/") ||
+      timeZone.startsWith("Africa/")
+    ) {
+      return "eu";
+    }
+
+    if (
+      timeZone.startsWith("Asia/") ||
+      timeZone.startsWith("Australia/") ||
+      timeZone.startsWith("Indian/") ||
+      timeZone.startsWith("Pacific/")
+    ) {
+      return "asia";
+    }
+
+    return null;
+  }
+
+  function loadRegionPreference() {
+    try {
+      return localStorage.getItem(REGION_STORAGE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  function saveRegionPreference(regionId) {
+    try {
+      localStorage.setItem(
+        REGION_STORAGE_KEY,
+        regionId,
+      );
+    } catch {
+      // The region still works for this visit when storage is unavailable.
+    }
+  }
+
+  function getRegion(eventInfo, regionId) {
+    const region = eventInfo.regions?.[regionId];
+
+    if (!region) {
+      throw new Error(`Unknown event region: ${regionId}`);
+    }
+
+    return region;
+  }
+
+  function isValidRegion(eventInfo, regionId) {
+    return Boolean(
+      regionId &&
+      Object.prototype.hasOwnProperty.call(
+        eventInfo.regions,
+        regionId,
+      ),
+    );
+  }
+
+  function parseUtcTimestamp(value) {
+    if (
+      typeof value !== "string" ||
+      !value.endsWith("Z")
+    ) {
+      throw new Error(
+        `Event timestamp must be ISO 8601 UTC and end in Z: ${value}`,
+      );
+    }
+
+    const timestamp = new Date(value);
+
+    if (Number.isNaN(timestamp.getTime())) {
+      throw new Error(`Invalid event timestamp: ${value}`);
+    }
+
+    return timestamp;
   }
 
   function validateEventInfo(eventInfo) {
     if (!eventInfo || typeof eventInfo !== "object") {
-      throw new Error("eventInfo is missing from HOLIDAY_CONVOY_CONFIG.");
+      throw new Error(
+        "eventInfo is missing from HOLIDAY_CONVOY_CONFIG.",
+      );
     }
 
-    const earnStart = parseLocalDate(eventInfo.earnStartDate);
-    const earnEnd = parseLocalDate(eventInfo.earnEndDate);
-    const spendEnd = parseLocalDate(eventInfo.spendEndDate);
+    if (
+      !eventInfo.regions ||
+      typeof eventInfo.regions !== "object"
+    ) {
+      throw new Error(
+        "eventInfo.regions is required.",
+      );
+    }
 
-    if (earnEnd < earnStart) {
-      throw new Error("earnEndDate cannot be before earnStartDate.");
+    if (!isValidRegion(eventInfo, eventInfo.defaultRegion)) {
+      throw new Error(
+        "eventInfo.defaultRegion must reference a configured region.",
+      );
     }
-    if (spendEnd < earnEnd) {
-      throw new Error("spendEndDate cannot be before earnEndDate.");
+
+    for (const [regionId, region] of Object.entries(
+      eventInfo.regions,
+    )) {
+      if (!region.label) {
+        throw new Error(
+          `eventInfo.regions.${regionId}.label is required.`,
+        );
+      }
+
+      const earnStart = parseUtcTimestamp(region.earnStart);
+      const earnEnd = parseUtcTimestamp(region.earnEnd);
+      const spendEnd = parseUtcTimestamp(region.spendEnd);
+
+      if (earnEnd <= earnStart) {
+        throw new Error(
+          `${region.label} earnEnd must be after earnStart.`,
+        );
+      }
+
+      if (spendEnd <= earnEnd) {
+        throw new Error(
+          `${region.label} spendEnd must be after earnEnd.`,
+        );
+      }
     }
+
     if (!eventInfo.eventPageUrl) {
-      throw new Error("eventPageUrl is required in eventInfo.");
+      throw new Error(
+        "eventPageUrl is required in eventInfo.",
+      );
     }
   }
 
   app.aboutUI = {
     create,
     getEventStatus,
-    parseLocalDate,
+    inferRegionFromTimeZone,
+    parseUtcTimestamp,
     validateEventInfo,
   };
 })();
