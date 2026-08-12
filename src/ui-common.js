@@ -19,8 +19,6 @@
     return wrapper;
   }
 
-  let resourceTooltipId = 0;
-
   function createResourceBadge(
     resource,
     { showTooltip = false } = {},

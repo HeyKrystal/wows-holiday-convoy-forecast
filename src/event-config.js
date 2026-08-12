@@ -360,31 +360,28 @@ window.HOLIDAY_CONVOY_CONFIG = {
     },
     {
       id: "new-jersey",
-      name: "Unannounced Ship 1",
+      name: "New Jersey",
       shipId: null,
       rarity: "epic",
       availability: "Update 15.11",
       tokenCost: 400000,
       maxQuantity: 1,
-      category: "Ship (Probably New Jersey)",
+      category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
 
       details: {
         description:
-          "This ship has not yet been officially revealed. The planner will be updated when more information becomes available.",
+          "Ship details will become available once they have been published on Wargaming API.",
 
         facts: [
-          {
-            label: "Expected update",
-            value: "15.11",
-          },
+          {},
         ],
       },
     },
     {
       id: "unannounced-rare-ship-2",
-      name: "Unannounced Ship 2",
+      name: "Rodina",
       shipId: null,
       rarity: "rare",
       availability: "Update 15.11",
@@ -393,10 +390,19 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
+
+      details: {
+        description:
+          "Ship details will become available once they have been published on Wargaming API.",
+
+        facts: [
+          {},
+        ],
+      },
     },
     {
       id: "unannounced-rare-ship-3",
-      name: "Unannounced Ship 3",
+      name: "Tōgasa",
       shipId: null,
       rarity: "rare",
       availability: "Update 15.11",
@@ -405,10 +411,19 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
+
+      details: {
+        description:
+          "Ship details will become available once they have been published on Wargaming API.",
+
+        facts: [
+          {},
+        ],
+      },
     },
     {
       id: "unannounced-rare-ship-4",
-      name: "Unannounced Ship 4",
+      name: "Tréville",
       shipId: null,
       rarity: "rare",
       availability: "Update 15.11",
@@ -417,11 +432,20 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
+
+      details: {
+        description:
+          "Ship details will become available once they have been published on Wargaming API.",
+
+        facts: [
+          {},
+        ],
+      },
     },
     {
       id: "doubloons-3000",
       name: "3,000 Doubloon Pack",
-      availability: "One pack per update; 15.7 through 16.0",
+      availability: "Update 15.7 through 16.0",
       tokenCost: 9000,
       maxQuantity: 6,
       category: "Doubloons",
