@@ -76,6 +76,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
    *      Use null when there is no cap.
    * showCappedLeftover: Set to false for capped non-resource activities,
    *      such as missions, that should not appear in resource leftovers.
+   * tooltip: Optional explanatory text shown from the resource badge in the
+   *      Token Exchange Rates table.
    */
   resources: [
     {
@@ -123,6 +125,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       cap: null,
       color: "#7a5a14",
       accent: "#f4e7b2",
+      tooltip: "Owned Tokens aren't exchanged, these are just here for you to track your existing balance",
     },
   ],
 
@@ -366,6 +369,18 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship (Probably New Jersey)",
       defaultQuantity: 1,
       defaultIncluded: false,
+
+      details: {
+        description:
+          "This ship has not yet been officially revealed. The planner will be updated when more information becomes available.",
+
+        facts: [
+          {
+            label: "Expected update",
+            value: "15.11",
+          },
+        ],
+      },
     },
     {
       id: "unannounced-rare-ship-2",
@@ -412,6 +427,22 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Doubloons",
       defaultQuantity: 6,
       defaultIncluded: false,
+
+      details: {
+        description:
+          "A bundle of 3,000 Doubloons available once during each eligible update.",
+
+        facts: [
+          {
+            label: "Contents",
+            value: "3,000 Doubloons",
+          },
+          {
+            label: "Purchase limit",
+            value: "One per eligible update",
+          },
+        ],
+      },
     },
   ],
 };

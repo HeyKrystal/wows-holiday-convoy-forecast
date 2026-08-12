@@ -442,6 +442,28 @@ html[data-theme="dark"] {
   border-radius: inherit;
 }
 
+.ship-hover-facts {
+  display: grid;
+  grid-template-columns: minmax(90px, auto) 1fr;
+  gap: 7px 12px;
+  margin: 0;
+  padding: 12px 16px 14px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+.ship-hover-facts dt {
+  font-weight: 750;
+}
+
+.ship-hover-facts dd {
+  margin: 0;
+  color: var(--ink);
+  text-align: right;
+}
+
 .ship-hover-footer {
   display: flex;
   justify-content: space-between;
@@ -479,6 +501,10 @@ html[data-theme="dark"] {
     overflow-x: hidden;
     overflow-x: clip;
     border-radius: 18px;
+
+    .ship-hover-facts dd {
+      overflow-wrap: anywhere;
+    }
   }
 
   /*

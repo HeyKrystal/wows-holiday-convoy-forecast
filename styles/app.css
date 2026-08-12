@@ -996,6 +996,61 @@ details[open]>summary .details-indicator-arm-right {
   background: var(--badge-color);
 }
 
+.resource-badge.has-tooltip {
+  position: relative;
+  cursor: help;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.resource-badge.has-tooltip:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.resource-badge-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 9px);
+  z-index: 30;
+
+  width: max-content;
+  max-width: min(320px, calc(100vw - 32px));
+  padding: 9px 11px;
+
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.45;
+  white-space: normal;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 4px);
+  pointer-events: none;
+
+  transition:
+    opacity 140ms ease,
+    visibility 140ms ease,
+    transform 160ms ease;
+}
+
+.resource-badge.has-tooltip:hover .resource-badge-tooltip,
+.resource-badge.has-tooltip:focus .resource-badge-tooltip,
+.resource-badge.has-tooltip:focus-within .resource-badge-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
 .summary-panel {
   position: sticky;
   top: 18px;

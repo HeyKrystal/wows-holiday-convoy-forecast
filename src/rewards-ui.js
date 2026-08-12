@@ -136,7 +136,11 @@
       const wrapper = document.createElement("div");
       wrapper.className = "reward-identity";
 
-      const hasDetails = Boolean(reward.shipId || reward.rarity);
+      const hasDetails = Boolean(
+        reward.shipId ||
+        reward.rarity ||
+        reward.details,
+      );
       const nameElement = document.createElement(hasDetails ? "button" : "strong");
       nameElement.className = hasDetails
         ? "reward-ship-trigger"

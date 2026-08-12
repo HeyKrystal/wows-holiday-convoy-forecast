@@ -30,10 +30,12 @@
     return values.find(([value]) => Number(tier) === value)?.[1] ?? String(tier ?? "");
   }
 
-  function rarityLabel(rarity) {
-    return rarity
-      ? `${rarity.charAt(0).toUpperCase()}${rarity.slice(1)}`
-      : "Ship";
+  function detailLabel(reward) {
+    if (reward.rarity) {
+      return `${reward.rarity.charAt(0).toUpperCase()}${reward.rarity.slice(1)}`;
+    }
+
+    return reward.category || "Reward";
   }
 
   function pointerPointFrom(event) {
@@ -212,15 +214,24 @@
       popover.dataset.rarity = reward.rarity ?? "common";
       popover.setAttribute("role", pinned ? "dialog" : "tooltip");
 
-      renderLoading(reward);
-      position();
-
       const currentRequest = ++requestNumber;
+
       if (!reward.shipId) {
-        renderUnavailable(reward, "Full ship details will be added after the ship is revealed.");
+        if (reward.details) {
+          renderRewardDetails(reward);
+        } else {
+          renderUnavailable(
+            reward,
+            "Full ship details will be added after the ship is revealed.",
+          );
+        }
+
         position();
         return;
       }
+
+      renderLoading(reward);
+      position();
 
       try {
         await shipCatalog.load();
@@ -277,46 +288,148 @@
     }
 
     function renderShip(reward, ship) {
+      const details = reward.details ?? {};
       const fragment = document.createDocumentFragment();
+
       fragment.append(createCardHeader(reward, ship));
 
-      const imageUrl = ship.images?.large ?? ship.images?.medium ?? ship.images?.small;
+      const imageUrl =
+        details.image ??
+        ship.images?.large ??
+        ship.images?.medium ??
+        ship.images?.small;
+
       if (imageUrl) {
-        const imageFrame = document.createElement("div");
-        imageFrame.className = "ship-hover-image-frame";
+        fragment.append(
+          createImageFrame(imageUrl, {
+            showWater: true,
+          }),
+        );
+      }
 
-        const image = document.createElement("img");
-        image.className = "ship-hover-image";
-        image.src = imageUrl;
-        image.alt = "";
-        image.loading = "lazy";
+      const description =
+        String(details.description ?? ship.description ?? "").trim();
 
+      if (description) {
+        fragment.append(createDescription(description));
+      }
+
+      const facts = createFacts(details.facts);
+
+      if (facts) {
+        fragment.append(facts);
+      }
+
+      const ratings = createRatings(ship.ratings);
+
+      if (ratings) {
+        fragment.append(ratings);
+      }
+
+      fragment.append(createAvailability(reward));
+
+      popover.replaceChildren(fragment);
+    }
+
+    function renderRewardDetails(reward) {
+      const details = reward.details ?? {};
+      const fragment = document.createDocumentFragment();
+
+      fragment.append(createCardHeader(reward, null));
+
+      if (details.image) {
+        fragment.append(
+          createImageFrame(details.image, {
+            showWater: false,
+          }),
+        );
+      }
+
+      const description =
+        String(details.description ?? "").trim();
+
+      if (description) {
+        fragment.append(createDescription(description));
+      }
+
+      const facts = createFacts(details.facts);
+
+      if (facts) {
+        fragment.append(facts);
+      }
+
+      fragment.append(createAvailability(reward));
+
+      popover.replaceChildren(fragment);
+    }
+
+    function createImageFrame(
+      imageUrl,
+      { showWater = false } = {},
+    ) {
+      const imageFrame = document.createElement("div");
+      imageFrame.className = "ship-hover-image-frame";
+
+      const image = document.createElement("img");
+      image.className = "ship-hover-image";
+      image.src = imageUrl;
+      image.alt = "";
+      image.loading = "lazy";
+
+      imageFrame.append(image);
+
+      if (showWater) {
         const water = document.createElement("img");
         water.className = "ship-hover-water";
         water.src = "images/waterline.png";
         water.alt = "";
         water.setAttribute("aria-hidden", "true");
 
-        imageFrame.append(image, water);
-        fragment.append(imageFrame);
+        imageFrame.append(water);
       }
 
-      if (ship.description) {
-        const description = document.createElement("p");
-        description.className = "ship-hover-description";
-        description.tabIndex = pinned ? 0 : -1;
-        description.setAttribute("aria-label", "Ship description");
-        description.textContent = ship.description;
-        fragment.append(description);
+      return imageFrame;
+    }
+
+    function createFacts(facts) {
+      if (!Array.isArray(facts) || !facts.length) {
+        return null;
       }
 
-      const ratings = createRatings(ship.ratings);
-      if (ratings) {
-        fragment.append(ratings);
+      const validFacts = facts.filter(
+        (fact) =>
+          String(fact?.label ?? "").trim() &&
+          String(fact?.value ?? "").trim(),
+      );
+
+      if (!validFacts.length) {
+        return null;
       }
 
-      fragment.append(createAvailability(reward));
-      popover.replaceChildren(fragment);
+      const list = document.createElement("dl");
+      list.className = "ship-hover-facts";
+
+      for (const fact of validFacts) {
+        const label = document.createElement("dt");
+        label.textContent = fact.label;
+
+        const value = document.createElement("dd");
+        value.textContent = fact.value;
+
+        list.append(label, value);
+      }
+
+      return list;
+    }
+
+    function createDescription(text) {
+      const description = document.createElement("p");
+      description.className = "ship-hover-description";
+      description.tabIndex = pinned ? 0 : -1;
+      description.setAttribute("aria-label", "Reward description");
+      description.textContent = text;
+
+      return description;
     }
 
     function createCardHeader(reward, ship) {
@@ -326,10 +439,13 @@
       const titleBlock = document.createElement("div");
       const rarity = document.createElement("span");
       rarity.className = "ship-hover-rarity";
-      rarity.textContent = rarityLabel(reward.rarity);
+      rarity.textContent = detailLabel(reward);
 
       const title = document.createElement("h3");
-      title.textContent = ship?.name ?? reward.name;
+      title.textContent =
+        reward.details?.title ??
+        ship?.name ??
+        reward.name;
       titleBlock.append(rarity, title);
 
       if (ship) {
