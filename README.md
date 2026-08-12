@@ -2,8 +2,7 @@
 
 A small, dependency-free web app for planning a World of Warships Holiday Convoy token budget. Add expected resources, pool conversion remainders, and compare your token budget against the rewards you want.
 
-> [!NOTE]
-> The initial 2026 conversion rates, caps, rewards, and costs were transcribed from the supplied `Holiday Convoy Budget.xlsx` workbook. Review `event-config.js` before publishing the planner publicly.
+Project evolved from .xlsx to this.
 
 ## Quick Start
 
