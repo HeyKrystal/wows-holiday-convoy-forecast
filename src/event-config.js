@@ -125,7 +125,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       cap: null,
       color: "#7a5a14",
       accent: "#f4e7b2",
-      tooltip: "Owned Tokens aren't exchanged, these are just here for you to track your existing balance",
+      tooltip: "Not an exchange rate, just available in case you want to include your already exchanged token balance below.",
     },
   ],
 
@@ -372,10 +372,21 @@ window.HOLIDAY_CONVOY_CONFIG = {
 
       details: {
         description:
-          "Ship details will become available once they have been published on Wargaming API.",
+          "Complete ship details will become available once they have been published on Wargaming API.",
 
         facts: [
-          {},
+          {
+            label: "Nation",
+            value: "United States",
+          },
+          {
+            label: "Type",
+            value: "Battleship",
+          },
+          {
+            label: "Tier",
+            value: "X",
+          },
         ],
       },
     },
@@ -393,10 +404,21 @@ window.HOLIDAY_CONVOY_CONFIG = {
 
       details: {
         description:
-          "Ship details will become available once they have been published on Wargaming API.",
+          "Complete ship details will become available once they have been published on Wargaming API.",
 
         facts: [
-          {},
+          {
+            label: "Nation",
+            value: "U.S.S.R.",
+          },
+          {
+            label: "Type",
+            value: "Battleship",
+          },
+          {
+            label: "Tier",
+            value: "X",
+          },
         ],
       },
     },
@@ -414,10 +436,21 @@ window.HOLIDAY_CONVOY_CONFIG = {
 
       details: {
         description:
-          "Ship details will become available once they have been published on Wargaming API.",
+          "Complete ship details will become available once they have been published on Wargaming API.",
 
         facts: [
-          {},
+          {
+            label: "Nation",
+            value: "Japan",
+          },
+          {
+            label: "Type",
+            value: "Battleship",
+          },
+          {
+            label: "Tier",
+            value: "X",
+          },
         ],
       },
     },
@@ -435,10 +468,21 @@ window.HOLIDAY_CONVOY_CONFIG = {
 
       details: {
         description:
-          "Ship details will become available once they have been published on Wargaming API.",
+          "Complete ship details will become available once they have been published on Wargaming API.",
 
         facts: [
-          {},
+          {
+            label: "Nation",
+            value: "France",
+          },
+          {
+            label: "Type",
+            value: "Cruiser",
+          },
+          {
+            label: "Tier",
+            value: "X",
+          },
         ],
       },
     },
@@ -454,7 +498,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
 
       details: {
         description:
-          "A bundle of 3,000 Doubloons available once during each eligible update.",
+          "One bundle of 3,000 Doubloons will during each of the six updates.",
 
         facts: [
           {

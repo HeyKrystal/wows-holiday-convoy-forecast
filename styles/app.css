@@ -1034,7 +1034,7 @@ details[open]>summary .details-indicator-arm-right {
 
   opacity: 0;
   visibility: hidden;
-  transform: translate(-50%, 4px);
+  transform: translateY(4px);
   pointer-events: none;
 
   transition:
@@ -1048,7 +1048,7 @@ details[open]>summary .details-indicator-arm-right {
 .resource-badge.has-tooltip:focus-within .resource-badge-tooltip {
   opacity: 1;
   visibility: visible;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
 }
 
 .summary-panel {
