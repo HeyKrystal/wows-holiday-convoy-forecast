@@ -459,7 +459,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     },
     {
       id: "unannounced-rare-ship-4",
-      name: "Tréville",
+      name: "Latouche-Tréville",
       shipId: null,
       rarity: "rare",
       availability: "Update 15.11",
