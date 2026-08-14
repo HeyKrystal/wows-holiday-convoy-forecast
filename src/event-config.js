@@ -76,6 +76,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
    *      Use null when there is no cap.
    * showCappedLeftover: Set to false for capped non-resource activities,
    *      such as missions, that should not appear in resource leftovers.
+   * tooltip: Optional explanatory text shown from the resource badge in the
+   *      Token Exchange Rates table.
    */
   resources: [
     {
@@ -123,6 +125,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       cap: null,
       color: "#7a5a14",
       accent: "#f4e7b2",
+      tooltip: "Not an exchange rate, just available in case you want to include your already exchanged token balance below.",
     },
   ],
 
@@ -357,19 +360,40 @@ window.HOLIDAY_CONVOY_CONFIG = {
     },
     {
       id: "new-jersey",
-      name: "Unannounced Ship 1",
+      name: "New Jersey",
       shipId: null,
       rarity: "epic",
       availability: "Update 15.11",
       tokenCost: 400000,
       maxQuantity: 1,
-      category: "Ship (Probably New Jersey)",
+      category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
+
+      details: {
+        image: "images/rewards/new-jersey.webp",
+        description:
+          "Complete ship details will become available once they have been published on Wargaming API.",
+
+        facts: [
+          {
+            label: "Nation",
+            value: "United States",
+          },
+          {
+            label: "Type",
+            value: "Battleship",
+          },
+          {
+            label: "Tier",
+            value: "X",
+          },
+        ],
+      },
     },
     {
       id: "unannounced-rare-ship-2",
-      name: "Unannounced Ship 2",
+      name: "Rodina",
       shipId: null,
       rarity: "rare",
       availability: "Update 15.11",
@@ -378,10 +402,31 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
+
+      details: {
+        image: "images/rewards/rodina.webp",
+        description:
+          "Complete ship details will become available once they have been published on Wargaming API.",
+
+        facts: [
+          {
+            label: "Nation",
+            value: "U.S.S.R.",
+          },
+          {
+            label: "Type",
+            value: "Battleship",
+          },
+          {
+            label: "Tier",
+            value: "X",
+          },
+        ],
+      },
     },
     {
       id: "unannounced-rare-ship-3",
-      name: "Unannounced Ship 3",
+      name: "Tōgasa",
       shipId: null,
       rarity: "rare",
       availability: "Update 15.11",
@@ -390,10 +435,31 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
+
+      details: {
+        image: "images/rewards/togasa.webp",
+        description:
+          "Complete ship details will become available once they have been published on Wargaming API.",
+
+        facts: [
+          {
+            label: "Nation",
+            value: "Japan",
+          },
+          {
+            label: "Type",
+            value: "Battleship",
+          },
+          {
+            label: "Tier",
+            value: "X",
+          },
+        ],
+      },
     },
     {
       id: "unannounced-rare-ship-4",
-      name: "Unannounced Ship 4",
+      name: "Tréville",
       shipId: null,
       rarity: "rare",
       availability: "Update 15.11",
@@ -402,16 +468,53 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
+
+      details: {
+        image: "images/rewards/latouche-skadoosh.webp",
+        description:
+          "Complete ship details will become available once they have been published on Wargaming API.",
+
+        facts: [
+          {
+            label: "Nation",
+            value: "France",
+          },
+          {
+            label: "Type",
+            value: "Cruiser",
+          },
+          {
+            label: "Tier",
+            value: "X",
+          },
+        ],
+      },
     },
     {
       id: "doubloons-3000",
       name: "3,000 Doubloon Pack",
-      availability: "One pack per update; 15.7 through 16.0",
+      availability: "Update 15.7 through 16.0",
       tokenCost: 9000,
       maxQuantity: 6,
       category: "Doubloons",
       defaultQuantity: 6,
       defaultIncluded: false,
+
+      details: {
+        description:
+          "One bundle of 3,000 Doubloons will during each of the six updates.",
+
+        facts: [
+          {
+            label: "Contents",
+            value: "3,000 Doubloons",
+          },
+          {
+            label: "Purchase limit",
+            value: "One per eligible update",
+          },
+        ],
+      },
     },
   ],
 };

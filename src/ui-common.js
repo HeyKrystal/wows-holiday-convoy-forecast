@@ -2,6 +2,7 @@
   "use strict";
 
   const app = window.HolidayConvoy;
+  let resourceTooltipId = 0;
 
   function createToggle(checked, field, label) {
     const wrapper = document.createElement("label");
@@ -18,12 +19,38 @@
     return wrapper;
   }
 
-  function createResourceBadge(resource) {
+  function createResourceBadge(
+    resource,
+    { showTooltip = false } = {},
+  ) {
     const badge = document.createElement("span");
     badge.className = "resource-badge";
     badge.textContent = resource.label;
     badge.style.setProperty("--badge-color", resource.color);
     badge.style.setProperty("--badge-accent", resource.accent);
+
+    const tooltipText = String(resource.tooltip ?? "").trim();
+
+    if (!showTooltip || !tooltipText) {
+      return badge;
+    }
+
+    resourceTooltipId += 1;
+
+    const tooltipId = `resourceTooltip${resourceTooltipId}`;
+
+    badge.classList.add("has-tooltip");
+    badge.tabIndex = 0;
+    badge.setAttribute("aria-describedby", tooltipId);
+
+    const tooltip = document.createElement("span");
+    tooltip.className = "resource-badge-tooltip";
+    tooltip.id = tooltipId;
+    tooltip.role = "tooltip";
+    tooltip.textContent = tooltipText;
+
+    badge.append(tooltip);
+
     return badge;
   }
 

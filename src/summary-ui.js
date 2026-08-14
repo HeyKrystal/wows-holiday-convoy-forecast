@@ -14,7 +14,7 @@
         const rateCell = document.createElement("td");
         const tokensCell = document.createElement("td");
         const capCell = document.createElement("td");
-        resourceCell.append(createResourceBadge(resource));
+        resourceCell.append(createResourceBadge(resource, { showTooltip: true, }),);
         rateCell.textContent = formatNumber(resource.sourceRate);
         tokensCell.textContent = formatNumber(resource.targetTokens);
         capCell.textContent = resource.cap == null ? "No cap" : formatNumber(resource.cap);

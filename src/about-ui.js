@@ -8,7 +8,6 @@
   const MINUTE_MS = 60 * 1000;
   const HOUR_MS = 60 * MINUTE_MS;
   const DAY_MS = 24 * HOUR_MS;
-  const DETAILED_COUNTDOWN_THRESHOLD_MS = 3 * DAY_MS;
 
   const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
     month: "long",
@@ -201,21 +200,15 @@
       ])}`;
     }
 
-    if (remainingMs < DETAILED_COUNTDOWN_THRESHOLD_MS) {
-      const days = Math.floor(remainingMs / DAY_MS);
-      const hours = Math.floor(
-        (remainingMs % DAY_MS) / HOUR_MS,
-      );
+    const days = Math.floor(remainingMs / DAY_MS);
+    const hours = Math.floor(
+      (remainingMs % DAY_MS) / HOUR_MS,
+    );
 
-      return `${label} in ${formatDuration([
-        [days, "day"],
-        [hours, "hour"],
-      ])}`;
-    }
-
-    const days = Math.ceil(remainingMs / DAY_MS);
-
-    return `${label} in ${formatUnit(days, "day")}`;
+    return `${label} in ${formatDuration([
+      [days, "day"],
+      [hours, "hour"],
+    ])}`;
   }
 
   function formatDuration(parts) {
