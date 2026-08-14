@@ -371,6 +371,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       defaultIncluded: false,
 
       details: {
+        image: "images/rewards/new-jersey.webp",
         description:
           "Complete ship details will become available once they have been published on Wargaming API.",
 
@@ -403,6 +404,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       defaultIncluded: false,
 
       details: {
+        image: "images/rewards/rodina.webp",
         description:
           "Complete ship details will become available once they have been published on Wargaming API.",
 
@@ -435,6 +437,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       defaultIncluded: false,
 
       details: {
+        image: "images/rewards/togasa.webp",
         description:
           "Complete ship details will become available once they have been published on Wargaming API.",
 
@@ -467,6 +470,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       defaultIncluded: false,
 
       details: {
+        image: "images/rewards/latouche-skadoosh.webp",
         description:
           "Complete ship details will become available once they have been published on Wargaming API.",
 

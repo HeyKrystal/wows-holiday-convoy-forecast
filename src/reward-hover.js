@@ -345,8 +345,7 @@
         );
       }
 
-      const description =
-        String(details.description ?? "").trim();
+      const description = String(details.description ?? "").trim();
 
       if (description) {
         fragment.append(createDescription(description));
