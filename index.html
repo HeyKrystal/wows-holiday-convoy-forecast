@@ -178,6 +178,7 @@
             <ol class="quick-start-list">
               <li>Choose an existing example Scenario or create a new one.</li>
               <li>Add the resources and Daily Mission Sets you expect to acquire/complete.</li>
+              <li>If you've already exchanged Coal, record it under Coal Exchange Tracking in Token Sources.</li>
               <li>Select the rewards you want under Planned Acquisitions.</li>
               <li>Compare your Token Budget and Expected Cost, then adjust to hit your goals.</li>
             </ol>
@@ -302,10 +303,11 @@
       <div class="resource-rule-note resource-rule-note-warning" role="note">
         <p>
           <strong>About Owned Tokens:</strong>
-          Using Owned Tokens as a source below is completely optional and only for users who want to
-          track their balance more closely. As you exchange resources in game, you can
-          replace those sources here with Owned Tokens, kind of like balancing a checkbook;
-          Meemaw would be so proud of you.
+          Using Owned Tokens as a source below is completely optional and only for 
+          users who want to track their balance more closely. As you exchange resources 
+          in game, replace them here with Owned Tokens and record any exchanged Coal 
+          under Coal Exchange Tracking. It's basically balancing a checkbook; Meemaw 
+          would be so proud of you.
         </p>
         <p>
           Just keep in mind that this can get complicated, especially with Daily Mission
@@ -353,11 +355,23 @@
             </table>
           </div>
 
+          <div class="subsection-heading exchange-tracking-heading">
+            <div>
+              <h3>Coal Exchange Tracking</h3>
+              <p>
+                Track exchanged Coal here to keep overflow calculations accurate.
+              </p>
+            </div>
+          </div>
+
+          <div class="cap-usage-controls" id="capUsageControls" hidden></div>
+
           <div class="subsection-heading">
             <div>
               <h3>Resource Exchange Summary</h3>
               <p>
-                Pooled remainder resources are combined here, which may result in additional tokens.
+                Remainders from rows of the same resource type are pooled here, which may
+                result in additional tokens.
               </p>
             </div>
           </div>
@@ -486,7 +500,7 @@
           <div class="summary-divider"></div>
           <h3>Capped Resource Leftovers</h3>
           <p class="summary-help">
-            Amounts above an event cap are not converted into tokens.
+            Amounts above the remaining event cap are not converted into tokens.
           </p>
           <div id="cappedLeftovers"></div>
         </div>

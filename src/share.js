@@ -10,7 +10,8 @@
   } = app.utils;
 
   const SHARE_PARAMETER = "scenario";
-  const SHARE_VERSION = 1;
+  const SHARE_VERSION = 2;
+  const SUPPORTED_SHARE_VERSIONS = new Set([1, 2]);
 
   function encodeScenario(scenario, config) {
     const payload = {
@@ -23,6 +24,12 @@
         source.value,
         source.included ? 1 : 0,
       ]),
+      c: Object.entries(scenario.state.resourceCapUsage ?? {})
+        .map(([resourceId, value]) => [
+          resourceId,
+          normalizeNonNegativeInteger(value),
+        ])
+        .filter(([, value]) => value > 0),
       r: Object.entries(scenario.state.rewardSelections).map(
         ([rewardId, selection]) => [
           rewardId,
@@ -36,7 +43,7 @@
 
   function decodeScenario(encoded, config) {
     const payload = JSON.parse(decodeBase64Url(encoded));
-    if (payload.v !== SHARE_VERSION) {
+    if (!SUPPORTED_SHARE_VERSIONS.has(payload.v)) {
       throw new Error("This shared scenario uses an unsupported link format.");
     }
     if (payload.e !== config.eventId) {
@@ -64,6 +71,12 @@
         },
       ]),
     );
+    const resourceCapUsage = Object.fromEntries(
+      (Array.isArray(payload.c) ? payload.c : []).map((entry) => [
+        String(entry?.[0] ?? ""),
+        normalizeNonNegativeInteger(entry?.[1]),
+      ]),
+    );
 
     return {
       name: String(payload.n ?? ""),
@@ -72,6 +85,7 @@
           schemaVersion: config.schemaVersion,
           eventId: config.eventId,
           sources,
+          resourceCapUsage,
           rewardSelections,
         },
         config,

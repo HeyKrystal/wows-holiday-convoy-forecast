@@ -15,6 +15,17 @@
       if (resource.sourceRate <= 0 || resource.targetTokens <= 0) {
         throw new Error(`Resource rates must be positive for ${resource.label}.`);
       }
+      if (
+        resource.cap != null &&
+        (!Number.isFinite(resource.cap) || resource.cap < 0)
+      ) {
+        throw new Error(`Resource cap is invalid for ${resource.label}.`);
+      }
+      if (resource.trackCapUsage && resource.cap == null) {
+        throw new Error(
+          `${resource.label} cannot track cap usage without an event cap.`,
+        );
+      }
       resourceIds.add(resource.id);
     }
 
@@ -83,6 +94,7 @@
       schemaVersion: config.schemaVersion,
       eventId: config.eventId,
       sources: config.defaultSources.map((row) => ({ ...row })),
+      resourceCapUsage: normalizeResourceCapUsage({}, config),
       rewardSelections: Object.fromEntries(
         config.rewards.map((reward) => [
           reward.id,
@@ -130,6 +142,7 @@
         schemaVersion: config.schemaVersion,
         eventId: config.eventId,
         sources: starter.sources.map((source) => ({ ...source })),
+        resourceCapUsage: starter.resourceCapUsage ?? {},
         rewardSelections,
       },
       config,
@@ -144,6 +157,28 @@
       value: normalizeNonNegativeInteger(row.value),
       included: Boolean(row.included),
     };
+  }
+
+  function normalizeResourceCapUsage(savedUsage, config) {
+    const usage =
+      savedUsage && typeof savedUsage === "object" && !Array.isArray(savedUsage)
+        ? savedUsage
+        : {};
+
+    return Object.fromEntries(
+      config.resources
+        .filter((resource) => resource.trackCapUsage && resource.cap != null)
+        .map((resource) => {
+          const clamped = clampInteger(
+            usage[resource.id] ?? 0,
+            0,
+            resource.cap,
+          );
+          const normalized =
+            Math.floor(clamped / resource.sourceRate) * resource.sourceRate;
+          return [resource.id, normalized];
+        }),
+    );
   }
 
   function normalize(savedState, config) {
@@ -162,6 +197,11 @@
       .filter((row) => row && validResourceIds.has(row.resourceId))
       .map(normalizeSourceRow);
 
+    const resourceCapUsage = normalizeResourceCapUsage(
+      savedState.resourceCapUsage,
+      config,
+    );
+
     const rewardSelections = { ...defaults.rewardSelections };
     for (const reward of config.rewards) {
       const selection = savedState.rewardSelections?.[reward.id];
@@ -178,6 +218,7 @@
       schemaVersion: config.schemaVersion,
       eventId: config.eventId,
       sources,
+      resourceCapUsage,
       rewardSelections,
     };
   }
