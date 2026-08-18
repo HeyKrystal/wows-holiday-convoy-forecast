@@ -16,8 +16,24 @@
         (sum, source) => sum + normalizeNonNegativeInteger(source.value),
         0,
       );
+      const rawCapUsed =
+        resource.trackCapUsage && resource.cap != null
+          ? clampInteger(
+              state.resourceCapUsage?.[resource.id] ?? 0,
+              0,
+              resource.cap,
+            )
+          : 0;
+      const capUsed =
+        resource.trackCapUsage && resource.cap != null
+          ? Math.floor(rawCapUsed / resource.sourceRate) * resource.sourceRate
+          : 0;
+      const remainingCap =
+        resource.cap == null ? null : Math.max(resource.cap - capUsed, 0);
       const countedTotal =
-        resource.cap == null ? totalRequested : Math.min(totalRequested, resource.cap);
+        remainingCap == null
+          ? totalRequested
+          : Math.min(totalRequested, remainingCap);
       let remainingCountable = countedTotal;
       let directTokens = 0;
       let pooledRemainders = 0;
@@ -70,6 +86,8 @@
       resourceBreakdowns.push({
         resource,
         totalRequested,
+        capUsed,
+        remainingCap,
         countedTotal,
         excludedByCap,
         directTokens,
@@ -89,7 +107,7 @@
     let plannedCost = 0;
     for (const reward of config.rewards) {
       const selection = state.rewardSelections[reward.id];
-      const quantity = clampInteger(selection?.quantity ?? 0, 0, reward.maxQuantity);
+      const quantity = clampInteger(selection?.quantity ?? 1, 1, reward.maxQuantity);
       const included = Boolean(selection?.included);
       const totalCost = included ? quantity * reward.tokenCost : 0;
       plannedCost += totalCost;

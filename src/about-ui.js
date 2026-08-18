@@ -34,6 +34,7 @@
 
       renderTimeZoneNote();
       renderSchedule();
+      renderStarterScenarioLinks();
       updateStatus();
 
       elements.eventRegionSelect.addEventListener(
@@ -103,6 +104,33 @@
         `Until ${dateTimeFormatter.format(spendEnd)}`;
 
       elements.officialEventLink.href = eventInfo.eventPageUrl;
+    }
+
+    function renderStarterScenarioLinks() {
+      const links = document.querySelectorAll("[data-starter-scenario]");
+
+      for (const link of links) {
+        const starterName = link.dataset.starterScenario;
+        const starter = config.starterScenarios?.find(
+          (scenario) => scenario.name === starterName,
+        );
+
+        if (!starter) {
+          console.warn(`Starter Scenario not found for example link: ${starterName}`);
+          link.removeAttribute("href");
+          continue;
+        }
+
+        const encoded = app.share.encodeScenario(
+          {
+            name: starter.name,
+            state: app.plannerState.createStarter(config, starter),
+          },
+          config,
+        );
+
+        link.href = `#scenario=${encoded}`;
+      }
     }
 
     function renderTimeZoneNote() {

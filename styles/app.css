@@ -837,6 +837,72 @@ details[open]>summary .details-indicator-arm-right {
   width: 78px;
 }
 
+.exchange-tracking-heading {
+  margin-bottom: 8px;
+}
+
+.cap-usage-controls {
+  margin: 0 0 18px;
+}
+
+.cap-usage-controls[hidden] {
+  display: none;
+}
+
+.cap-usage-card {
+  --resource-color: var(--navy);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--resource-color);
+  border-radius: var(--radius-sm);
+  background: var(--surface-muted);
+}
+
+.cap-usage-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cap-usage-field > span,
+.cap-usage-remaining span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.cap-usage-field > span {
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.cap-usage-input {
+  width: 132px;
+  border-color: var(--border);
+  background: var(--surface-input);
+}
+
+.cap-usage-remaining {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.cap-usage-remaining strong {
+  color: var(--heading);
+  font-size: 0.92rem;
+}
+
 .data-table .reorder-header,
 .data-table .reorder-cell {
   width: 30px;
@@ -1361,6 +1427,21 @@ html[data-theme="dark"] .resource-badge {
 }
 
 @media (max-width: 640px) {
+  .cap-usage-card {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .cap-usage-field {
+    justify-content: space-between;
+  }
+
+  .cap-usage-remaining {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
   .about-content {
     padding: 14px;
   }

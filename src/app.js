@@ -48,6 +48,7 @@
       rewardHover?.close();
       sourcesUI.render();
       rewardsUI.render();
+      summaryUI.renderCapUsageControls();
       updateDerivedViews();
     }
 
@@ -82,7 +83,13 @@
       shipCatalog,
     });
 
-    summaryUI = app.summaryUI.create({ config, elements });
+    summaryUI = app.summaryUI.create({
+      config,
+      elements,
+      getState,
+      onSave: saveState,
+      onDerivedChange: updateDerivedViews,
+    });
 
     const share = app.share.create({
       config,
@@ -100,6 +107,7 @@
     scenarioUI.bind();
     sourcesUI.bind();
     rewardsUI.bind();
+    summaryUI.bind();
     rewardHover.bind();
     share.bind();
     elements.addSourceButton.addEventListener("click", sourcesUI.add);
@@ -141,6 +149,7 @@
       "resourceRulesBody",
       "sourcesBody",
       "resourceBreakdownBody",
+      "capUsageControls",
       "rewardsBody",
       "addSourceButton",
       "exportButton",

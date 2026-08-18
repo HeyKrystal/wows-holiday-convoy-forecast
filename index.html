@@ -178,6 +178,7 @@
             <ol class="quick-start-list">
               <li>Choose an existing example Scenario or create a new one.</li>
               <li>Add the resources and Daily Mission Sets you expect to acquire/complete.</li>
+              <li>Record any exchanged coal under Coal Exchange Tracking in Token Sources.</li>
               <li>Select the rewards you want under Planned Acquisitions.</li>
               <li>Compare your Token Budget and Expected Cost, then adjust to hit your goals.</li>
             </ol>
@@ -227,13 +228,10 @@
         </div>
 
         <p class="about-disclaimer">
-          <a
-            href="#scenario=eyJ2IjoxLCJlIjoiaG9saWRheS1jb252b3ktMjAyNiIsIm4iOiJDYXN1YWwgRXhhbXBsZSIsInMiOltbIkV4cGVjdGVkIERhaWx5IE1pc3Npb24gU2V0cyIsImRhaWx5LW1pc3Npb25zIiw1MCwxXSxbIlBsYW5uZWQgQ29hbCBFeGNoYW5nZSIsImNvYWwiLDMwMDAwLDFdXSwiciI6W1siYmlzbWFyY2stNDEiLDEsMV0sWyJ5aW1lbmciLDEsMF0sWyJtZXNzaW5hIiwxLDBdLFsiaW5kZXBlbmRlbmNpYSIsMSwwXSxbInByaW56LXZhbi1vcmFuamUiLDEsMF0sWyJnZW9yZy1ob2ZmbWFubiIsMSwwXSxbImtpdGFrYW1pIiwxLDBdLFsibmV3LWplcnNleSIsMSwwXSxbInVuYW5ub3VuY2VkLXJhcmUtc2hpcC0xIiwxLDBdLFsidW5hbm5vdW5jZWQtcmFyZS1zaGlwLTIiLDEsMF0sWyJ1bmFubm91bmNlZC1yYXJlLXNoaXAtMyIsMSwwXSxbImRvdWJsb29ucy0zMDAwIiwxLDFdXX0">Casual</a>,
-          <a
-            href="#scenario=eyJ2IjoxLCJlIjoiaG9saWRheS1jb252b3ktMjAyNiIsIm4iOiJDb25zaXN0ZW50IEV4YW1wbGUiLCJzIjpbWyJFeHBlY3RlZCBEYWlseSBNaXNzaW9uIFNldHMiLCJkYWlseS1taXNzaW9ucyIsMTIwLDFdLFsiUGxhbm5lZCBDb2FsIEV4Y2hhbmdlIiwiY29hbCIsMTgwMDAwLDFdXSwiciI6W1siYmlzbWFyY2stNDEiLDEsMV0sWyJ5aW1lbmciLDEsMV0sWyJtZXNzaW5hIiwxLDBdLFsiaW5kZXBlbmRlbmNpYSIsMSwwXSxbInByaW56LXZhbi1vcmFuamUiLDEsMF0sWyJnZW9yZy1ob2ZmbWFubiIsMSwwXSxbImtpdGFrYW1pIiwxLDBdLFsibmV3LWplcnNleSIsMSwwXSxbInVuYW5ub3VuY2VkLXJhcmUtc2hpcC0xIiwxLDBdLFsidW5hbm5vdW5jZWQtcmFyZS1zaGlwLTIiLDEsMF0sWyJ1bmFubm91bmNlZC1yYXJlLXNoaXAtMyIsMSwwXSxbImRvdWJsb29ucy0zMDAwIiw0LDFdXX0">Consistent</a>,
+          <a href="#" data-starter-scenario="Casual Example">Casual</a>,
+          <a href="#" data-starter-scenario="Consistent Example">Consistent</a>,
           and
-          <a
-            href="#scenario=eyJ2IjoxLCJlIjoiaG9saWRheS1jb252b3ktMjAyNiIsIm4iOiJEZWRpY2F0ZWQgRXhhbXBsZSIsInMiOltbIkFsbCBEYWlseSBNaXNzaW9uIFNldHMiLCJkYWlseS1taXNzaW9ucyIsMTczLDFdLFsiTWF4aW11bSBDb2FsIEV4Y2hhbmdlIiwiY29hbCIsNjUwMDAwLDFdLFsiUGxhbm5lZCBTdGVlbCBFeGNoYW5nZSIsInN0ZWVsIiw0MDAwMCwxXSxbIlBsYW5uZWQgUlAgRXhjaGFuZ2UiLCJyZXNlYXJjaC1wb2ludHMiLDg4MDAwLDFdXSwiciI6W1siYmlzbWFyY2stNDEiLDEsMV0sWyJ5aW1lbmciLDEsMF0sWyJtZXNzaW5hIiwxLDBdLFsiaW5kZXBlbmRlbmNpYSIsMSwwXSxbInByaW56LXZhbi1vcmFuamUiLDEsMV0sWyJnZW9yZy1ob2ZmbWFubiIsMSwwXSxbImtpdGFrYW1pIiwxLDBdLFsibmV3LWplcnNleSIsMSwxXSxbInVuYW5ub3VuY2VkLXJhcmUtc2hpcC0xIiwxLDBdLFsidW5hbm5vdW5jZWQtcmFyZS1zaGlwLTIiLDEsMF0sWyJ1bmFubm91bmNlZC1yYXJlLXNoaXAtMyIsMSwwXSxbImRvdWJsb29ucy0zMDAwIiw2LDFdXX0">Dedicated</a>
+          <a href="#" data-starter-scenario="Dedicated Example">Dedicated</a>
           examples are editable starting
           points based on the event announcement, not recommendations.
           </br>
@@ -302,10 +300,11 @@
       <div class="resource-rule-note resource-rule-note-warning" role="note">
         <p>
           <strong>About Owned Tokens:</strong>
-          Using Owned Tokens as a source below is completely optional and only for users who want to
-          track their balance more closely. As you exchange resources in game, you can
-          replace those sources here with Owned Tokens, kind of like balancing a checkbook;
-          Meemaw would be so proud of you.
+          Using Owned Tokens as a source below is completely optional and only for 
+          users who want to track their balance more closely. As you exchange resources 
+          in game, replace them here with Owned Tokens and record any exchanged Coal 
+          under Coal Exchange Tracking. It's basically balancing a checkbook; Meemaw 
+          would be so proud of you.
         </p>
         <p>
           Just keep in mind that this can get complicated, especially with Daily Mission
@@ -353,11 +352,23 @@
             </table>
           </div>
 
+          <div class="subsection-heading exchange-tracking-heading">
+            <div>
+              <h3>Coal Exchange Tracking</h3>
+              <p>
+                Track exchanged Coal here to keep overflow calculations accurate.
+              </p>
+            </div>
+          </div>
+
+          <div class="cap-usage-controls" id="capUsageControls" hidden></div>
+
           <div class="subsection-heading">
             <div>
               <h3>Resource Exchange Summary</h3>
               <p>
-                Pooled remainder resources are combined here, which may result in additional tokens.
+                Remainders from rows of the same resource type are pooled here, which may
+                result in additional tokens.
               </p>
             </div>
           </div>
@@ -486,7 +497,7 @@
           <div class="summary-divider"></div>
           <h3>Capped Resource Leftovers</h3>
           <p class="summary-help">
-            Amounts above an event cap are not converted into tokens.
+            Amounts above the remaining event cap are not converted into tokens.
           </p>
           <div id="cappedLeftovers"></div>
         </div>

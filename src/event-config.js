@@ -6,7 +6,7 @@
  * starter rows from this object.
  */
 window.HOLIDAY_CONVOY_CONFIG = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   eventId: "holiday-convoy-2026",
   eventName: "World of Warships",
   eventYear: 2026,
@@ -76,6 +76,8 @@ window.HOLIDAY_CONVOY_CONFIG = {
    *      Use null when there is no cap.
    * showCappedLeftover: Set to false for capped non-resource activities,
    *      such as missions, that should not appear in resource leftovers.
+   * trackCapUsage: Set to true when the event cap is cumulative and users may
+   *      need to record resource amounts exchanged earlier in the event.
    * tooltip: Optional explanatory text shown from the resource badge in the
    *      Token Exchange Rates table.
    */
@@ -86,6 +88,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
       sourceRate: 5000,
       targetTokens: 1500,
       cap: 650000,
+      trackCapUsage: true,
       color: "#334e68",
       accent: "#d9e2ec",
     },

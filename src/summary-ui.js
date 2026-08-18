@@ -2,10 +2,15 @@
   "use strict";
 
   const app = window.HolidayConvoy;
-  const { formatNumber } = app.utils;
+  const { clampInteger, formatNumber } = app.utils;
   const { createResourceBadge } = app.uiCommon;
 
-  function create({ config, elements }) {
+  function create({ config, elements, getState, onSave, onDerivedChange }) {
+    function bind() {
+      elements.capUsageControls.addEventListener("input", handleCapUsageInput);
+      elements.capUsageControls.addEventListener("change", handleCapUsageChange);
+    }
+
     function renderResourceRules() {
       elements.resourceRulesBody.replaceChildren();
       for (const resource of config.resources) {
@@ -20,6 +25,129 @@
         capCell.textContent = resource.cap == null ? "No cap" : formatNumber(resource.cap);
         row.append(resourceCell, rateCell, tokensCell, capCell);
         elements.resourceRulesBody.append(row);
+      }
+    }
+
+    function renderCapUsageControls() {
+      const trackedResources = config.resources.filter(
+        (resource) => resource.trackCapUsage && resource.cap != null,
+      );
+
+      elements.capUsageControls.replaceChildren();
+      elements.capUsageControls.hidden = trackedResources.length === 0;
+
+      for (const resource of trackedResources) {
+        const usage = getCapUsage(resource);
+        const card = document.createElement("div");
+        card.className = "cap-usage-card";
+        card.dataset.resourceId = resource.id;
+        card.style.setProperty("--resource-color", resource.color);
+
+        const field = document.createElement("label");
+        field.className = "cap-usage-field";
+        const fieldLabel = document.createElement("span");
+        fieldLabel.textContent = `${resource.label} already exchanged`;
+        const input = document.createElement("input");
+        input.type = "number";
+        input.className = "table-input numeric-input cap-usage-input";
+        input.dataset.capUsageResource = resource.id;
+        input.value = String(usage);
+        input.min = "0";
+        input.max = String(resource.cap);
+        input.step = String(resource.sourceRate);
+        input.inputMode = "numeric";
+        input.setAttribute(
+          "aria-label",
+          `${resource.label} already exchanged toward the event limit`,
+        );
+        field.append(fieldLabel, input);
+
+        const remainingBlock = document.createElement("div");
+        remainingBlock.className = "cap-usage-remaining";
+        const remainingValue = document.createElement("strong");
+        remainingValue.dataset.capRemaining = resource.id;
+        const remainingLabel = document.createElement("span");
+        remainingLabel.textContent = "can still be exchanged";
+        remainingBlock.append(remainingValue, remainingLabel);
+        updateCapUsageRemaining(remainingBlock, resource, usage);
+
+        card.append(field, remainingBlock);
+        elements.capUsageControls.append(card);
+      }
+    }
+
+    function normalizeCapUsage(resource, value) {
+      const clamped = clampInteger(value, 0, resource.cap);
+      return Math.floor(clamped / resource.sourceRate) * resource.sourceRate;
+    }
+
+    function getCapUsage(resource) {
+      return normalizeCapUsage(
+        resource,
+        getState().resourceCapUsage?.[resource.id] ?? 0,
+      );
+    }
+
+    function handleCapUsageInput(event) {
+      const input = event.target.closest("input[data-cap-usage-resource]");
+      if (!input) {
+        return;
+      }
+
+      const resource = config.resources.find(
+        (item) => item.id === input.dataset.capUsageResource,
+      );
+      if (!resource?.trackCapUsage || resource.cap == null) {
+        return;
+      }
+
+      const usage = normalizeCapUsage(resource, input.value);
+      const state = getState();
+      state.resourceCapUsage ??= {};
+      state.resourceCapUsage[resource.id] = usage;
+
+      const remainingBlock = input
+        .closest(".cap-usage-card")
+        ?.querySelector(".cap-usage-remaining");
+      updateCapUsageRemaining(remainingBlock, resource, usage);
+      onSave();
+      onDerivedChange();
+    }
+
+    function handleCapUsageChange(event) {
+      const input = event.target.closest("input[data-cap-usage-resource]");
+      if (!input) {
+        return;
+      }
+
+      const resource = config.resources.find(
+        (item) => item.id === input.dataset.capUsageResource,
+      );
+      if (!resource?.trackCapUsage || resource.cap == null) {
+        return;
+      }
+
+      const usage = normalizeCapUsage(resource, input.value);
+      const state = getState();
+      state.resourceCapUsage ??= {};
+      state.resourceCapUsage[resource.id] = usage;
+      input.value = String(usage);
+
+      const remainingBlock = input
+        .closest(".cap-usage-card")
+        ?.querySelector(".cap-usage-remaining");
+      updateCapUsageRemaining(remainingBlock, resource, usage);
+      onSave();
+      onDerivedChange();
+    }
+
+    function updateCapUsageRemaining(container, resource, usage) {
+      if (!container) {
+        return;
+      }
+      const value = container.querySelector("[data-cap-remaining]");
+      if (value) {
+        value.textContent = formatNumber(Math.max(resource.cap - usage, 0));
       }
     }
 
@@ -41,10 +169,15 @@
         countedValue.textContent = formatNumber(breakdown.countedTotal);
         const countedNote = document.createElement("small");
         countedNote.className = "cell-note";
-        countedNote.textContent =
-          breakdown.resource.cap == null
-            ? "No cap"
-            : `of ${formatNumber(breakdown.resource.cap)} cap`;
+        if (breakdown.resource.cap == null) {
+          countedNote.textContent = "No cap";
+        } else if (breakdown.resource.trackCapUsage && breakdown.capUsed > 0) {
+          countedNote.textContent =
+            `${formatNumber(breakdown.capUsed)} exchanged earlier`;
+        } else {
+          countedNote.textContent =
+            `of ${formatNumber(breakdown.resource.cap)} cap`;
+        }
         countedCell.append(countedValue, countedNote);
 
         const remainderCell = document.createElement("td");
@@ -119,7 +252,12 @@
       }
     }
 
-    return { render, renderResourceRules };
+    return {
+      bind,
+      render,
+      renderCapUsageControls,
+      renderResourceRules,
+    };
   }
 
   app.summaryUI = { create };
