@@ -107,7 +107,7 @@
     let plannedCost = 0;
     for (const reward of config.rewards) {
       const selection = state.rewardSelections[reward.id];
-      const quantity = clampInteger(selection?.quantity ?? 0, 0, reward.maxQuantity);
+      const quantity = clampInteger(selection?.quantity ?? 1, 1, reward.maxQuantity);
       const included = Boolean(selection?.included);
       const totalCost = included ? quantity * reward.tokenCost : 0;
       plannedCost += totalCost;

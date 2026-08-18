@@ -73,7 +73,7 @@
       element.hidden = true;
       element.dataset.pinned = "false";
       element.setAttribute("role", "tooltip");
-      element.setAttribute("aria-label", "Ship details");
+      element.setAttribute("aria-label", "Reward details");
       return element;
     }
 
@@ -475,7 +475,7 @@
       const closeButton = document.createElement("button");
       closeButton.className = "ship-hover-close";
       closeButton.type = "button";
-      closeButton.setAttribute("aria-label", "Close ship details");
+      closeButton.setAttribute("aria-label", "Close reward details");
       closeButton.textContent = "×";
       closeButton.addEventListener("click", (event) => {
         event.stopPropagation();

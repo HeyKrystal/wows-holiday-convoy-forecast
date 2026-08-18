@@ -890,7 +890,7 @@ details[open]>summary .details-indicator-arm-right {
 
 .cap-usage-remaining {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: flex-end;
   gap: 6px;
   min-width: 0;
@@ -1428,7 +1428,7 @@ html[data-theme="dark"] .resource-badge {
 
 @media (max-width: 640px) {
   .cap-usage-card {
-    align-items: center;
+    align-items: stretch;
     flex-direction: column;
     gap: 7px;
   }
