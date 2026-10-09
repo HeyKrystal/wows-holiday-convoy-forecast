@@ -372,27 +372,6 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
-
-      details: {
-        image: "images/rewards/new-jersey.webp",
-        description:
-          "Complete ship details will become available once they have been published on Wargaming API.",
-
-        facts: [
-          {
-            label: "Nation",
-            value: "United States",
-          },
-          {
-            label: "Type",
-            value: "Battleship",
-          },
-          {
-            label: "Tier",
-            value: "X",
-          },
-        ],
-      },
     },
     {
       id: "unannounced-rare-ship-2",
@@ -405,27 +384,6 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
-
-      details: {
-        image: "images/rewards/rodina.webp",
-        description:
-          "Complete ship details will become available once they have been published on Wargaming API.",
-
-        facts: [
-          {
-            label: "Nation",
-            value: "U.S.S.R.",
-          },
-          {
-            label: "Type",
-            value: "Battleship",
-          },
-          {
-            label: "Tier",
-            value: "X",
-          },
-        ],
-      },
     },
     {
       id: "unannounced-rare-ship-3",
@@ -438,27 +396,6 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
-
-      details: {
-        image: "images/rewards/togasa.webp",
-        description:
-          "Complete ship details will become available once they have been published on Wargaming API.",
-
-        facts: [
-          {
-            label: "Nation",
-            value: "Japan",
-          },
-          {
-            label: "Type",
-            value: "Battleship",
-          },
-          {
-            label: "Tier",
-            value: "X",
-          },
-        ],
-      },
     },
     {
       id: "unannounced-rare-ship-4",
@@ -471,27 +408,6 @@ window.HOLIDAY_CONVOY_CONFIG = {
       category: "Ship",
       defaultQuantity: 1,
       defaultIncluded: false,
-
-      details: {
-        image: "images/rewards/latouche-skadoosh.webp",
-        description:
-          "Complete ship details will become available once they have been published on Wargaming API.",
-
-        facts: [
-          {
-            label: "Nation",
-            value: "France",
-          },
-          {
-            label: "Type",
-            value: "Cruiser",
-          },
-          {
-            label: "Tier",
-            value: "X",
-          },
-        ],
-      },
     },
     {
       id: "doubloons-3000",
