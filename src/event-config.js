@@ -364,7 +364,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "new-jersey",
       name: "New Jersey",
-      shipId: null,
+      shipId: "3518969840",
       rarity: "epic",
       availability: "Update 15.11",
       tokenCost: 400000,
@@ -397,7 +397,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-2",
       name: "Rodina",
-      shipId: null,
+      shipId: "3539940816",
       rarity: "rare",
       availability: "Update 15.11",
       tokenCost: 140000,
@@ -430,7 +430,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-3",
       name: "Tōgasa",
-      shipId: null,
+      shipId: "3529455312",
       rarity: "rare",
       availability: "Update 15.11",
       tokenCost: 140000,
@@ -463,7 +463,7 @@ window.HOLIDAY_CONVOY_CONFIG = {
     {
       id: "unannounced-rare-ship-4",
       name: "Latouche-Tréville",
-      shipId: null,
+      shipId: "3539908432",
       rarity: "rare",
       availability: "Update 15.11",
       tokenCost: 140000,
